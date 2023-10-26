@@ -3,24 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Comparer.Dto;
+using Comparer.DataAccess.Dto;
 
 using Refit;
 
-namespace Comparer.ApiClient.Rest
+namespace Comparer.DataAccess.Rest
 {
 	public interface IDistributorRestClient : IRestClient<Distributor>
 	{
 		[GetApi<Distributor>]
-		Task<IEnumerable<Distributor>> GetAllAsync();
+		Task<ApiResponse<IEnumerable<DistributorInfo>>> GetAllAsync();
 
-		//[GetApi<Distributor>("{id}")]
-		//Task<Distributor> GetByCriteriaAsync(Guid id, Distributor? criteria);
 
 		[GetApi<Distributor>]
 		Task<ApiResponse<IAsyncEnumerable<Distributor>>> GetAllStream();
 
-		[GetApi<Distributor, string>("{id}", nameof(PriceLists))]
-		Task<ApiResponse<IAsyncEnumerable<PriceList>>> PriceLists([AliasAs("id")] Guid distributorId);
+		[GetApi<Distributor>("{distributor.Id}", "prices")]
+		Task<ApiResponse<IEnumerable<DistributorPriceDto>>> PriceListsOf(DistributorInfo distributor);
 	}
 }

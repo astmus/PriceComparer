@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
-namespace Comparer.Dto
+namespace Comparer.DataAccess.Dto
 {
 	public enum CompareKind : byte
 	{

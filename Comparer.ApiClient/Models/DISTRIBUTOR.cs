@@ -1,8 +1,8 @@
-﻿#pragma warning disable 1573, 1591
+﻿using System.Collections.Generic;
 
 using LinqToDB.Mapping;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "DISTRIBUTORS")]
 	public partial class DISTRIBUTOR
@@ -22,11 +22,8 @@ namespace Comparer.Api.DataModels
 
 		#region Associations
 
-		/// <summary>
-		/// PRICESFOREIGNDISTRIBUTOR_BackReference (dbo.PRICES)
-		/// </summary>
 		[Association(ThisKey = "ID", OtherKey = "DISID", CanBeNull = true)]
-		public IEnumerable<PRICE> PricesDistributorsFK { get; set; }
+		public IEnumerable<PRICE> DistributorPrices { get; set; }
 
 		#endregion
 	}

@@ -8,21 +8,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="linq2db.AspNet" Version="5.3.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="DataModels\DataBaseConnection.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Comparer.Dto\Comparer.Dto.csproj" />
+	  <ProjectReference Include="..\Comparer.ApiClient\Comparer.DataAccess.csproj" />
+	  <ProjectReference Include="..\Comparer.DataAccess.Abstractions\Comparer.DataAccess.Abstractions.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 
-using Comparer.ApiClient;
-using Comparer.ApiClient.Queries;
+using Comparer.DataAccess;
+using Comparer.DataAccess.Dto;
+using Comparer.DataAccess.Queries;
 using Comparer.DesktopClient.ViewModels;
-using Comparer.Dto;
 
 namespace Comparer.DesktopClient
 {
@@ -17,19 +17,8 @@ namespace Comparer.DesktopClient
 		public MainWindow()
 		{
 			InitializeComponent();
-			ComparerApi.CreateClientProvider("http://localhost:5078");
-			DataContext = viewModel = new MainWindowViewModel(ComparerApi.Rest.ClientProvider);
+
+			DataContext = viewModel = new MainWindowViewModel(ApiClient.Rest.ClientProvider);
 		}
-
-
-		public CompareQuery AnalizeQuery { get; set; } = new CompareQuery();
-		public ObservableCollection<PriceListItem> CurrentPriceListItems { get; set; } = new ObservableCollection<PriceListItem>();
-
-
-		Distributor? CurrentDistributor
-			=> distributorsListComboBox.SelectedItem as Distributor;
-
-		ObservableCollection<PriceList> PricesLists { get; set; } = new ObservableCollection<PriceList>();
-		ObservableCollection<PriceListProduct> PriceListProducts { get; set; } = new ObservableCollection<PriceListProduct>();
 	}
 }

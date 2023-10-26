@@ -1,4 +1,4 @@
-namespace Comparer.Api.Config
+namespace Comparer.DataAccess.Config
 {
 	public record ConnectionOptions
 	{

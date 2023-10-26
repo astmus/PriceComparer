@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using Comparer.DataAccess.Dto;
 
-using Comparer.Dto;
-
-namespace Comparer.ApiClient.Queries
+namespace Comparer.DataAccess.Queries
 {
 	public class CompareQuery
 	{

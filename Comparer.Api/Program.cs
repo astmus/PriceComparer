@@ -1,8 +1,9 @@
-using Comparer.Api.Config;
-using Comparer.Api.DataModels;
 
-using LinqToDB.AspNet;
-using LinqToDB.AspNet.Logging;
+using System.Text.Json.Serialization;
+
+using Comparer.Api.Middleware;
+using Comparer.DataAccess;
+using Comparer.DataAccess.Config;
 
 namespace Comparer.Api
 {
@@ -12,31 +13,36 @@ namespace Comparer.Api
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddControllers();
+			builder.Services.AddControllers()
+									.AddJsonOptions(options =>
+									{
+										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+										options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+									});
+
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
-			builder.Services.AddLinqToDBContext<DataBaseContext>((provider, options)
-				=> options
-					.UseDefaultLogging(provider));
+			builder.Services.AddDataBaseRepositories();
 
 			builder.Services.AddOptions<ConnectionOptions>().Bind(builder.Configuration.GetSection(nameof(ConnectionOptions)));
-			var app = builder.Build();
 
+			var app = builder.Build();
 
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
 				app.UseExceptionHandler("/error-dev");
+				app.UseErrorHandlingMiddleware();
 			}
 			else
 			{
 				app.UseExceptionHandler("/error");
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
-			app.UseAuthorization();
+			//app.UseAuthorization();
 
 
 			app.MapControllers();

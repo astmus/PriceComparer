@@ -1,8 +1,10 @@
 ﻿#pragma warning disable 1573, 1591
 
+using System.Collections.Generic;
+
 using LinqToDB.Mapping;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "PRODUCTS")]
 	public partial class PRODUCT
@@ -43,9 +45,6 @@ namespace Comparer.Api.DataModels
 
 		#region Associations
 
-		/// <summary>
-		/// LINKSFOREIGNCATALOGPRODUCT_BackReference (dbo.LINKS)
-		/// </summary>
 		[Association(ThisKey = "ID", OtherKey = "CATALOGPRODUCTID", CanBeNull = true)]
 		public IEnumerable<LINK> ProductCatalogproductsLinkFK { get; set; }
 

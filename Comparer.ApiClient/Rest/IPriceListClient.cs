@@ -3,18 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Comparer.Dto;
+using Comparer.DataAccess.Dto;
 
 using Refit;
 
-namespace Comparer.ApiClient.Rest
+namespace Comparer.DataAccess.Rest
 {
-	public interface IPriceListRestClient : IRestClient<PriceList>
+	public interface IPriceListRestClient : IRestClient<PriceListDto>
 	{
-		[Get("/{id}/Items")]
-		Task<IEnumerable<PriceListItem>> ItemsAsync([AliasAs("id")] Guid priceListId);
+		[GetApi("pricelist/{id}/items")]
+		Task<ApiResponse<IEnumerable<PriceListItem>>> ItemsAsync([AliasAs("id")] Guid priceListId);
 
-		[Get("/Products/{product}")]
-		Task<IEnumerable<PriceListProduct>> ProductsAsync([AliasAs("product")] Guid productId);
+		[Get("/products/{product}")]
+		Task<IEnumerable<ProductInfo>> ProductsAsync([AliasAs("product")] Guid productId);
 	}
 }

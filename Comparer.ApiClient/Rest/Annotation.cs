@@ -1,37 +1,32 @@
 ﻿
 using System;
+using System.Linq;
 
 using Refit;
 
-namespace Comparer.ApiClient.Rest
+namespace Comparer.DataAccess.Rest
 {
 	public class GetApiAttribute : GetAttribute
 	{
-		public GetApiAttribute() : base("/api/")
+		public GetApiAttribute(string path = default) : base("/api/" + path)
 		{
 		}
-		public GetApiAttribute(params string[] pathItems) : base("/api/" + string.Join('/', pathItems))
+		public GetApiAttribute(params string[] pathItems) : this(string.Join('/', pathItems))
 		{
 		}
-		public GetApiAttribute(Type endpointType, string path = default) : this(endpointType.Name + "/" + path)
+		public GetApiAttribute(Type endpointType, string path = default) : this(endpointType.Name, path)
 		{
 		}
 	}
+
 	public class GetApiAttribute<T> : GetApiAttribute
 	{
 		public GetApiAttribute() : base(typeof(T))
 		{
 		}
-		public GetApiAttribute(string path) : base(typeof(T), path)
+		public GetApiAttribute(params string[] pathSegment) : base($"{typeof(T).Name}/{string.Join('/', pathSegment)}")
 		{
 		}
 	}
 
-
-	public class GetApiAttribute<T, TKey> : GetApiAttribute
-	{
-		public GetApiAttribute(string path, TKey key) : base(typeof(T).Name, path, $"{key}")
-		{
-		}
-	}
 }

@@ -46,11 +46,11 @@
 			</Grid.ColumnDefinitions>
 			<Label Content="Price Lists:"/>
 			<ComboBox Grid.Column="1" x:Name="priceListComboBox" 
-				SelectedValuePath="ID" 
-				DisplayMemberPath="NAME" 
+				SelectedValuePath="Id" 
+				DisplayMemberPath="Name" 
 				ItemsSource="{Binding PriceLists}"
-				SelectedItem="{Binding Path=SelectdPrice, Mode=TwoWay}"
-				SelectedValue="{Binding TargetNullValue={x:Null}, NotifyOnTargetUpdated=True, Path=AnalizeQuery.BasePriceId, Mode=OneWayToSource}"
+				SelectedItem="{Binding Path=SelectedPrice, Mode=TwoWay}"		
+				SelectedValue="{Binding Path=AnalizeQuery.BasePriceId, Mode=OneWayToSource}" 
 				
 				>
 			</ComboBox>
@@ -73,7 +73,7 @@
 
 		<Button Grid.Column="3" Command="{Binding Path=StartAnalizeCommand}" CommandParameter="{Binding Path=AnalizeQuery}" Content="Analize" Margin="5, 0 ,0, 0"/>
 
-		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedListItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=CurrentPriceListItems}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
+		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedListItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=AllPricesProducts}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
 			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />

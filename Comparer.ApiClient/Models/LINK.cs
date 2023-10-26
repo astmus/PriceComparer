@@ -2,7 +2,7 @@
 
 using LinqToDB.Mapping;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "LINKS")]
 	public partial class LINK

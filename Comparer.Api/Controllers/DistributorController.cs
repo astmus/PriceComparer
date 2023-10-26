@@ -1,74 +1,59 @@
-using Comparer.Api.DataModels;
-using Comparer.Dto;
+using Comparer.Api.Filters;
+using Comparer.DataAccess;
+using Comparer.DataAccess.Dto;
+using Comparer.DataAccess.Models;
+using Comparer.DataAccess.Repositories;
 
 using LinqToDB;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace Comparer.Api.Controllers
 {
-	[ApiController]
-	[Produces("text/json")]
-	[Route("api/[controller]")]
-	public class DistributorController : ControllerBase
+	public class DistributorController : BaseController
 	{
 		private readonly ILogger<DistributorController> _logger;
-		DataBaseContext db;
-		public DistributorController(ILogger<DistributorController> logger, DataBaseContext dbContext)
+		IDistributorRepository _repository;
+		public DistributorController(ILogger<DistributorController> logger, IDistributorRepository repository)
 		{
 			_logger = logger;
-			db = dbContext;
+			_repository = repository;
 		}
 
 		[HttpGet]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IAsyncEnumerable<Distributor>))]
-		public async IAsyncEnumerable<Distributor> Get()
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorInfo>))]
+		[ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<DistributorInfo>))]
+		public async Task<IActionResult> Get()
 		{
-			var queryDist = from dist in db.DISTRIBUTORS
-							where dist.ACTIVE == true
-							select new Distributor(dist.ID, dist.NAME, dist.ACTIVE);
-
-			await foreach (var d in queryDist.AsAsyncEnumerable())
-				yield return d;
+			var distributors = await _repository.FromRaw<DistributorInfo>().ToListAsync();
+			if (!distributors.Any())
+				return NoContent();
+			return Ok(distributors);
 		}
-
-		//[HttpGet("{id}{criteria?}")]
-		//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IAsyncEnumerable<Distributor>))]
-		//public async IAsyncEnumerable<Distributor> GetByCriteriaAsync(Guid id, [FromQuery] string? criteria)
-		//{
-		//	var queryDist = from dist in db.DISTRIBUTORS
-		//					where dist.ACTIVE == true
-		//					select new Distributor(dist.ID, dist.NAME, dist.ACTIVE);
-
-		//	await foreach (var d in queryDist.AsAsyncEnumerable())
-		//		yield return d;
-		//}
 
 		[HttpGet("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<Distributor>> Get(Guid id)
 		{
-			if (await db.DISTRIBUTORS.AnyAsync(dist => dist.ID == id))
+			if (await _repository.ContainItemAsync(dist => dist.ID == id))
 			{
-				var distResult = await db.FromSql<Distributor>(nameof(db.DISTRIBUTORS)).FirstOrDefaultAsync(d => d.Id == id);
+				var distResult = _repository.FromRaw<Distributor>().FirstOrDefault(d => d.Id == id);
 				return Ok(distResult);
 			}
 			else
-				return NotFound("Distributor not found");
+				return BadRequest("Distributor does not exist");
 		}
 
-		[HttpGet("{id}/[action]")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
+		[HttpGet("{id}/prices")]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorPriceDto>))]
 		[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-		[ProducesDefaultResponseType]
-		public async Task<ActionResult<IAsyncEnumerable<PriceList>>> PriceLists(Guid id)
+		public async Task<IActionResult> PriceLists([FromRoute] Guid id, [FromQuery] DistributorInfo info)
 		{
-			if (await db.DISTRIBUTORS.AnyAsync(dist => dist.ID == id))
+			if (await _repository.ContainItemAsync(dist => dist.ID == id))
 			{
-				var plsQuery = from list in db.PRICES where list.DISID == id select new PriceList(list.ID, list.NAME, list.DISID);
-				return Ok(plsQuery.AsAsyncEnumerable());
+				var result = await _repository.PriceListsOf(id, info);
+				return Ok(result);
 			}
 			else
 				return NotFound("Distributor not found");

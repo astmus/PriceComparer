@@ -1,4 +1,4 @@
-﻿namespace Comparer.ApiClient.Rest
+﻿namespace Comparer.DataAccess.Rest
 {
 	public interface IRestClientProvider : IApiClientProvider
 	{

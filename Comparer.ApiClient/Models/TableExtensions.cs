@@ -1,8 +1,10 @@
 ﻿#pragma warning disable 1573, 1591
 
+using System.Linq;
+
 using LinqToDB;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	public static partial class TableExtensions
 	{

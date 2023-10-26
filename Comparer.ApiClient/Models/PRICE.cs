@@ -1,8 +1,12 @@
 ﻿#pragma warning disable 1573, 1591
 
+using System.Collections.Generic;
+
+using Comparer.DataAccess.Dto;
+
 using LinqToDB.Mapping;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "PRICES")]
 	public partial class PRICE
@@ -40,7 +44,7 @@ namespace Comparer.Api.DataModels
 		/// PRICESRECORDSFOREIGNPRICE_BackReference (dbo.PRICESRECORDS)
 		/// </summary>
 		[Association(ThisKey = "ID", OtherKey = "PRICEID", CanBeNull = true)]
-		public IEnumerable<PRICESRECORD> PricesrecordsPricesFK { get; set; }
+		public IEnumerable<PRICESRECORD> PriceListItems { get; set; }
 
 		#endregion
 	}

@@ -1,8 +1,10 @@
 ﻿#pragma warning disable 1573, 1591
 
+using System.Collections.Generic;
+
 using LinqToDB.Mapping;
 
-namespace Comparer.Api.DataModels
+namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "PRICESRECORDS")]
 	public partial class PRICESRECORD

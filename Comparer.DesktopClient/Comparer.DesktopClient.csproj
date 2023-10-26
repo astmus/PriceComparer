@@ -8,12 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Refit" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Comparer.ApiClient\Comparer.ApiClient.csproj" />
-		<ProjectReference Include="..\Comparer.Dto\Comparer.Dto.csproj" />
+		<ProjectReference Include="..\Comparer.ApiClient\Comparer.DataAccess.csproj" />
 	</ItemGroup>
 
 </Project>

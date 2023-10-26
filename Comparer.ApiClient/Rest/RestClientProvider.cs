@@ -6,21 +6,22 @@ using System.Text;
 
 using Refit;
 
-namespace Comparer.ApiClient.Rest
+namespace Comparer.DataAccess.Rest
 {
 	class RestClientProvider : IRestClientProvider
 	{
 		private readonly Uri baseUri;
-
-		public RestClientProvider(string apiUrl)
+		RefitSettings? settings;
+		public RestClientProvider(string apiUrl, RefitSettings settings = null)
 		{
 			baseUri = new Uri(apiUrl);
+			this.settings = settings;
 		}
 		public T GetClient<T>()
-			=> RestService.For<T>(baseUri.ToString());
+			=> RestService.For<T>(baseUri.ToString(), settings);
 		public IDistributorRestClient Distributors
-		=> ComparerApi.ClientProvider.GetClient<IDistributorRestClient>();
+		=> ApiClient.ClientProvider.GetClient<IDistributorRestClient>();
 		public IPriceListRestClient PriceLists
-			=> ComparerApi.ClientProvider.GetClient<IPriceListRestClient>();
+			=> ApiClient.ClientProvider.GetClient<IPriceListRestClient>();
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace Comparer.ApiClient
+﻿namespace Comparer.DataAccess
 {
 	public interface IApiClientProvider
 	{
