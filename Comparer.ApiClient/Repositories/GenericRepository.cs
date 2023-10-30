@@ -23,7 +23,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
 	public IQueryable<T> Request() => _connection.GetTable<T>();
 	public IEnumerable<T> GetAll() => _connection.GetTable<T>().ToList();
-	public IAsyncEnumerable<T> GetAllAsync(CancellationToken cancel = default) => _connection.GetTable<T>().AsAsyncEnumerable();
+	public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancel = default) => await _connection.GetTable<T>().ToListAsync(cancel);
 	public async Task<bool> ContainItemAsync(Expression<Func<T, bool>> predicate)
 	{
 		return await _connection.GetTable<T>().AnyAsync(predicate);

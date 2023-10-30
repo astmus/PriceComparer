@@ -7,8 +7,14 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 using Comparer.DataAccess;
+using Comparer.DataAccess.Repositories;
+using Comparer.DataAccess.Rest;
+using Comparer.DesktopClient.ViewModels;
+
+using Microsoft.Extensions.DependencyInjection;
 
 using Refit;
 
@@ -19,23 +25,15 @@ namespace Comparer.DesktopClient
 	/// </summary>
 	public partial class App : Application
 	{
-		protected override void OnStartup(StartupEventArgs e)
+		public IServiceProvider ServicesProvider { get; init; }
+		public App()
 		{
-			base.OnStartup(e);
-
-			var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-			options.ReferenceHandler = ReferenceHandler.Preserve;
-			options.IncludeFields = true;
-			options.PropertyNameCaseInsensitive = false;
-
-			ApiClient.CreateClientProvider("http://localhost:5078"
-			, new Refit.RefitSettings()
-			{
-				ContentSerializer = new SystemTextJsonContentSerializer(options)
-				//CollectionFormat = Refit.CollectionFormat.Multi,
-				//ExceptionFactory = response => new Task<Exception?>(() => new Exception(JsonSerializer.Serialize(response)))
-			}
-			);
+			IServiceCollection Services = new ServiceCollection();
+			Services.AddRestClientFor<IPriceListRestClient>("http://localhost:5078/api/pricelist");
+			Services.AddRestClientFor<IDistributorRestClient>("http://localhost:5078/api/distributor");
+			Services.AddTransient<IRestClientProvider, RestClientProvider>();
+			Services.AddTransient<UIViewModel<MainWindow>, MainWindowViewModel>();
+			ServicesProvider = Services.BuildServiceProvider();
 		}
 	}
 }

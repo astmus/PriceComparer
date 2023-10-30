@@ -1,10 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Navigation;
 
 using Comparer.DataAccess;
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Queries;
 using Comparer.DesktopClient.ViewModels;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Comparer.DesktopClient
 {
@@ -17,8 +20,9 @@ namespace Comparer.DesktopClient
 		public MainWindow()
 		{
 			InitializeComponent();
-
-			DataContext = viewModel = new MainWindowViewModel(ApiClient.Rest.ClientProvider);
+			DataContext = (App.Current as App).ServicesProvider.GetRequiredService<UIViewModel<MainWindow>>();
 		}
+
+
 	}
 }

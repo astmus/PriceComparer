@@ -23,10 +23,10 @@ namespace Comparer.Api.Controllers
 
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public ActionResult<IAsyncEnumerable<ItemInfo<Guid>>> Get()
+		public async Task<IEnumerable<ItemInfo<Guid>>> Get()
 		{
-			var items = _repository.Request().Select(p => new ItemInfo<Guid>(p.ID, p.NAME)).AsAsyncEnumerable();
-			return Ok(items);
+			var items = await _repository.Request().Select(p => new ItemInfo<Guid>(p.ID, p.NAME)).ToListAsync();
+			return items;
 		}
 
 		[HttpGet("{id}")]
@@ -46,18 +46,15 @@ namespace Comparer.Api.Controllers
 		[HttpGet("{id}/[action]")]
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IAsyncEnumerable<PriceListItem>))]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async IAsyncEnumerable<PriceListItem> Items([FromRoute(Name = "id")] Guid priceListId)
+		public async Task<IEnumerable<PriceListItem>> Items([FromRoute(Name = "id")] Guid priceListId)
 		{
 			if (!await _repository.ContainItemAsync(list => list.ID == priceListId))
-			{
 				ThrowClient(StatusCodes.Status400BadRequest, "Price list does not exist");
-				yield break;
-			}
 
 			using var cancel = OperationCancelling;
 
-			await foreach (var item in _repository.Items(priceListId).WithCancellation(cancel.Token))
-				yield return item;
+			return await _repository.ItemsAsync(priceListId, cancel.Token);
+
 		}
 
 		[HttpGet("{id}/[action]")]
@@ -67,7 +64,7 @@ namespace Comparer.Api.Controllers
 		{
 			using var cancel = OperationCancelling;
 
-			var result = await _repository.WithContentAsync(priceListId);
+			var result = await _repository.ContentAsync(priceListId);
 
 			if (result == null)
 				return BadRequest($"Price list with id {priceListId} does not exist");

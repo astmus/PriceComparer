@@ -4,6 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"		
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:Comparer.DesktopClient"
+		xmlns:mvvm="clr-namespace:CommunityToolkit.Mvvm.Input;assembly=CommunityToolkit.Mvvm"
 		xmlns:vm="clr-namespace:Comparer.DesktopClient.ViewModels"
 		mc:Ignorable="d"
 		Title="MainWindow" 
@@ -37,7 +38,11 @@
 			</Grid.ColumnDefinitions>
 
 			<Label Content="Distributor:"/>
-			<ComboBox Grid.Column="1" x:Name="distributorsListComboBox" SelectedValue="Id" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDistributor}" ItemsSource="{Binding Distributors}"/>
+			<ComboBox Grid.Column="1" x:Name="distributorsListComboBox" 
+			SelectedValue="Id" 
+			DisplayMemberPath="Name" 
+			SelectedItem="{Binding SelectedDistributor}" 
+			ItemsSource="{Binding Distributors}"/>
 		</Grid>
 		<Grid Grid.Column="1" VerticalAlignment="Center">
 			<Grid.ColumnDefinitions>
@@ -73,7 +78,7 @@
 
 		<Button Grid.Column="3" Command="{Binding Path=StartAnalizeCommand}" CommandParameter="{Binding Path=AnalizeQuery}" Content="Analize" Margin="5, 0 ,0, 0"/>
 
-		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedListItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=AllPricesProducts}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
+		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedPriceItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=AllPricesProducts}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
 			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />

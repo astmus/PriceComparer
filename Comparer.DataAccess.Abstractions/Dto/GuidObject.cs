@@ -3,5 +3,5 @@
 namespace Comparer.DataAccess.Dto
 {
 
-	public record GuidObject(Guid Id = default) : IdentibleObject<Guid>(Id);
+	public record GuidObject(Guid Id = default);
 }

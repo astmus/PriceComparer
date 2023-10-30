@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-
+﻿using Microsoft.Extensions.DependencyInjection;
 
 using Refit;
 
 namespace Comparer.DataAccess.Rest
 {
-	class RestClientProvider : IRestClientProvider
+	public class RestClientProvider : IRestClientProvider
 	{
-		private readonly Uri baseUri;
-		RefitSettings? settings;
-		public RestClientProvider(string apiUrl, RefitSettings settings = null)
+		private readonly IServiceProvider sp;
+		public RestClientProvider(IServiceProvider sp)
 		{
-			baseUri = new Uri(apiUrl);
-			this.settings = settings;
+			this.sp = sp;
 		}
-		public T GetClient<T>()
-			=> RestService.For<T>(baseUri.ToString(), settings);
+
 		public IDistributorRestClient Distributors
-		=> ApiClient.ClientProvider.GetClient<IDistributorRestClient>();
+			=> sp.GetRequiredService<IDistributorRestClient>();
 		public IPriceListRestClient PriceLists
-			=> ApiClient.ClientProvider.GetClient<IPriceListRestClient>();
+			=> sp.GetRequiredService<IPriceListRestClient>();
 	}
 }

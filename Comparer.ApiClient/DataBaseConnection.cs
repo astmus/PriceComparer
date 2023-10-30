@@ -5,6 +5,7 @@ using System.Linq;
 
 using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Config;
+using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
 
 using LinqToDB;

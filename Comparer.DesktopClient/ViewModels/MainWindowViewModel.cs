@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Input;
 
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Queries;
 using Comparer.DataAccess.Rest;
-using Comparer.DesktopClient.Commands;
 
 namespace Comparer.DesktopClient.ViewModels
 {
@@ -24,6 +20,7 @@ namespace Comparer.DesktopClient.ViewModels
 		{
 			apiProvider = apiClientProvider;
 			ReloadPriceItemsCommand = new AsyncRelayCommand<DistributorPriceDto>(ReloadPriceListItemsAsync, item => item?.Id != null);
+			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadProductsAsync, item => item?.ProductId != null);
 			StartAnalizeCommand = new AsyncRelayCommand<CompareQuery>(AnalizeAsync, q => q?.BasePriceId.HasValue == true);
 			AnalizeQuery = new CompareQuery();
 			ReloadPriceLists = new AsyncRelayCommand<DistributorInfo>(UpdatePriceLists, d => d != null);
@@ -44,7 +41,11 @@ namespace Comparer.DesktopClient.ViewModels
 			get => Get<AsyncRelayCommand<DistributorPriceDto>>();
 			set => Set(value);
 		}
-
+		public IAsyncRelayCommand<PriceListItem> ReloadProductsCommand
+		{
+			get => Get<AsyncRelayCommand<PriceListItem>>();
+			set => Set(value);
+		}
 		#endregion
 
 		#region Properties
@@ -63,13 +64,13 @@ namespace Comparer.DesktopClient.ViewModels
 		public DistributorPriceDto SelectedPrice
 		{
 			get => Get<DistributorPriceDto>();
-			set { Set(value); SafeStartCommand(ReloadPriceItemsCommand, value); }
+			set { Set(value); ReloadPriceItemsCommand.Execute(value); }
 		}
 
 		public PriceListItem SelectedPriceItem
 		{
 			get => Get<PriceListItem>();
-			set { Set(value); }
+			set { Set(value); SafeStartCommand(ReloadProductsCommand, value); }
 		}
 		#endregion
 
@@ -110,13 +111,13 @@ namespace Comparer.DesktopClient.ViewModels
 				var response = await apiProvider.PriceLists.ItemsAsync(Id);
 				if (response.Content is IEnumerable<PriceListItem> items)
 					LoadCollection(AllPricesProducts, items);
-				StartAnalizeCommand.NotifyCanExecuteChanged();
 			}
+			StartAnalizeCommand.NotifyCanExecuteChanged();
 		}
 
-		async Task ReloadProductsAsync(Guid prodId)
+		async Task ReloadProductsAsync(PriceListItem selected)
 		{
-			var products = await apiProvider.PriceLists.ProductsAsync(prodId);
+			var products = await apiProvider.PriceLists.ProductsAsync(selected.ProductId ?? default);
 			LoadCollection(SelectedPriceProducts, products);
 		}
 
@@ -131,9 +132,13 @@ namespace Comparer.DesktopClient.ViewModels
 		async void LoadDistributors(ObservableCollection<DistributorInfo> collection)
 		{
 			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));
-			var response = await apiProvider.Distributors.GetAllAsync();
-			if (response.Content is IEnumerable<DistributorInfo> distributors)
-				LoadCollection<DistributorInfo>(collection, distributors);
+			var i3 = await apiProvider.PriceLists.GetAllAsync();
+			var i2 = await apiProvider.PriceLists.ContentAsync(new Guid("7e8fbf1f-82d9-43cc-bc6b-7a3b43b93814"));
+			var i = await apiProvider.PriceLists.ItemsAsync(new Guid("7e8fbf1f-82d9-43cc-bc6b-7a3b43b93814"));
+
+			var distributors = await apiProvider.Distributors.GetAllAsync();
+			//if (response.Content is IEnumerable<DistributorInfo> distributors)
+			LoadCollection<DistributorInfo>(collection, distributors);
 		}
 	}
 }

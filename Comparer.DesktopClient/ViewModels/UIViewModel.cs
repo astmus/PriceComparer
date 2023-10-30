@@ -17,9 +17,13 @@ namespace Comparer.DesktopClient.ViewModels
 		protected void SafeStartCommand(IAsyncRelayCommand command, object? args)
 		{
 			if (!command.IsRunning && command.CanExecute(args))
-				command.ExecuteAsync(args);
+				command.Execute(args);
 		}
-
+		protected void SafeStartCommand<T>(IAsyncRelayCommand<T> command, T args)
+		{
+			if (!command.IsRunning && command.CanExecute(args))
+				command.Execute(args);
+		}
 		protected async Task<ObservableCollection<TItem>> LoadCollection<TItem>(ObservableCollection<TItem> dest, IAsyncEnumerable<TItem> source)
 		{
 			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));

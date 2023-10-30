@@ -30,7 +30,6 @@ public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributo
 	public override IQueryable<TEntity> FromRaw<TEntity>() => _connection.FromRaw<TEntity>(nameof(_connection.DISTRIBUTORS));
 	public async Task<IEnumerable<DistributorPriceDto>> PriceListsOf(Guid id, DistributorInfo info)
 	{
-
 		var query = from list in _connection.PRICES
 					where list.DISID == id
 					select new DistributorPriceDto()

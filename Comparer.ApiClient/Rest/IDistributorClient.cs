@@ -9,16 +9,12 @@ using Refit;
 
 namespace Comparer.DataAccess.Rest
 {
-	public interface IDistributorRestClient : IRestClient<Distributor>
+	public interface IDistributorRestClient : IRestClient
 	{
-		[GetApi<Distributor>]
-		Task<ApiResponse<IEnumerable<DistributorInfo>>> GetAllAsync();
+		[Get("/")]
+		Task<IEnumerable<DistributorInfo>> GetAllAsync();
 
-
-		[GetApi<Distributor>]
-		Task<ApiResponse<IAsyncEnumerable<Distributor>>> GetAllStream();
-
-		[GetApi<Distributor>("{distributor.Id}", "prices")]
+		[Get("/{distributor.Id}/prices")]
 		Task<ApiResponse<IEnumerable<DistributorPriceDto>>> PriceListsOf(DistributorInfo distributor);
 	}
 }

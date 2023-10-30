@@ -1,6 +1,6 @@
 ﻿namespace Comparer.DataAccess.Rest
 {
-	public interface IRestClientProvider : IApiClientProvider
+	public interface IRestClientProvider
 	{
 		IDistributorRestClient Distributors { get; }
 		IPriceListRestClient PriceLists { get; }

@@ -21,9 +21,13 @@ namespace Comparer.Api.Filters
 			{
 				if (useDefaultFormatter)
 					objectResult.Formatters.Add(new SystemTextJsonOutputFormatter(
-						new JsonSerializerOptions(JsonSerializerOptions.Default)
-						//,
-						//ctx.HttpContext.RequestServices.GetRequiredService<ArrayPool<char>>())
+						new JsonSerializerOptions(JsonSerializerDefaults.Web)
+						{
+							DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+							PropertyNameCaseInsensitive = false,
+							PropertyNamingPolicy = null
+
+						}
 						));
 			}
 		}

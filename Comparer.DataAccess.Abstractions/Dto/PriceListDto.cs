@@ -6,8 +6,9 @@ namespace Comparer.DataAccess.Dto
 	{
 	}
 
-	public record PriceListDto(GuidObject Info)
+	public class PriceListDto
 	{
+		public GuidObject Info { get; init; }
 		public IEnumerable<PriceListItem> Items { get; init; }
 	}
 }

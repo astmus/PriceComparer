@@ -16,8 +16,8 @@ namespace Comparer.DataAccess.Repositories;
 public interface IPriceListRepository : IGenericRepository<PRICE>
 {
 	IExpressionQuery<PRICE> PriceLists { get; }
-	IAsyncEnumerable<PriceListItem> Items(Guid priceListId);
-	Task<PriceListDto> WithContentAsync(Guid priceListId);
+	Task<IEnumerable<PriceListItem>> ItemsAsync(Guid priceListId, CancellationToken cancel = default);
+	Task<PriceListDto> ContentAsync(Guid priceListId, CancellationToken cancel = default);
 }
 
 public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepository
@@ -28,15 +28,16 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 
 	public IExpressionQuery<PRICE> PriceLists => _connection.PRICES;
 
-	public async Task<PriceListDto> WithContentAsync(Guid priceListId)
+	public async Task<PriceListDto> ContentAsync(Guid priceListId, CancellationToken cancel = default)
 	{
 		var info = await FromRaw<PriceInfo>().FirstOrDefaultAsync(p => p.Id == priceListId);
 
 		if (info is null)
 			return null;
 
-		var result = new PriceListDto(info)
+		var result = new PriceListDto()
 		{
+			Info = info,
 			Items = await
 				(
 				from listItem in _connection.PRICESRECORDS
@@ -60,10 +61,10 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 	}
 
 
-	public IAsyncEnumerable<PriceListItem> Items(Guid priceListId)
+	public async Task<IEnumerable<PriceListItem>> ItemsAsync(Guid priceListId, CancellationToken cancel = default)
 	{
 		var reference = new GuidObject(priceListId);
-		return (
+		return await (
 				from rec in _connection.PRICESRECORDS
 				join link in _connection.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
 				join prod in _connection.PRODUCTS on link.CATALOGPRODUCTID equals prod.ID
@@ -77,7 +78,7 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 					ProductName = $"{prod.NAME} {prod.CHILDNAME}",
 					Price = rec.PRICE
 				}
-			).AsAsyncEnumerable();
+			).ToListAsync();
 	}
 
 	public override IQueryable<TEntity> FromRaw<TEntity>() => _connection.FromRaw<TEntity>(nameof(_connection.PRICES));

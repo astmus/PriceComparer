@@ -1,18 +1,23 @@
-﻿namespace Comparer.DataAccess.Dto
+﻿using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace Comparer.DataAccess.Dto
 {
-	public interface IIdentibleItem<Id>
-	{
-		Id ItemId { get; }
-	}
 
-	public abstract class IdentibleItem<Id> : IIdentibleItem<Id>
+	public class ObjectInfo<TItem> : List<ItemInfo> where TItem : class
 	{
-		public abstract Id ItemId { get; init; }
-	}
+		public ObjectInfo(TItem item)
+		{
+			var d = JsonDocument.Parse(JsonSerializer.Serialize(item)).RootElement.EnumerateObject();
+			d.MoveNext();
+			do
+			{
 
-	public record IdentibleObject<ItemId>(ItemId Id)
-	{
+				Add(new ItemInfo(d.Current.Name, d.Current.Value));
+			} while (d.MoveNext());
+		}
 	}
-
-	public record ItemInfo<ItemId>(ItemId? Id, string Description);
+	public record ItemInfo(string Name, object Value);
+	public record ItemInfo<ItemId>(ItemId Id, string? Name = default);
 }
