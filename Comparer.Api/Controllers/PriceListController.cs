@@ -71,41 +71,5 @@ namespace Comparer.Api.Controllers
 
 			return Ok(result);
 		}
-
-		//[HttpGet("[action]/{baseListId:guid}")]
-		//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IAsyncEnumerable<PriceListProductDiffItem>))]
-		//[ProducesResponseType(statusCode: StatusCodes.Status400BadRequest, contentType: MediaTypeNames.Text.Plain, type: typeof(IAsyncEnumerable<PriceListProductDiffItem>))]
-		//public async IAsyncEnumerable<PriceListProductDiffItem> Diff(Guid baseListId)
-		//{
-		//	if (!_repository.PRICES.Any(f => f.ID == baseListId))
-		//	{
-		//		Response.StatusCode = StatusCodes.Status400BadRequest;
-		//		await Response.WriteAsync("Wrong baseListId");
-		//		yield break;
-		//	}
-
-		//	var l = _repository.PriceListProducts.Where(f => f.PriceListId == baseListId).ToList();
-		//	var baseList = _repository.PriceListProducts.Where(f => f.PriceListId == baseListId).ToDictionary(d => d.ProductId);
-
-		//	var allListsProducts = (from rec in _repository.PRICESRECORDS
-		//							join link in _repository.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
-		//							join prod in _repository.PRODUCTS on link.CATALOGPRODUCTID equals prod.ID
-		//							join list in _repository.PRICES on rec.PRICEID equals list.ID
-		//							join dist in _repository.DISTRIBUTORS on list.DISID equals dist.ID
-		//							where list.ISACTIVE && dist.ACTIVE && list.ID != baseListId && !prod.DELETED && rec.USED && !rec.DELETED && baseList.ContainsKey(prod.ID)
-		//							select new PriceListProductDiffItem()
-		//							{
-		//								ProductId = prod.ID,
-		//								ItemName = list.NAME,
-		//								ProductName = rec.NAME,
-		//								Price = rec.PRICE,
-		//								DistributorName = dist.NAME,
-		//								PriceDiff = prod.PRICE - rec.PRICE
-		//							}
-		//						  );
-
-		//	await foreach (var item in allListsProducts.AsAsyncEnumerable())
-		//		yield return item;
-		//}
 	}
 }

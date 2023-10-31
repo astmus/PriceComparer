@@ -81,8 +81,8 @@ namespace Comparer.DesktopClient.ViewModels
 		public ObservableCollection<DistributorPriceDto> PriceLists
 			=> Get<ObservableCollection<DistributorPriceDto>>(initialize: true);
 
-		public ObservableCollection<PriceListItem> SelectedPriceProducts
-			=> Get<ObservableCollection<PriceListItem>>(initialize: true);
+		public ObservableCollection<PriceProductInfo> SelectedPriceProducts
+			=> Get<ObservableCollection<PriceProductInfo>>(initialize: true);
 
 		public ObservableCollection<PriceListItem> AllPricesProducts
 			=> Get<ObservableCollection<PriceListItem>>(initialize: true);
@@ -117,7 +117,7 @@ namespace Comparer.DesktopClient.ViewModels
 
 		async Task ReloadProductsAsync(PriceListItem selected)
 		{
-			var products = await apiProvider.PriceLists.ProductsAsync(selected.ProductId ?? default);
+			var products = await apiProvider.Products.FindAllAsync<PriceProductInfo>(selected.ProductId ?? default, selected);
 			LoadCollection(SelectedPriceProducts, products);
 		}
 

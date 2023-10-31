@@ -4,5 +4,6 @@
 	{
 		IDistributorRestClient Distributors { get; }
 		IPriceListRestClient PriceLists { get; }
+		IProductRestClient Products { get; }
 	}
 }

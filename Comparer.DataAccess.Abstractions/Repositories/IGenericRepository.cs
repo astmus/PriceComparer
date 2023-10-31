@@ -12,7 +12,7 @@ public interface IGenericRepository<T> where T : class
 	IQueryable<T> Request();
 	IEnumerable<T> GetAll();
 	Task<IEnumerable<T>> GetAllAsync(CancellationToken cancel = default);
-	IQueryable<TEntity> FromRaw<TEntity>();
+	IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null);
 }
 
 

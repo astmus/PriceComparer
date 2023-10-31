@@ -81,5 +81,5 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 			).ToListAsync();
 	}
 
-	public override IQueryable<TEntity> FromRaw<TEntity>() => _connection.FromRaw<TEntity>(nameof(_connection.PRICES));
+	public override IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null) => _connection.FromRaw<TEntity>(nameof(_connection.PRICES));
 }

@@ -31,6 +31,7 @@ namespace Comparer.DesktopClient
 			IServiceCollection Services = new ServiceCollection();
 			Services.AddRestClientFor<IPriceListRestClient>("http://localhost:5078/api/pricelist");
 			Services.AddRestClientFor<IDistributorRestClient>("http://localhost:5078/api/distributor");
+			Services.AddRestClientFor<IProductRestClient>("http://localhost:5078/api/product");
 			Services.AddTransient<IRestClientProvider, RestClientProvider>();
 			Services.AddTransient<UIViewModel<MainWindow>, MainWindowViewModel>();
 			ServicesProvider = Services.BuildServiceProvider();

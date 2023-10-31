@@ -14,6 +14,8 @@ namespace Comparer.Api.Controllers
 	[Produces("application/json")]
 	public class BaseController : ControllerBase
 	{
+		protected ILogger<BaseController> _log
+			=> HttpContext.RequestServices.GetService<ILogger<BaseController>>();
 		//protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 		protected void ThrowClient(int code, string message, string description = null)
 		{

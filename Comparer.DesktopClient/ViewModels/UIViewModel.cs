@@ -24,17 +24,7 @@ namespace Comparer.DesktopClient.ViewModels
 			if (!command.IsRunning && command.CanExecute(args))
 				command.Execute(args);
 		}
-		protected async Task<ObservableCollection<TItem>> LoadCollection<TItem>(ObservableCollection<TItem> dest, IAsyncEnumerable<TItem> source)
-		{
-			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));
-			await foreach (var item in source.WithCancellation(src.Token))
-				if (!IsMainThread)
-					Application.Current.Dispatcher.Invoke(() =>
-						dest.Add(item));
-				else
-					dest.Add(item);
-			return dest;
-		}
+
 
 		protected void LoadCollection<TItem>(ObservableCollection<TItem> dest, IEnumerable<TItem> source)
 		{

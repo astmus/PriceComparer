@@ -94,13 +94,15 @@
 		</DataGrid>
 
 		<DataGrid Grid.Row="2" x:Name="productsDataGrid"  Grid.ColumnSpan="3" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
-			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
+			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True"
+			ItemsSource="{Binding SelectedPriceProducts}"
+			>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}" />
-				<DataGridTextColumn Header="Price List" Binding="{Binding Path=ItemName}" />
-				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />
+				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.NAME}" />
+				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}" />
-				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=Phone}" />
+				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=PriceDiff}" />
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>

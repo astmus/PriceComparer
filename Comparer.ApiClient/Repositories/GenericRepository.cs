@@ -28,5 +28,5 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 	{
 		return await _connection.GetTable<T>().AnyAsync(predicate);
 	}
-	public abstract IQueryable<TEntity> FromRaw<TEntity>();
+	public abstract IQueryable<TEntity> FromRaw<TEntity>(string rawSql);
 }

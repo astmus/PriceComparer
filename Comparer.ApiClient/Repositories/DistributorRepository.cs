@@ -27,7 +27,7 @@ public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributo
 	public IExpressionQuery<DISTRIBUTOR> Distributors => _connection.DISTRIBUTORS;
 
 	public Task<IEnumerable<DISTRIBUTOR>> Content(Guid DistributorId, CancellationToken cancel = default) => throw new NotImplementedException();
-	public override IQueryable<TEntity> FromRaw<TEntity>() => _connection.FromRaw<TEntity>(nameof(_connection.DISTRIBUTORS));
+	public override IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null) => _connection.FromRaw<TEntity>(nameof(_connection.DISTRIBUTORS));
 	public async Task<IEnumerable<DistributorPriceDto>> PriceListsOf(Guid id, DistributorInfo info)
 	{
 		var query = from list in _connection.PRICES

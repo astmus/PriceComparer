@@ -16,5 +16,7 @@ namespace Comparer.DataAccess.Rest
 			=> sp.GetRequiredService<IDistributorRestClient>();
 		public IPriceListRestClient PriceLists
 			=> sp.GetRequiredService<IPriceListRestClient>();
+		public IProductRestClient Products
+		=> sp.GetRequiredService<IProductRestClient>();
 	}
 }

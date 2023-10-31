@@ -38,7 +38,7 @@ namespace Comparer.Api.Controllers
 		{
 			if (await _repository.ContainItemAsync(dist => dist.ID == id))
 			{
-				var distResult = _repository.FromRaw<Distributor>().FirstOrDefault(d => d.Id == id);
+				var distResult = await _repository.FromRaw<Distributor>().FirstOrDefaultAsync(d => d.Id == id);
 				return Ok(distResult);
 			}
 			else

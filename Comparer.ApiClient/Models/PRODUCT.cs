@@ -7,6 +7,12 @@ using LinqToDB.Mapping;
 namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "PRODUCTS")]
+	public interface IProductEntity
+	{
+		Guid? ID { get; }
+	}
+
+	[Table(Schema = "dbo", Name = "PRODUCTS")]
 	public partial class PRODUCT
 	{
 		[Column(), PrimaryKey, NotNull] public Guid ID { get; set; } // uniqueidentifier

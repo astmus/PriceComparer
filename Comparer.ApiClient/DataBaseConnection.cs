@@ -29,11 +29,11 @@ namespace Comparer.DataAccess
 				join rec in PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
 				join list in PRICES on rec.PRICEID equals list.ID
 				join dist in DISTRIBUTORS on list.DISID equals dist.ID
-				select new Dto.ProductInfo()
+				select new PriceProductInfo()
 				{
 					//PriceListId = list,
-					ProductId = prod.ID,
-					ItemName = list.NAME,
+					Id = prod.ID,
+					Name = list.NAME,
 					ProductName = rec.NAME,
 					DistributorName = dist.NAME,
 					Price = rec.PRICE
