@@ -53,7 +53,7 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 					PriceList = new PriceInfo(list.ID, list.NAME, list.DISID, list.ISACTIVE),
 					Id = prod.ID,
 					Name = list.NAME,
-					ProductName = rec.NAME,
+					ProductName = $"{prod.NAME} {prod.CHILDNAME}",
 					DistributorName = dist.NAME,
 					Price = rec.PRICE
 				};
@@ -70,7 +70,7 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 					Id = prod.ID,
 					PriceList = new PriceInfo(list.ID, list.NAME, list.DISID, list.ISACTIVE),
 					Name = list.NAME,
-					ProductName = rec.NAME,
+					ProductName = $"{prod.NAME} {prod.CHILDNAME}",
 					DistributorName = dist.NAME,
 					Price = rec.PRICE
 				};

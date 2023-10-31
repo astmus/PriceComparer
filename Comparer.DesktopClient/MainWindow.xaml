@@ -84,9 +84,9 @@
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
 				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=MinPrice}"/>
-				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=PriceDiff}"/>
+				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MinPriceDiff, StringFormat='{}{0:n2}'}"/>
 				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=MaxPrice}"/>
-				<DataGridTextColumn Header="Max Price Diff" Binding="{Binding Path=MaxPriceDiff}"/>
+				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MaxPriceDiff, StringFormat='{}{0:n2}'}"/>
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}"/>
 				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceListName}"/>
 				<DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>

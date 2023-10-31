@@ -53,7 +53,8 @@ namespace Comparer.Api.Controllers
 
 			using var cancel = OperationCancelling;
 
-			return await _repository.ItemsAsync(priceListId, cancel.Token);
+			var items = await _repository.ItemsAsync(priceListId, cancel.Token);
+			return items;
 
 		}
 
