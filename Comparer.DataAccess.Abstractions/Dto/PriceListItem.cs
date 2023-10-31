@@ -1,13 +1,12 @@
 ﻿
 namespace Comparer.DataAccess.Dto
 {
-	public record PriceListItem
+	public class PriceListItem
 	{
-		public Guid? ProductId { get; init; }
-		public GuidObject? PriceList { get; init; }
+		public virtual Guid? ProductId { get; init; }
+		public PriceInfo? PriceList { get; init; }
 		public string? ItemName { get; init; }
-		public string? ProductName { get; init; }
-		//public string? DistributorName { get; init; }
+		public virtual string? ProductName { get; init; }
 		public double? Price { get; init; }
 	}
 }

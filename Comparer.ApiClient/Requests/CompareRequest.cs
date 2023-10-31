@@ -1,8 +1,8 @@
 ﻿using Comparer.DataAccess.Dto;
 
-namespace Comparer.DataAccess.Queries
+namespace Comparer.DataAccess.Requests
 {
-	public class CompareQuery
+	public class CompareRequest
 	{
 		public Guid? BasePriceId { get; set; }
 		public CompareKind Kind { get; set; }

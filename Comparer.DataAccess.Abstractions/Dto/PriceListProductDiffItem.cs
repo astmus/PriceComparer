@@ -1,21 +1,24 @@
 ﻿namespace Comparer.DataAccess.Dto
 {
-	public class PriceListProductDiffItem
+	public class ProductDiffItem : PriceListItem
 	{
-		public ProductInfo Product { get; init; }
-		public string? MinPrice { get; init; }
-		public double? MaxPrice { get; init; }
+		public double MinPrice { get; init; }
+		public double MaxPrice { get; init; }
+	}
+	public class PriceListProductDiffItem : ProductDiffItem
+	{
+		public PriceProductInfo Product { get; init; }
+		public override Guid? ProductId
+			=> Product?.Id;
+		public double PriceDiff
+			=> Math.Round(Price - Product?.Price ?? 0, 3);
+		public override string? ProductName { get => Product.ProductName; }
+		public string DistributorName
+			=> Product.DistributorName;
+		public string PriceListName
+			=> Product?.PriceList?.NAME;
 		public double? MaxPriceDiff { get; init; }
 		public string? Notes { get; init; }
 
-		//public double? PriceDiff { get; init; }
-		//<DataGridTextColumn Header = "Price" Binding="{Binding Path=Price}"/>
-		//<DataGridTextColumn Header = "MinPrice" Binding="{Binding Path=Email}"/>
-		//<DataGridTextColumn Header = "" Binding="{Binding Path=Phone}"/>
-		//<DataGridTextColumn Header = "" Binding="{Binding Path=Phone}"/>
-		//<DataGridTextColumn Header = "" Binding="{Binding Path=Phone}"/>
-		//<DataGridTextColumn Header = "Distributor" Binding="{Binding Path=Phone}"/>
-		//<DataGridTextColumn Header = "Price List" Binding="{Binding Path=Phone}"/>
-		//<DataGridTextColumn Header = "Notes"
 	}
 }

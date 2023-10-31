@@ -83,13 +83,13 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
-				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=Email}"/>
-				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=Phone}"/>
-				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=Phone}"/>
-				<DataGridTextColumn Header="Max Price Diff" Binding="{Binding Path=Phone}"/>
-				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=Phone}"/>
-				<DataGridTextColumn Header="Price List" Binding="{Binding Path=Phone}"/>
-				<DataGridTextColumn Header="Notes" Binding="{Binding Path=Phone}"/>
+				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=MinPrice}"/>
+				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=PriceDiff}"/>
+				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=MaxPrice}"/>
+				<DataGridTextColumn Header="Max Price Diff" Binding="{Binding Path=MaxPriceDiff}"/>
+				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}"/>
+				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceListName}"/>
+				<DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 

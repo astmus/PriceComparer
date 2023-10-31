@@ -24,7 +24,7 @@ namespace Comparer.DataAccess.Rest
 		Task<PriceListDto> ContentAsync([AliasAs("id")] Guid id);
 
 		[Get("/{id}/items")]
-		Task<ApiResponse<IEnumerable<PriceListItem>>> ItemsAsync([AliasAs("id")] Guid priceListId);
+		Task<ApiResponse<IEnumerable<TItem>>> ItemsAsync<TItem>([AliasAs("id")] Guid priceListId) where TItem : PriceListItem;
 
 		[Get("/{id}/products")]
 		Task<IEnumerable<ProductInfo>> ProductsAsync([AliasAs("id")] Guid productId);

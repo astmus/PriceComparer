@@ -1,10 +1,6 @@
-using Comparer.Api.Filters;
-using Comparer.DataAccess;
-using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Dto;
-using Comparer.DataAccess.Models;
-using Comparer.DataAccess.Queries;
 using Comparer.DataAccess.Repositories;
+using Comparer.DataAccess.Requests;
 
 using LinqToDB;
 
@@ -38,7 +34,7 @@ namespace Comparer.Api.Controllers
 			_log.LogDebug("Producst" + productId + "Get");
 			if (await _repository.ContainItemAsync(dist => dist.ID == productId))
 			{
-				var pricesProducts = await _repository.GetPriceProductsAsync(productId, info);
+				var pricesProducts = await _repository.GetProductsAsync(productId, info);
 				if (!pricesProducts.Any())
 					return NoContent();
 
@@ -51,39 +47,40 @@ namespace Comparer.Api.Controllers
 
 		public Task<IEnumerable<string>> SelectAsync(Guid productId, params object[] fields) => throw new NotImplementedException();
 
-
-		[HttpGet("[action]/{baseListId:guid}")]
-		//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IAsyncEnumerable<PriceListProductDiffItem>))]
-		public async Task<IEnumerable<ProductInfo>> FindAsync(Guid productId)
-
+		[HttpGet("diff")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public async Task<ActionResult<IEnumerable<PriceListProductDiffItem>>> DiffAnalizeAsync([FromQuery] CompareRequest request)
 		{
-			//if (!await _repository.ContainItemAsync(f => f.ID == productId))
-			//	ThrowClient(StatusCodes.Status400BadRequest, "Wrong base price list");
-			var res = await _repository.FromRaw<ProductInfo>().Take(100).ToListAsync();
-			return res;
-			//var l = _repository.Products.Where(f => f.PriceListId == baseListId).ToList();
-			//var baseList = _repository.PriceListProducts.Where(f => f.PriceListId == baseListId).ToDictionary(d => d.ProductId);
+			var baseProducts = _repository.PriceListProducts.Where(w => w.PriceListId == request.BasePriceId);
+			var otherProducts = _repository.AvailablePriceListProducts.Where(s => s.PriceListId != request.BasePriceId);
+			var diffQuery = from baseProduct in baseProducts
+							join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
+							group otherProduct by otherProduct.Id into gr
+							select new ProductDiffItem()
+							{
+								ProductId = gr.Key,
+								MinPrice = Math.Round(gr.Min(prod => prod.Price), 2),
+								MaxPrice = Math.Round(gr.Max(prod => prod.Price), 2)
+							};
 
-			//var allListsProducts = (from rec in _repository.PRICESRECORDS
-			//						join link in _repository.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
-			//						join prod in _repository.PRODUCTS on link.CATALOGPRODUCTID equals prod.ID
-			//						join list in _repository.PRICES on rec.PRICEID equals list.ID
-			//						join dist in _repository.DISTRIBUTORS on list.DISID equals dist.ID
-			//						where list.ISACTIVE && dist.ACTIVE && list.ID != baseListId && !prod.DELETED && rec.USED && !rec.DELETED && baseList.ContainsKey(prod.ID)
-			//						select new PriceListProductDiffItem()
-			//						{
-			//							ProductId = prod.ID,
-			//							ItemName = list.NAME,
-			//							ProductName = rec.NAME,
-			//							Price = rec.PRICE,
-			//							DistributorName = dist.NAME,
-			//							PriceDiff = prod.PRICE - rec.PRICE
-			//						}
-			//					  );
+			var resultQuery = from baseProduct in baseProducts
+							  join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
+							  join diff in diffQuery on otherProduct.Id equals diff.ProductId
+							  select new PriceListProductDiffItem()
+							  {
+								  Product = otherProduct,
+								  Price = baseProduct.Price,
+								  MinPrice = diff.MinPrice,
+								  MaxPrice = diff.MaxPrice,
+								  MaxPriceDiff = Math.Round(Math.Abs(diff.MinPrice - diff.MaxPrice), 2)
+							  };
 
-			//await foreach (var item in allListsProducts.AsAsyncEnumerable())
-			//	yield return item;
+			var result = await resultQuery.ToListAsync();
+			return result;
 		}
+
+
+
 
 		public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] ProductInfo info) => throw new NotImplementedException();
 		public Task<IEnumerable<DisributorPriceProductInfo>> FindAsync(Guid productId, [FromQuery] PriceProductInfo info) => throw new NotImplementedException();

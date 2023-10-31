@@ -19,14 +19,14 @@ namespace Comparer.DesktopClient.ViewModels
 			if (!command.IsRunning && command.CanExecute(args))
 				command.Execute(args);
 		}
+
 		protected void SafeStartCommand<T>(IAsyncRelayCommand<T> command, T args)
 		{
 			if (!command.IsRunning && command.CanExecute(args))
 				command.Execute(args);
 		}
 
-
-		protected void LoadCollection<TItem>(ObservableCollection<TItem> dest, IEnumerable<TItem> source)
+		protected void LoadCollection<TItem>(ICollection<TItem> dest, IEnumerable<TItem> source)
 		{
 			if (!IsMainThread)
 				Application.Current.Dispatcher.Invoke(() =>

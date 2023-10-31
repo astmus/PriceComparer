@@ -51,7 +51,6 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 					PriceList = info,
 					ItemName = listItem.NAME,
 					ProductName = prod.NAME,
-					//DistributorName = dist.NAME,
 					Price = listItem.PRICE
 
 				})
@@ -63,7 +62,8 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 
 	public async Task<IEnumerable<PriceListItem>> ItemsAsync(Guid priceListId, CancellationToken cancel = default)
 	{
-		var reference = new GuidObject(priceListId);
+		var reference = new PriceInfo(priceListId, default);
+
 		return await (
 				from rec in _connection.PRICESRECORDS
 				join link in _connection.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX

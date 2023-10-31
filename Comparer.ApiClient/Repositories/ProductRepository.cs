@@ -15,7 +15,10 @@ namespace Comparer.DataAccess.Repositories;
 public interface IProductRepository : IGenericRepository<PRODUCT>
 {
 	IExpressionQuery<PRODUCT> Products { get; }
-	Task<IEnumerable<PriceProductInfo>> GetPriceProductsAsync(Guid productId, ProductInfo info, CancellationToken cancel = default);
+	Task<IEnumerable<PriceProductInfo>> GetProductsAsync(Guid productId, ProductInfo info, CancellationToken cancel = default);
+	Task<IEnumerable<PriceProductInfo>> GetPriceProductsAsync(Guid priceId, CancellationToken cancel = default);
+	IQueryable<PriceProductInfo> PriceListProducts { get; }
+	IQueryable<PriceProductInfo> AvailablePriceListProducts { get; }
 }
 
 public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
@@ -38,8 +41,41 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 		//	var doc = JsonDocument.Parse(t);
 		//}
 	}
+	public IQueryable<PriceProductInfo> PriceListProducts =>
+				from prod in _connection.PRODUCTS
+				join link in _connection.LINKS on prod.ID equals link.CATALOGPRODUCTID
+				join rec in _connection.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
+				join list in _connection.PRICES on rec.PRICEID equals list.ID
+				join dist in _connection.DISTRIBUTORS on list.DISID equals dist.ID
+				select new PriceProductInfo()
+				{
+					PriceListId = list.ID,
+					PriceList = new PriceInfo(list.ID, list.NAME, list.DISID, list.ISACTIVE),
+					Id = prod.ID,
+					Name = list.NAME,
+					ProductName = rec.NAME,
+					DistributorName = dist.NAME,
+					Price = rec.PRICE
+				};
+	public IQueryable<PriceProductInfo> AvailablePriceListProducts =>
+				from prod in _connection.PRODUCTS
+				join link in _connection.LINKS on prod.ID equals link.CATALOGPRODUCTID
+				join rec in _connection.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
+				join list in _connection.PRICES on rec.PRICEID equals list.ID
+				join dist in _connection.DISTRIBUTORS on list.DISID equals dist.ID
+				where dist.ACTIVE && list.ISACTIVE && !rec.DELETED && rec.USED
+				select new PriceProductInfo()
+				{
+					PriceListId = list.ID,
+					Id = prod.ID,
+					PriceList = new PriceInfo(list.ID, list.NAME, list.DISID, list.ISACTIVE),
+					Name = list.NAME,
+					ProductName = rec.NAME,
+					DistributorName = dist.NAME,
+					Price = rec.PRICE
+				};
 
-	public async Task<IEnumerable<PriceProductInfo>> GetPriceProductsAsync(Guid productId, ProductInfo info, CancellationToken cancel = default)
+	public async Task<IEnumerable<PriceProductInfo>> GetProductsAsync(Guid productId, ProductInfo info, CancellationToken cancel = default)
 	{
 		return await (
 				from rec in _connection.PRICESRECORDS
@@ -55,12 +91,12 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 					DistributorName = dist.NAME,
 					PriceList = new PriceInfo(list.ID, list.NAME, list.DISID, list.ISACTIVE),
 					Price = rec.PRICE,
-					PriceDiff = Math.Round(rec.PRICE - info.Price ?? 0, 3)
+					PriceDiff = Math.Round(rec.PRICE - info.Price, 3)
 				}
 					).OrderBy(ob => ob.Price).ToListAsync(cancel);
 	}
 
-	public async Task<IEnumerable<PriceProductInfo>> GetPriceProductsAsync(Guid productId, Guid priceId, CancellationToken cancel = default)
+	public async Task<IEnumerable<PriceProductInfo>> GetPriceProductsAsync(Guid priceId, CancellationToken cancel = default)
 	{
 		return await (
 				from rec in _connection.PRICESRECORDS

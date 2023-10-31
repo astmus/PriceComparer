@@ -1,10 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Windows;
 
-using Comparer.DataAccess;
-using Comparer.DataAccess.Dto;
-using Comparer.DataAccess.Queries;
 using Comparer.DesktopClient.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
