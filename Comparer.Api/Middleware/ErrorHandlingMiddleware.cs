@@ -28,14 +28,8 @@ namespace Comparer.Api.Middleware
 			{
 				_logger.LogError(ex, "unhandled exception");
 
-				await WriteStatus500InternalServerError(httpContext);
+				httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 			}
-		}
-
-		private async Task WriteStatus500InternalServerError(HttpContext httpContext)
-		{
-			httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-			await _next(httpContext);
 		}
 	}
 

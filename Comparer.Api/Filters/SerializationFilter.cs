@@ -25,8 +25,8 @@ namespace Comparer.Api.Filters
 						{
 							DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 							PropertyNameCaseInsensitive = false,
-							PropertyNamingPolicy = null
-
+							PropertyNamingPolicy = null,
+							IgnoreReadOnlyFields = true
 						}
 						));
 			}

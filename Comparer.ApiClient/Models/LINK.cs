@@ -5,7 +5,7 @@ using LinqToDB.Mapping;
 namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "LINKS")]
-	public partial class LINK
+	internal partial class LINK
 	{
 		[PrimaryKey, NotNull] public Guid ID { get; set; } // uniqueidentifier
 		[Column, NotNull] public Guid CATALOGPRODUCTID { get; set; } // uniqueidentifier

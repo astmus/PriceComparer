@@ -15,5 +15,3 @@ public interface IGenericRepository<T> where T : class
 	IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null);
 }
 
-
-

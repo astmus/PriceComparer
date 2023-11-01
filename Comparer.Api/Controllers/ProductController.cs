@@ -80,12 +80,6 @@ namespace Comparer.Api.Controllers
 			return result;
 		}
 
-		static double? PriceDiff(double? price, double? minPrice, CompareKind compare) => compare switch
-		{
-			CompareKind.OtherMinPrice when minPrice < price => minPrice,
-			CompareKind.OtherMinPrice when minPrice > price => default,
-			_ => price
-		};
 		static double? PriceByRequestKinq(double? price, double? minPrice, CompareKind compare) => compare switch
 		{
 			CompareKind.OtherMinPrice when minPrice < price => minPrice,
@@ -94,6 +88,6 @@ namespace Comparer.Api.Controllers
 		};
 
 		public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] ProductInfo info) => throw new NotImplementedException();
-		public Task<IEnumerable<DisributorPriceProductInfo>> FindAsync(Guid productId, [FromQuery] PriceProductInfo info) => throw new NotImplementedException();
+		public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] PriceProductInfo info) => throw new NotImplementedException();
 	}
 }

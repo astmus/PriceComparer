@@ -1,8 +1,5 @@
-﻿#pragma warning disable 1573, 1591
-
+﻿
 using System.Collections.Generic;
-
-using Comparer.DataAccess.Dto;
 
 using LinqToDB.Mapping;
 
