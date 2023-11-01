@@ -1,5 +1,4 @@
-﻿#pragma warning disable 1573, 1591
-
+﻿
 using System.Linq;
 
 using LinqToDB;
@@ -14,7 +13,7 @@ namespace Comparer.DataAccess.Models
 				t.ID == ID);
 		}
 
-		public static LINK Find(this ITable<LINK> table, Guid ID)
+		internal static LINK Find(this ITable<LINK> table, Guid ID)
 		{
 			return table.FirstOrDefault(t =>
 				t.ID == ID);

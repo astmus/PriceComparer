@@ -45,7 +45,6 @@ namespace Comparer.Api.Controllers
 				return NotFound("Product does not exist");
 		}
 
-		public Task<IEnumerable<string>> SelectAsync(Guid productId, params object[] fields) => throw new NotImplementedException();
 
 		[HttpGet("diff")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -80,12 +79,6 @@ namespace Comparer.Api.Controllers
 			return result;
 		}
 
-		static double? PriceDiff(double? price, double? minPrice, CompareKind compare) => compare switch
-		{
-			CompareKind.OtherMinPrice when minPrice < price => minPrice,
-			CompareKind.OtherMinPrice when minPrice > price => default,
-			_ => price
-		};
 		static double? PriceByRequestKinq(double? price, double? minPrice, CompareKind compare) => compare switch
 		{
 			CompareKind.OtherMinPrice when minPrice < price => minPrice,
@@ -93,7 +86,7 @@ namespace Comparer.Api.Controllers
 			_ => minPrice
 		};
 
-		public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] ProductInfo info) => throw new NotImplementedException();
-		public Task<IEnumerable<DisributorPriceProductInfo>> FindAsync(Guid productId, [FromQuery] PriceProductInfo info) => throw new NotImplementedException();
+		//public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] ProductInfo info) => throw new NotImplementedException();
+		//public Task<IEnumerable<PriceProductInfo>> FindAsync(Guid productId, [FromQuery] PriceProductInfo info) => throw new NotImplementedException();
 	}
 }

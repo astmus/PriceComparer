@@ -1,5 +1,4 @@
-﻿#pragma warning disable 1573, 1591
-
+﻿
 using System.Data.Common;
 using System.Linq;
 
@@ -17,13 +16,12 @@ namespace Comparer.DataAccess
 	public class DataBaseConnection : LinqToDB.Data.DataConnection, IRepository
 	{
 		public ITable<DISTRIBUTOR> DISTRIBUTORS => this.GetTable<DISTRIBUTOR>();
-		public ITable<LINK> LINKS => this.GetTable<LINK>();
+		internal ITable<LINK> LINKS => this.GetTable<LINK>();
 		public ITable<PRICE> PRICES => this.GetTable<PRICE>();
 		public ITable<PRICESRECORD> PRICESRECORDS => this.GetTable<PRICESRECORD>();
 		public ITable<PRODUCT> PRODUCTS => this.GetTable<PRODUCT>();
 		public IQueryable<TEntity> FromRaw<TEntity>(string raw)
 			=> this.FromSql<TEntity>(raw);
-
 
 		public DataBaseConnection(IOptions<ConnectionOptions> options, DataOptions dataOptions = default) : base(options.Value.DataProvider, options.Value.ConnectionString)
 		{

@@ -1,6 +1,6 @@
 ﻿namespace Comparer.Entities
 {
-	public partial class Product
+	public partial class ProductEntity
 	{
 		public Guid ID { get; set; } // uniqueidentifier
 		public string NAME { get; set; } // varchar(1024)

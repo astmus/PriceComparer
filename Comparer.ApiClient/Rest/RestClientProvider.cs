@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-using Refit;
-
 namespace Comparer.DataAccess.Rest
 {
 	public class RestClientProvider : IRestClientProvider
@@ -17,6 +15,6 @@ namespace Comparer.DataAccess.Rest
 		public IPriceListRestClient PriceLists
 			=> sp.GetRequiredService<IPriceListRestClient>();
 		public IProductRestClient Products
-		=> sp.GetRequiredService<IProductRestClient>();
+			=> sp.GetRequiredService<IProductRestClient>();
 	}
 }

@@ -19,5 +19,6 @@ namespace Comparer.DataAccess.Dto
 		}
 	}
 	public record ItemInfo(string Name, object Value);
+
 	public record ItemInfo<ItemId>(ItemId Id, string? Name = default);
 }

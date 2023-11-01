@@ -5,6 +5,7 @@
 		public double? MinPrice { get; init; }
 		public double? MaxPrice { get; init; }
 	}
+
 	public class PriceListProductDiffItem : ProductDiffItem
 	{
 		public PriceProductInfo Product { get; init; }
@@ -12,7 +13,8 @@
 			=> Product?.Id;
 		public double? PriceDiff
 			=> Price - Product?.Price;
-		public override string? ProductName { get => Product.ProductName; }
+		public override string? ProductName
+			=> Product?.ProductName;
 		public string DistributorName
 			=> Product.DistributorName;
 		public string PriceListName

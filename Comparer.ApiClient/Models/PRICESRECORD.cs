@@ -27,7 +27,7 @@ namespace Comparer.DataAccess.Models
 		/// LINKSFOREIGNPRICERECORD_BackReference (dbo.LINKS)
 		/// </summary>
 		[Association(ThisKey = "RECORDINDEX", OtherKey = "PRICERECORDINDEX", CanBeNull = true)]
-		public IEnumerable<LINK> Linksforeignpricerecords { get; set; }
+		internal IEnumerable<LINK> LinksToPriceResords { get; set; }
 
 		/// <summary>
 		/// PRICESRECORDSFOREIGNPRICE (dbo.PRICES)

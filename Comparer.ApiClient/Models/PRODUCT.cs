@@ -52,7 +52,7 @@ namespace Comparer.DataAccess.Models
 		#region Associations
 
 		[Association(ThisKey = "ID", OtherKey = "CATALOGPRODUCTID", CanBeNull = true)]
-		public IEnumerable<LINK> ProductCatalogproductsLinkFK { get; set; }
+		internal IEnumerable<LINK> ProductCatalogLinks { get; set; }
 
 		#endregion
 	}

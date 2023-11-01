@@ -83,7 +83,7 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
-				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=MinPrice}"/>
+				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=PriceMin}"/>
 				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MinPriceDiff, StringFormat='{}{0:n2}'}"/>
 				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=MaxPrice}"/>
 				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MaxPriceDiff, StringFormat='{}{0:n2}'}"/>

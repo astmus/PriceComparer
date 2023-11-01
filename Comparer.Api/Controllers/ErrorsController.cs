@@ -6,6 +6,7 @@ namespace Comparer.Api.Controllers
 	[ApiController]
 	[Route("api/[controller]")]
 	[ApiExplorerSettings(IgnoreApi = true)]
+	[ProducesErrorResponseType(typeof(NotFoundResult))]
 	public class ErrorsController : ControllerBase
 	{
 		[Route("/error-dev")]

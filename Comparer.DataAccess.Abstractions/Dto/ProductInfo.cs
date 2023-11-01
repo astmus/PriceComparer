@@ -14,10 +14,5 @@
 		public string? ProductName { get; init; }
 		public string? DistributorName { get; init; }
 		public double? PriceDiff { get; init; }
-
-	}
-	public class DisributorPriceProductInfo : PriceProductInfo
-	{
-
 	}
 }
