@@ -1,18 +1,16 @@
-﻿namespace Comparer.DataAccess.Dto
+﻿using Comparer.DataAccess.Abstractions.Common;
+
+namespace Comparer.DataAccess.Dto
 {
-	public class ProductInfo
+	public record ProductInfo : DataUnit
 	{
-		public Guid? Id { get; init; }
-		public string? Name { get; init; }
-		public double Price { get; init; }
+		public string? ChildName { get; init; }
 	}
 
-	public class PriceProductInfo : ProductInfo
+	public record PriceProductInfo : ProductInfo
 	{
-		public Guid PriceListId { get; init; }
-		public PriceInfo? PriceList { get; init; }
+		public double?[] Prices { get; set; }
+		public PriceListInfo? PriceList { get; init; }
 		public string? ProductName { get; init; }
-		public string? DistributorName { get; init; }
-		public double? PriceDiff { get; init; }
 	}
 }

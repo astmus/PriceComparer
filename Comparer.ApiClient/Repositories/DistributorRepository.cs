@@ -15,7 +15,7 @@ namespace Comparer.DataAccess.Repositories;
 public interface IDistributorRepository : IGenericRepository<DISTRIBUTOR>
 {
 	IExpressionQuery<DISTRIBUTOR> Distributors { get; }
-	Task<IEnumerable<DistributorPriceDto>> PriceListsOf(Guid id, DistributorInfo distributor);
+	Task<IEnumerable<DistributorPriceListDto>> PriceListsAsync(DistributorInfo distributor, CancellationToken cancel = default);
 }
 
 public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributorRepository
@@ -24,22 +24,23 @@ public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributo
 	{
 	}
 
-	public IExpressionQuery<DISTRIBUTOR> Distributors => _connection.DISTRIBUTORS;
+	public IExpressionQuery<DISTRIBUTOR> Distributors => db.DISTRIBUTORS;
 
-	public Task<IEnumerable<DISTRIBUTOR>> Content(Guid DistributorId, CancellationToken cancel = default) => throw new NotImplementedException();
-	public override IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null) => _connection.FromRaw<TEntity>(nameof(_connection.DISTRIBUTORS));
-	public async Task<IEnumerable<DistributorPriceDto>> PriceListsOf(Guid id, DistributorInfo info)
+	protected override string rootTableName
+		=> nameof(db.DISTRIBUTORS);
+
+	public async Task<IEnumerable<DistributorPriceListDto>> PriceListsAsync(DistributorInfo distributor, CancellationToken cancel = default)
 	{
-		var query = from list in _connection.PRICES
-					where list.DISID == id
-					select new DistributorPriceDto()
+		var query = from list in db.PRICES
+					where list.DISID == distributor.Id
+					select new DistributorPriceListDto()
 					{
 						Id = list.ID,
 						Name = list.NAME,
 						IsActive = list.ISACTIVE,
-						Distributor = info
+						Distributor = distributor
 					};
-		var items = await query.ToListAsync();
+		var items = await query.ToListAsync(cancel);
 		return items;
 	}
 }

@@ -99,7 +99,7 @@
 			>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}" />
-				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.NAME}" />
+				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.Name}" />
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}" />
 				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=PriceDiff}" />

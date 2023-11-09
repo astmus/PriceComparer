@@ -1,16 +1,25 @@
 ﻿
 using System.Linq;
 
+using Comparer.DataAccess.Dto;
+using Comparer.DataAccess.Models;
+using Comparer.Entities;
+
 using LinqToDB;
 
-namespace Comparer.DataAccess.Models
+namespace Comparer.DataAccess
 {
 	public static partial class TableExtensions
 	{
 		public static DISTRIBUTOR Find(this ITable<DISTRIBUTOR> table, Guid ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == ID);
+		}
+		public static TDist Find<TDist>(this ITable<TDist> table, Guid ID) where TDist : Distributor
+		{
+			return table.FirstOrDefault(t =>
+				t.Id == ID);
 		}
 
 		internal static LINK Find(this ITable<LINK> table, Guid ID)

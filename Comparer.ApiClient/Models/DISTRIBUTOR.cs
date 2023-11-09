@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 
+using Comparer.Entities;
+
 using LinqToDB.Mapping;
 
 namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "DISTRIBUTORS")]
-	public partial class DISTRIBUTOR
+	public partial class DISTRIBUTOR : Distributor
 	{
-		[PrimaryKey, NotNull] public Guid ID { get; set; } // uniqueidentifier
+		[PrimaryKey, NotNull] public override Guid Id { get; set; } // uniqueidentifier
 		[Column, NotNull] public string NAME { get; set; } // varchar(255)
 		[Column, NotNull] public bool ACTIVE { get; set; } // bit
 		[Column, Nullable] public bool? GOINPURCHASELIST { get; set; } // bit

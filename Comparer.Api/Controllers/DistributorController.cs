@@ -1,7 +1,6 @@
+
 using Comparer.Api.Filters;
-using Comparer.DataAccess;
 using Comparer.DataAccess.Dto;
-using Comparer.DataAccess.Models;
 using Comparer.DataAccess.Repositories;
 
 using LinqToDB;
@@ -12,20 +11,24 @@ namespace Comparer.Api.Controllers
 {
 	public class DistributorController : BaseController
 	{
-		private readonly ILogger<DistributorController> _logger;
+
 		IDistributorRepository _repository;
-		public DistributorController(ILogger<DistributorController> logger, IDistributorRepository repository)
+		public DistributorController(IDistributorRepository repository)
 		{
-			_logger = logger;
 			_repository = repository;
 		}
 
+		protected override ILogger log
+			=> GetLogger<DistributorController>();
+
 		[HttpGet]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorInfo>))]
-		[ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<DistributorInfo>))]
-		public async Task<IActionResult> Get()
+		[SerializationFilter]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorDto>))]
+		[ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<DistributorDto>))]
+		public async Task<ActionResult<IEnumerable<DistributorDto>>> Get()
 		{
-			var distributors = await _repository.FromRaw<DistributorInfo>().ToListAsync();
+			var distributors = await _repository.RawQuery<DistributorDto>().ToListAsync();
+			LogInfo($"Distributors count: {distributors.Count}");
 			if (!distributors.Any())
 				return NoContent();
 			return Ok(distributors);
@@ -33,30 +36,32 @@ namespace Comparer.Api.Controllers
 
 		[HttpGet("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<Distributor>> Get(Guid id)
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		public async Task<ActionResult<DistributorDto>> Get(Guid id)
 		{
-			if (await _repository.ContainItemAsync(dist => dist.ID == id))
-			{
-				var distResult = await _repository.FromRaw<Distributor>().FirstOrDefaultAsync(d => d.Id == id);
+			if (await _repository.RawQuery<DistributorDto>().FirstOrDefaultAsync(dist => dist.Id == id) is DistributorDto distResult)
 				return Ok(distResult);
-			}
 			else
-				return BadRequest("Distributor does not exist");
+				return NotFound("Distributor does not exist");
 		}
 
-		[HttpGet("{id}/prices")]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorPriceDto>))]
-		[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-		public async Task<IActionResult> PriceLists([FromRoute] Guid id, [FromQuery] DistributorInfo info)
+		[HttpGet("{id:guid}/prices")]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorPriceListDto>))]
+		[ProducesResponseType(typeof(IEnumerable<DistributorPriceListDto>), StatusCodes.Status404NotFound)]
+		public async Task<IActionResult> PriceLists(Guid Id)
 		{
-			if (await _repository.ContainItemAsync(dist => dist.ID == id))
+			var inf = _repository.RawQuery<DistributorInfo>().FirstOrDefault(f => f.Id == Id);
+
+			if (inf != null)
 			{
-				var result = await _repository.PriceListsOf(id, info);
+				var result = await _repository.PriceListsAsync(inf);
 				return Ok(result);
 			}
 			else
 				return NotFound("Distributor not found");
 		}
+	}
+	public record DistributorRequest([FromRoute(Name = "id")] Guid Id = default, string? Name = default)
+	{
 	}
 }

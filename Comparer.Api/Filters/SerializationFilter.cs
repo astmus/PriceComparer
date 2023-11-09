@@ -21,10 +21,9 @@ namespace Comparer.Api.Filters
 			{
 				if (useDefaultFormatter)
 					objectResult.Formatters.Add(new SystemTextJsonOutputFormatter(
-						new JsonSerializerOptions(JsonSerializerDefaults.Web)
+						new JsonSerializerOptions()
 						{
 							DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-							PropertyNameCaseInsensitive = false,
 							PropertyNamingPolicy = null,
 							IgnoreReadOnlyFields = true
 						}

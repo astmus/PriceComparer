@@ -16,12 +16,13 @@ namespace Comparer.DataAccess
 	public class DataBaseConnection : LinqToDB.Data.DataConnection, IRepository
 	{
 		public ITable<DISTRIBUTOR> DISTRIBUTORS => this.GetTable<DISTRIBUTOR>();
-		internal ITable<LINK> LINKS => this.GetTable<LINK>();
 		public ITable<PRICE> PRICES => this.GetTable<PRICE>();
 		public ITable<PRICESRECORD> PRICESRECORDS => this.GetTable<PRICESRECORD>();
 		public ITable<PRODUCT> PRODUCTS => this.GetTable<PRODUCT>();
-		public IQueryable<TEntity> FromRaw<TEntity>(string raw)
-			=> this.FromSql<TEntity>(raw);
+		internal ITable<LINK> LINKS => this.GetTable<LINK>();
+
+		public IQueryable<TResult> FromRaw<TResult>(string raw, params object[] args)
+			=> this.FromSql<TResult>(raw, args.ToArray());
 
 		public DataBaseConnection(IOptions<ConnectionOptions> options, DataOptions dataOptions = default) : base(options.Value.DataProvider, options.Value.ConnectionString)
 		{

@@ -8,10 +8,10 @@ namespace Comparer.DataAccess.Abstractions.Repositories;
 
 public interface IGenericRepository<T> where T : class
 {
-	Task<bool> ContainItemAsync(Expression<Func<T, bool>> predicate);
-	IQueryable<T> Request();
+	Task<bool> ItemExistAsync(Expression<Func<T, bool>> predicate);
+	IQueryable<T> Query();
 	IEnumerable<T> GetAll();
 	Task<IEnumerable<T>> GetAllAsync(CancellationToken cancel = default);
-	IQueryable<TEntity> FromRaw<TEntity>(string rawSql = null);
+	IQueryable<TResult> RawQuery<TResult>(string rawQuery = null, params object[] args);
 }
 

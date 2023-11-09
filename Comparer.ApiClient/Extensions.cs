@@ -24,7 +24,7 @@ namespace Comparer.DataAccess
 		{
 			ReferenceHandler = ReferenceHandler.Preserve,
 			IncludeFields = true,
-			PropertyNameCaseInsensitive = false,
+			PropertyNameCaseInsensitive = true,
 		};
 		static RefitSettings refitOptions = new Refit.RefitSettings()
 		{

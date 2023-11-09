@@ -15,16 +15,16 @@ namespace Comparer.DataAccess.Rest
 	public interface IPriceListRestClient : IRestClient
 	{
 		[Get("/")]
-		Task<IEnumerable<ItemInfo<Guid>>> GetAllAsync();
+		Task<IEnumerable<Tuple<Guid, string>>> GetAllAsync();
 
 		[Get("/{id}")]
-		Task<ObjectInfo<TInfo>> InfoAsync<TInfo>([AliasAs("id")] Guid priceId) where TInfo : class;
+		Task<Tuple<ID>> InfoAsync<ID>([AliasAs("id")] Guid priceId) where ID : class;
 
 		[Get("/{id}/content")]
 		Task<PriceListDto> ContentAsync([AliasAs("id")] Guid id);
 
 		[Get("/{id}/items")]
-		Task<ApiResponse<IEnumerable<TItem>>> ItemsAsync<TItem>([AliasAs("id")] Guid priceListId) where TItem : PriceListItem;
+		Task<ApiResponse<IEnumerable<TPLitem>>> ItemsAsync<TPLitem>([AliasAs("id")] Guid priceListId) where TPLitem : PriceListItem;
 
 		[Get("/{id}/products")]
 		Task<IEnumerable<ProductInfo>> ProductsAsync([AliasAs("id")] Guid productId);

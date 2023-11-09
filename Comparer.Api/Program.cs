@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Comparer.Api.Middleware;
 using Comparer.DataAccess;
 using Comparer.DataAccess.Config;
+using Comparer.DataAccess.Dto;
 
 namespace Comparer.Api
 {
@@ -16,8 +17,9 @@ namespace Comparer.Api
 			builder.Services.AddControllers()
 									.AddJsonOptions(options =>
 									{
-										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault;
 										options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+
 									});
 
 			builder.Services.AddEndpointsApiExplorer();
@@ -25,7 +27,7 @@ namespace Comparer.Api
 			builder.Services.AddDataBaseRepositories();
 
 			builder.Services.AddOptions<ConnectionOptions>().Bind(builder.Configuration.GetSection(nameof(ConnectionOptions)));
-
+			//builder.Services.Configure<RouteOptions>(o => o.ConstraintMap.Add("uid", typeof(Id)));
 			var app = builder.Build();
 
 			if (app.Environment.IsDevelopment())
