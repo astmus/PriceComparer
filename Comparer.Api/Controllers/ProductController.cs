@@ -29,7 +29,7 @@ namespace Comparer.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		public async Task<ActionResult<IEnumerable<PriceListProduct>>> Get([FromRoute(Name = "id")] Guid productId, [FromQuery] ProductUnit info)
+		public async Task<ActionResult<IEnumerable<PriceListProduct>>> Get([FromRoute(Name = "id")] Guid productId, [FromQuery] PriceListProduct info)
 		{
 			log.LogDebug("Producst" + productId + "Get");
 			using var cancel = OperationCancelling;
@@ -39,7 +39,7 @@ namespace Comparer.Api.Controllers
 				if (!pricesProducts.Any())
 					return NoContent();
 
-				return Ok(pricesProducts.OrderBy(o => o.Price));
+				return Ok(pricesProducts.OrderBy(o => o.PriceList.Id == info.PriceList.Id ? o.Price : double.MaxValue));
 			}
 			else
 				return NotFound("Product does not exist");
