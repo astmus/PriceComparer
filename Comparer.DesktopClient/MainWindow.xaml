@@ -6,14 +6,18 @@
 		xmlns:local="clr-namespace:Comparer.DesktopClient"
 		xmlns:mvvm="clr-namespace:CommunityToolkit.Mvvm.Input;assembly=CommunityToolkit.Mvvm"
 		xmlns:vm="clr-namespace:Comparer.DesktopClient.ViewModels"
+		xmlns:convert="clr-namespace:Comparer.DesktopClient.Converters"
 		mc:Ignorable="d"
 		Title="MainWindow" 
 		Height="600" Width="900"
 		MinHeight="400" MinWidth="600"
-		d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}" 		>
+		d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}" >
 	<!--<Window.CommandBindings>
 		<CommandBinding Command="ApplicationCommands.New" Executed="LoadMainData_Executed"  CanExecute="LoadMainData_CanExecute" />
 	</Window.CommandBindings>-->
+	<Window.Resources>
+		<convert:PriceDiffConverter x:Key="DiffConverter"/>
+	</Window.Resources>
 	<Grid Margin="8">
 		<Grid.Resources>
 			<Style TargetType="{x:Type ComboBox}">
@@ -101,8 +105,15 @@
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}" />
 				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.Name}" />
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
-				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}" />
-				<DataGridTextColumn Header="Price Diff" Binding="{Binding Path=PriceDiff}" />
+				<DataGridTextColumn Header="Price" x:Name="priceColumn" Binding="{Binding Path=Price}" />
+				<DataGridTextColumn Header="Price Diff" >
+					<DataGridTextColumn.Binding>
+						<MultiBinding Converter="{StaticResource DiffConverter}">
+							<Binding Path="DataContext.SelectedPriceItem" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}" />
+							<Binding Path="Price"/>
+						</MultiBinding>
+					</DataGridTextColumn.Binding>
+				</DataGridTextColumn>
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>
