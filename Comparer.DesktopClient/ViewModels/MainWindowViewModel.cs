@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Requests;
 using Comparer.DataAccess.Rest;
+using Comparer.DesktopClient.Models;
+
+using Distributor = Comparer.DataAccess.Dto.DistributorData;
+using DistributorPriceList = Comparer.DataAccess.Dto.DistributorPriceListData;
+using PriceListItem = Comparer.DataAccess.Dto.PriceListItem;
+using CompareKind = Comparer.DataAccess.Dto.CompareKind;
 
 namespace Comparer.DesktopClient.ViewModels
 {
@@ -19,26 +24,26 @@ namespace Comparer.DesktopClient.ViewModels
 		public MainWindowViewModel(IRestClientProvider apiClientProvider)
 		{
 			apiProvider = apiClientProvider;
-			ReloadPriceItemsCommand = new AsyncRelayCommand<DistributorPriceListDto>(ReloadPriceListItemsAsync, item => item?.Id != null);
-			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadProductsAsync, item => item?.Id != null);
+			ReloadPriceItemsCommand = new AsyncRelayCommand<DistributorPriceList>(ReloadPriceListDataAsync, item => item != default);
+			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadPriceProductsAsync, item => item is PriceListProduct);
 			StartAnalizeCommand = new AsyncRelayCommand<CompareRequest>(AnalizeAsync, q => q?.BasePriceId.HasValue == true);
 			AnalizeQuery = new CompareRequest();
-			ReloadPriceLists = new AsyncRelayCommand<DistributorDto>(UpdatePriceLists, d => d != null);
+			ReloadPriceLists = new AsyncRelayCommand<Distributor>(UpdatePriceLists, d => d != null);
 		}
 
 		#region ICommand
 		public IAsyncRelayCommand<CompareRequest> StartAnalizeCommand { get => Get<AsyncRelayCommand<CompareRequest>>(); set => Set(value); }
 
-		public IAsyncRelayCommand<DistributorDto> ReloadPriceLists
+		public IAsyncRelayCommand<Distributor> ReloadPriceLists
 		{
-			get => Get<AsyncRelayCommand<DistributorDto>>();
+			get => Get<AsyncRelayCommand<Distributor>>();
 			set => Set(value);
 		}
 
 
-		public IAsyncRelayCommand<DistributorPriceListDto> ReloadPriceItemsCommand
+		public IAsyncRelayCommand<DistributorPriceList> ReloadPriceItemsCommand
 		{
-			get => Get<AsyncRelayCommand<DistributorPriceListDto>>();
+			get => Get<AsyncRelayCommand<DistributorPriceList>>();
 			set => Set(value);
 		}
 		public IAsyncRelayCommand<PriceListItem> ReloadProductsCommand
@@ -51,9 +56,9 @@ namespace Comparer.DesktopClient.ViewModels
 		#region Properties
 		public CompareRequest AnalizeQuery { get => Get<CompareRequest>(); set => Set(value); }
 
-		public DistributorDto SelectedDistributor
+		public Distributor SelectedDistributor
 		{
-			get => Get<DistributorDto>();
+			get => Get<Distributor>();
 			set
 			{
 				Set(value);
@@ -61,9 +66,9 @@ namespace Comparer.DesktopClient.ViewModels
 			}
 		}
 
-		public DistributorPriceListDto SelectedPrice
+		public DistributorPriceList SelectedPrice
 		{
-			get => Get<DistributorPriceListDto>();
+			get => Get<DistributorPriceList>();
 			set { Set(value); ReloadPriceItemsCommand.Execute(value); }
 		}
 
@@ -75,14 +80,14 @@ namespace Comparer.DesktopClient.ViewModels
 		#endregion
 
 		#region Collections
-		public ObservableCollection<DistributorDto> Distributors
-			=> ScheduleInitLoad(LoadDistributors, Get<ObservableCollection<DistributorDto>>(initialize: true));
+		public ObservableCollection<Distributor> Distributors
+			=> GetOrScheduleInit<ObservableCollection<Distributor>>(LoadDistributors);
 
-		public ObservableCollection<DistributorPriceListDto> PriceLists
-			=> Get<ObservableCollection<DistributorPriceListDto>>(initialize: true);
+		public ObservableCollection<DistributorPriceList> PriceLists
+			=> Get<ObservableCollection<DistributorPriceList>>(initialize: true);
 
-		public ObservableCollection<PriceProductInfo> SelectedPriceProducts
-			=> Get<ObservableCollection<PriceProductInfo>>(initialize: true);
+		public ObservableCollection<PriceListProduct> SelectedPriceProducts
+			=> Get<ObservableCollection<PriceListProduct>>(initialize: true);
 
 		public ObservableCollection<PriceListItem> AllPricesProducts
 			=> Get<ObservableCollection<PriceListItem>>(initialize: true);
@@ -101,41 +106,47 @@ namespace Comparer.DesktopClient.ViewModels
 
 		protected override async Task LoadDataAsync()
 		{
-			await Task.Delay(100);
+			await Task.CompletedTask;
 		}
 
-		async Task ReloadPriceListItemsAsync(DistributorPriceListDto price)
+		async Task ReloadPriceListDataAsync(DistributorPriceList price)
 		{
 			AllPricesProducts?.Clear();
 			if (price?.Id is Guid Id)
 			{
-				var response = await apiProvider.PriceLists.ItemsAsync<PriceListItem>(Id);
-				if (response.Content is IEnumerable<PriceListItem> items)
-					LoadCollection(AllPricesProducts, items);
+				var response = await apiProvider.PriceLists.ContentAsync<PriceListProduct>(Id);
+				if (response.Content is DataAccess.Dto.PriceListDto<PriceListProduct> data)
+					LoadCollection(AllPricesProducts, data.Items.ForEachPrepare(
+						item => item.Distributor = SelectedDistributor));
 			}
 			StartAnalizeCommand.NotifyCanExecuteChanged();
 		}
 
-		async Task ReloadProductsAsync(PriceListItem selected)
+		async Task ReloadPriceProductsAsync(PriceListItem selected)
 		{
-			var products = await apiProvider.Products.FindAllAsync<PriceProductInfo>(selected?.Id ?? default, selected);
-			LoadCollection(SelectedPriceProducts, products);
+			if (selected is PriceListProduct current)
+			{
+				var products = await apiProvider.Products.FindAllAsync<PriceListProduct>(current.Product.Id, selected);
+				var distributors = Distributors;
+				products.ForEach(p => p.Distributor = distributors.FirstOrDefault(f => f.Id == p.PriceList.DisID));
+				LoadCollection(SelectedPriceProducts, products);
+			}
 		}
 
-		async Task UpdatePriceLists(DistributorDto distributor)
+		async Task UpdatePriceLists(Distributor distributor)
 		{
 			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));
 			var response = await apiProvider.Distributors.PriceListsAsync(distributor);
-			if (response.Content is IEnumerable<DistributorPriceListDto> prices)
-				LoadCollection<DistributorPriceListDto>(PriceLists, prices);
+			if (response.Content is IEnumerable<DistributorPriceList> prices)
+				LoadCollection<DistributorPriceList>(PriceLists, prices);
 		}
 
-		async void LoadDistributors(ObservableCollection<DistributorDto> collection)
+		async void LoadDistributors(ObservableCollection<Distributor> collection)
 		{
 			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));
 
 			var distributors = await apiProvider.Distributors.GetAllAsync();
-			LoadCollection<DistributorDto>(collection, distributors);
+			LoadCollection<Distributor>(collection, distributors);
 		}
 	}
 }

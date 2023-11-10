@@ -14,4 +14,8 @@
 		<ProjectReference Include="..\Entities\Comparer.Entities.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Common\" />
+	</ItemGroup>
+
 </Project>

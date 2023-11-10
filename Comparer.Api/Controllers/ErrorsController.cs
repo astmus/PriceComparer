@@ -10,8 +10,7 @@ namespace Comparer.Api.Controllers
 	public class ErrorsController : ControllerBase
 	{
 		[Route("/error-dev")]
-		public IActionResult HandleErrorDevelopment(
-			[FromServices] IHostEnvironment hostEnvironment)
+		public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment hostEnvironment)
 		{
 			if (!hostEnvironment.IsDevelopment())
 			{

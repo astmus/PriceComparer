@@ -19,7 +19,7 @@ namespace Comparer.Api
 									{
 										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault;
 										options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-
+										options.JsonSerializerOptions.IgnoreReadOnlyFields = true;
 									});
 
 			builder.Services.AddEndpointsApiExplorer();

@@ -11,7 +11,7 @@ namespace Comparer.DataAccess.Models
 	[Table(Schema = "dbo", Name = "PRODUCTS")]
 	public partial class PRODUCT : Product
 	{
-		[Column(), PrimaryKey, NotNull] public Guid ID { get; set; } // uniqueidentifier
+		[Column(), PrimaryKey, NotNull] public Guid Id { get; set; } // uniqueidentifier
 		[Column(), NotNull] public override string NAME { get; set; } // varchar(1024)
 		[Column(), NotNull] public Guid MANID { get; set; } // uniqueidentifier
 		[Column(), NotNull] public override double PRICE { get; set; } // float

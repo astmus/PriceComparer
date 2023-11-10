@@ -23,11 +23,11 @@ namespace Comparer.Api.Controllers
 
 		[HttpGet]
 		[SerializationFilter]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorDto>))]
-		[ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<DistributorDto>))]
-		public async Task<ActionResult<IEnumerable<DistributorDto>>> Get()
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DistributorData>))]
+		[ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<DistributorData>))]
+		public async Task<ActionResult<IEnumerable<DistributorData>>> Get()
 		{
-			var distributors = await _repository.RawQuery<DistributorDto>().ToListAsync();
+			var distributors = await _repository.RawQuery<DistributorData>().ToListAsync();
 			LogInfo($"Distributors count: {distributors.Count}");
 			if (!distributors.Any())
 				return NoContent();
@@ -37,9 +37,9 @@ namespace Comparer.Api.Controllers
 		[HttpGet("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<DistributorDto>> Get(Guid id)
+		public async Task<ActionResult<DistributorData>> Get(Guid id)
 		{
-			if (await _repository.RawQuery<DistributorDto>().FirstOrDefaultAsync(dist => dist.Id == id) is DistributorDto distResult)
+			if (await _repository.RawQuery<DistributorData>().FirstOrDefaultAsync(dist => dist.Id == id) is DistributorData distResult)
 				return Ok(distResult);
 			else
 				return NotFound("Distributor does not exist");
@@ -50,7 +50,7 @@ namespace Comparer.Api.Controllers
 		[ProducesResponseType(typeof(IEnumerable<DistributorPriceListDto>), StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> PriceLists(Guid Id)
 		{
-			var inf = _repository.RawQuery<DistributorInfo>().FirstOrDefault(f => f.Id == Id);
+			var inf = _repository.RawQuery<DistributorData>().FirstOrDefault(f => f.Id == Id);
 
 			if (inf != null)
 			{

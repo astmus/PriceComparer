@@ -81,7 +81,7 @@
 		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedPriceItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=AllPricesProducts}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
 			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=ProductName}"  />
+				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
 				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=PriceMin}"/>
 				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MinPriceDiff, StringFormat='{}{0:n2}'}"/>

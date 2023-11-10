@@ -38,7 +38,7 @@ namespace Comparer.DataAccess
 		public static PRODUCT Find(this ITable<PRODUCT> table, Guid ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == ID);
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace Comparer.DataAccess.Repositories;
 public interface IDistributorRepository : IGenericRepository<DISTRIBUTOR>
 {
 	IExpressionQuery<DISTRIBUTOR> Distributors { get; }
-	Task<IEnumerable<DistributorPriceListDto>> PriceListsAsync(DistributorInfo distributor, CancellationToken cancel = default);
+	Task<IEnumerable<DistributorPriceListData>> PriceListsAsync(DistributorData distributor, CancellationToken cancel = default);
 }
 
 public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributorRepository
@@ -29,17 +29,15 @@ public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributo
 	protected override string rootTableName
 		=> nameof(db.DISTRIBUTORS);
 
-	public async Task<IEnumerable<DistributorPriceListDto>> PriceListsAsync(DistributorInfo distributor, CancellationToken cancel = default)
+	public async Task<IEnumerable<DistributorPriceListData>> PriceListsAsync(DistributorData distributor, CancellationToken cancel = default)
 	{
-		var query = from list in db.PRICES
-					where list.DISID == distributor.Id
-					select new DistributorPriceListDto()
+		var query = from list in MapTo<PriceListData>(db.PRICES)
+					where list.DisID == distributor.Id
+					select new DistributorPriceListData(list)
 					{
-						Id = list.ID,
-						Name = list.NAME,
-						IsActive = list.ISACTIVE,
 						Distributor = distributor
 					};
+
 		var items = await query.ToListAsync(cancel);
 		return items;
 	}

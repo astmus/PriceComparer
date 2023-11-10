@@ -21,13 +21,13 @@ namespace Comparer.DataAccess.Rest
 		Task<Tuple<ID>> InfoAsync<ID>([AliasAs("id")] Guid priceId) where ID : class;
 
 		[Get("/{id}/content")]
-		Task<PriceListDto> ContentAsync([AliasAs("id")] Guid id);
+		Task<ApiResponse<PriceListDto<TListItem>>> ContentAsync<TListItem>([AliasAs("id")] Guid priceListId) where TListItem : PriceListItem;
 
 		[Get("/{id}/items")]
 		Task<ApiResponse<IEnumerable<TPLitem>>> ItemsAsync<TPLitem>([AliasAs("id")] Guid priceListId) where TPLitem : PriceListItem;
 
 		[Get("/{id}/products")]
-		Task<IEnumerable<ProductInfo>> ProductsAsync([AliasAs("id")] Guid productId);
+		Task<IEnumerable<ProductUnit>> ProductsAsync([AliasAs("id")] Guid productId);
 
 	}
 }

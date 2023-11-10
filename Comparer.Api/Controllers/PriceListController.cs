@@ -1,14 +1,9 @@
-using System.Text.Json;
-
-using Comparer.Api.Filters;
-using Comparer.DataAccess.Abstractions.Common;
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Repositories;
 
 using LinqToDB;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace Comparer.Api.Controllers
 {
@@ -31,11 +26,11 @@ namespace Comparer.Api.Controllers
 		}
 
 		[HttpGet("{id}")]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PriceListInfo))]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PriceListData))]
 		[ProducesDefaultResponseType]
-		public async Task<ActionResult<PriceListInfo>> Get([FromRoute(Name = "id")] Guid priceListId)
+		public async Task<ActionResult<PriceListData>> Get([FromRoute(Name = "id")] Guid priceListId)
 		{
-			if (await _repository.RawQuery<PriceListInfo>().FirstOrDefaultAsync(list => list.Id == priceListId) is PriceListInfo info)
+			if (await _repository.RawQuery<PriceListData>().FirstOrDefaultAsync(list => list.Id == priceListId) is PriceListData info)
 				return Ok(info);
 			else
 			{
@@ -46,7 +41,7 @@ namespace Comparer.Api.Controllers
 
 		[HttpGet("{id}/[action]")]
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<PriceListItem>))]
-		public async Task<IEnumerable<ListItem>> Items([FromRoute(Name = "id")] Guid priceListId)
+		public async Task<IEnumerable<PriceListItem>> Items([FromRoute(Name = "id")] Guid priceListId)
 		{
 			if (!await _repository.ItemExistAsync(list => list.ID == priceListId))
 				ThrowClient(StatusCodes.Status404NotFound, "Price list does not exist");
@@ -59,7 +54,7 @@ namespace Comparer.Api.Controllers
 		}
 
 		[HttpGet("{id}/[action]")]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PriceListDto))]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PriceListDto<PriceListProduct>))]
 		[ProducesDefaultResponseType]
 		public async Task<IActionResult> Content([FromRoute(Name = "id")] Guid priceListId)
 		{

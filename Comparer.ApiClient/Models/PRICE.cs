@@ -1,17 +1,19 @@
 ﻿
 using System.Collections.Generic;
 
+using Comparer.Entities;
+
 using LinqToDB.Mapping;
 
 namespace Comparer.DataAccess.Models
 {
 	[Table(Schema = "dbo", Name = "PRICES")]
-	public partial class PRICE
+	public partial class PRICE : PriceList
 	{
-		[PrimaryKey, NotNull] public Guid ID { get; set; } // uniqueidentifier
-		[Column, NotNull] public string NAME { get; set; } // varchar(255)
-		[Column, Nullable] public Guid? DISID { get; set; } // uniqueidentifier
-		[Column, NotNull] public double DISCOUNT { get; set; } // float
+		[PrimaryKey, NotNull] public override Guid ID { get; set; } // uniqueidentifier
+		[Column, NotNull] public override string NAME { get; set; } // varchar(255)
+		[Column, Nullable] public override Guid? DISID { get; set; } // uniqueidentifier
+		[Column, NotNull] public override double DISCOUNT { get; set; } // float
 		[Column, NotNull] public byte DEFAULTCURRENCY { get; set; } // tinyint
 		[Column, NotNull] public double TURNDOLLARSRATE { get; set; } // float
 		[Column, NotNull] public string SHEET { get; set; } // varchar(1024)

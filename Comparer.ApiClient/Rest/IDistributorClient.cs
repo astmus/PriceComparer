@@ -12,9 +12,9 @@ namespace Comparer.DataAccess.Rest
 	public interface IDistributorRestClient : IRestClient
 	{
 		[Get("/")]
-		Task<IEnumerable<DistributorDto>> GetAllAsync();
+		Task<IEnumerable<DistributorData>> GetAllAsync();
 
 		[Get("/{distributor.Id}/prices")]
-		Task<ApiResponse<IEnumerable<DistributorPriceListDto>>> PriceListsAsync(DistributorDto distributor);
+		Task<ApiResponse<IEnumerable<DistributorPriceListData>>> PriceListsAsync(DistributorData distributor);
 	}
 }

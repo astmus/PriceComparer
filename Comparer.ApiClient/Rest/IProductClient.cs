@@ -14,9 +14,9 @@ namespace Comparer.DataAccess.Rest
 	public interface IProductRestClient : IRestClient
 	{
 		[Get("/{id}")]
-		Task<IEnumerable<ProductInfo>> FindAllAsync([AliasAs("id")] Guid productId);
+		Task<IEnumerable<ProductUnit>> FindAllAsync([AliasAs("id")] Guid productId);
 		[Get("/{id}")]
-		Task<IEnumerable<TProduct>> FindAllAsync<TProduct>([AliasAs("id")] Guid productId, PriceListItem info) where TProduct : ProductInfo;
+		Task<List<TProduct>> FindAllAsync<TProduct>([AliasAs("id")] Guid productId, PriceListItem info) where TProduct : class, IProductInfo;
 
 		[Get("/diff")]
 		Task<IEnumerable<PriceListProductDiffItem>> AnalizeAsync([AliasAs("id")] CompareRequest request);

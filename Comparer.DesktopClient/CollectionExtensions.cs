@@ -15,6 +15,20 @@ namespace Comparer.DesktopClient
 			foreach (var item in items)
 				collection.Add(item);
 		}
+
+		internal static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
+		{
+			foreach (var item in collection)
+				action(item);
+		}
+
+		internal static IEnumerable<T> ForEachPrepare<T>(this IEnumerable<T> collection, Action<T> action)
+		{
+			foreach (var item in collection)
+				action(item);
+			return collection;
+		}
+
 		internal static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
 		{
 			foreach (var item in items)

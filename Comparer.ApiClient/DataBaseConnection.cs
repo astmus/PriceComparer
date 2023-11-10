@@ -8,6 +8,7 @@ using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
 
 using LinqToDB;
+using LinqToDB.SqlQuery;
 
 using Microsoft.Extensions.Options;
 

@@ -18,10 +18,10 @@ namespace Comparer.Api.Controllers
 		}
 
 		[HttpGet]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductInfo>))]
-		public async Task<IEnumerable<ProductInfo>> GetAllAsync()
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductUnit>))]
+		public async Task<IEnumerable<ProductUnit>> GetAllAsync()
 		{
-			var products = await _repository.RawQuery<ProductInfo>().ToListAsync();
+			var products = await _repository.RawQuery<ProductUnit>().ToListAsync();
 			return products;
 		}
 
@@ -29,16 +29,17 @@ namespace Comparer.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		public async Task<ActionResult<IEnumerable<PriceProductInfo>>> Get([FromRoute(Name = "id")] Guid productId, [FromQuery] ProductInfo info)
+		public async Task<ActionResult<IEnumerable<PriceListProduct>>> Get([FromRoute(Name = "id")] Guid productId, [FromQuery] ProductUnit info)
 		{
 			log.LogDebug("Producst" + productId + "Get");
-			if (await _repository.ItemExistAsync(prod => prod.ID == productId))
+			using var cancel = OperationCancelling;
+			if (await _repository.ItemExistAsync(prod => prod.Id == productId, cancel.Token))
 			{
-				var pricesProducts = await _repository.GetProductsAsync(productId, info);
+				var pricesProducts = await _repository.PriceListProducts.Where(p => p.Product.Id == productId).ToListAsync(cancel.Token);
 				if (!pricesProducts.Any())
 					return NoContent();
 
-				return Ok(pricesProducts);
+				return Ok(pricesProducts.OrderBy(o => o.Price));
 			}
 			else
 				return NotFound("Product does not exist");
@@ -53,24 +54,25 @@ namespace Comparer.Api.Controllers
 			var baseProducts = _repository.PriceListProducts.Where(w => w.PriceList.Id == request.BasePriceId);
 			var otherProducts = _repository.AvailablePriceListProducts.Where(s => s.PriceList.Id != request.BasePriceId);
 
-			var diffQuery = from baseProduct in baseProducts
-							join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
-							group otherProduct by otherProduct.Id into gr
-							select new PriceListProduct()
-							{
+			//var diffQuery = from baseProduct in baseProducts
+			//				join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
+			//				group otherProduct by otherProduct.Id into gr
+			//				select new PriceListProduct()
+			//				{
 
-							};
+			//				};
 
-			var resultQuery = from baseProduct in baseProducts
-							  join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
-							  select new PriceListProductDiffItem()
-							  {
-								  Product = otherProduct,
-								  Price = baseProduct.Prices.FirstOrDefault()
-							  };
+			//var resultQuery = from baseProduct in baseProducts
+			//				  join otherProduct in otherProducts on baseProduct.Id equals otherProduct.Id
+			//				  select new PriceListProductDiffItem()
+			//				  {
+			//					  Product = otherProduct,
+			//					  Price = baseProduct.Prices.FirstOrDefault()
+			//				  };
 
-			var result = await resultQuery.ToListAsync(cancel.Token);
-			return result;
+			//var result = await resultQuery.ToListAsync(cancel.Token);
+			await Task.Delay(1);
+			return default;
 		}
 
 		static double? PriceByRequestKinq(double? price, double? minPrice, CompareKind compare) => compare switch

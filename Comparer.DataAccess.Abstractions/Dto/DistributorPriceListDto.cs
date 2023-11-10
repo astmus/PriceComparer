@@ -2,9 +2,17 @@
 {
 	public class DistributorPriceListDto
 	{
-		public Guid Id { get; init; }
-		public string Name { get; init; }
-		public bool? IsActive { get; init; }
-		public DistributorInfo Distributor { get; init; }
+		public PriceListData PriceList { get; init; }
+		public DistributorData Distributor { get; init; }
+	}
+	public record DistributorPriceListData : PriceListData
+	{
+		public DistributorPriceListData()
+		{
+		}
+		public DistributorPriceListData(PriceListData data) : base(data)
+		{
+		}
+		public DistributorData Distributor { get; init; }
 	}
 }

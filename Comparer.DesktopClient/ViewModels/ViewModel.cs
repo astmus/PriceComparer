@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,10 +56,24 @@ namespace Comparer.DesktopClient.ViewModels
 		}
 
 
-		protected TParam ScheduleInitLoad<TParam>(Action<TParam> work, TParam args, [CallerMemberName] string name = default)
+		protected TParam GetOrScheduleInit<TParam>(Action<TParam> work, [CallerMemberName] string name = default)
 		{
+
+			if (TryGetValue<TParam>(name) is TParam args)
+				return args;
+
+			// Continue only if args is not initialized.
+			args = Get<TParam>(default, true, name);
 			ThreadPool.QueueUserWorkItem(work, args, true);
 			return args;
+		}
+
+		TValue TryGetValue<TValue>(string key)
+		{
+			if (_properties.TryGetValue(key, out object result) && result is TValue valueResult)
+				return valueResult;
+
+			return default;
 		}
 	}
 }

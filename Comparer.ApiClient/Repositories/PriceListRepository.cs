@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Comparer.DataAccess.Abstractions.Common;
 using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
@@ -30,43 +29,41 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 
 	public async Task<PriceListDto> ContentAsync(Guid priceListId, CancellationToken cancel = default)
 	{
-		if (await RawQuery<PriceListInfo>().FirstOrDefaultAsync(f => f.Id == priceListId, cancel) is not PriceListInfo info) return default;
+		if (await RawQuery<PriceListData>().FirstOrDefaultAsync(f => f.Id == priceListId, cancel) is not PriceListData info) return default;
 
-		var result = new PriceListDto()
+		var result = new PriceListDto<PriceListProduct>()
 		{
 			Info = info,
 			Items = await
 				(
-				from listItem in db.PRICESRECORDS
-				join link in db.LINKS on listItem.RECORDINDEX equals link.PRICERECORDINDEX
-				join prod in MapTo<ProductInfo>(db.PRODUCTS) on link.CATALOGPRODUCTID equals prod.Id
+				from rec in db.PRICESRECORDS
+				join link in db.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
+				join prod in MapTo<PriceProduct>(db.PRODUCTS) on link.CATALOGPRODUCTID equals prod.Id
 				join dist in db.DISTRIBUTORS on info.DisID equals dist.Id
-				where listItem.PRICEID == priceListId
+				where rec.PRICEID == priceListId
 				select new PriceListProduct()
 				{
-					Id = prod.Id,
-					Product = prod,
 					PriceList = info,
-					Price = listItem.PRICE
-				})//.GroupBy(g=>g.Product).ForEachAsync(a => a.GroupBy(sm=>sm, sm=> sm.Price).)
-				 .ToListAsync(cancel)
+					Product = prod,
+					Price = rec.PRICE
+				})
+			.ToListAsync(cancel)
 		};
 		return result;
 	}
 
 	public async Task<IEnumerable<PriceListItem>> ItemsAsync(Guid priceListId, CancellationToken cancel = default)
 	{
-		var reference = await RawQuery<PriceListInfo>().FirstOrDefaultAsync(f => f.Id == priceListId, cancel);
+		var reference = await RawQuery<PriceListData>().FirstOrDefaultAsync(f => f.Id == priceListId, cancel);
 		if (reference == null) return null;
 
 		var resultQuery =
 				from rec in db.PRICESRECORDS
 				join link in db.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
-				join prod in MapTo<ProductInfo>(db.PRODUCTS) on link.CATALOGPRODUCTID equals prod.Id
+				join prod in MapTo<ProductUnit>(db.PRODUCTS) on link.CATALOGPRODUCTID equals prod.Id
 				where rec.PRICEID == priceListId
-				select new PriceListItem()
+				select new PriceListItemDto()
 				{
-					//Product = prod,
 					PriceList = reference,
 					Price = rec.PRICE
 				};
