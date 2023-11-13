@@ -22,7 +22,7 @@ namespace Comparer.DesktopClient.Converters
 			if (values.Any(v => v == DependencyProperty.UnsetValue))
 				return DependencyProperty.UnsetValue;
 
-			var price = Convert((double)values[0], (double?)values[1], targetType, parameter, culture);
+			var price = Convert((double)values[0], values[1] as double?, targetType, parameter, culture);
 			if (!price.HasValue) return default;
 
 			return price > 0 ? $"+{price}" : $"{price}";

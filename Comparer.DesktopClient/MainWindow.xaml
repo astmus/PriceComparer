@@ -9,7 +9,7 @@
 		xmlns:convert="clr-namespace:Comparer.DesktopClient.Converters"
 		mc:Ignorable="d"
 		Title="MainWindow" 
-		Height="600" Width="900"
+		Height="600" Width="1200"
 		MinHeight="400" MinWidth="600"
 		d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}" >
 	<!--<Window.CommandBindings>
@@ -88,9 +88,23 @@
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
 				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=MinPrice}"/>
-				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MinPriceDiff, StringFormat='{}{0:n2}'}"/>
+				<DataGridTextColumn Header="Diff" >
+					<DataGridTextColumn.Binding>
+						<MultiBinding Converter="{StaticResource DiffConverter}">
+							<Binding Path="Price"/>
+							<Binding Path="MinPrice"/>
+						</MultiBinding>
+					</DataGridTextColumn.Binding>
+				</DataGridTextColumn>
 				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=MaxPrice}"/>
-				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MaxPriceDiff, StringFormat='{}{0:n2}'}"/>
+				<DataGridTextColumn Header="Diff" >
+					<DataGridTextColumn.Binding>
+						<MultiBinding Converter="{StaticResource DiffConverter}">
+							<Binding Path="Price"/>
+							<Binding Path="MaxPrice"/>
+						</MultiBinding>
+					</DataGridTextColumn.Binding>
+				</DataGridTextColumn>
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}"/>
 				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceListName}"/>
 				<DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>

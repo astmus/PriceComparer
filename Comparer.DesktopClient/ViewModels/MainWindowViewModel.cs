@@ -104,6 +104,7 @@ namespace Comparer.DesktopClient.ViewModels
 		private async Task AnalizeAsync(CompareRequest query)
 		{
 			var items = await apiProvider.Products.AnalizeAsync(query);
+
 			var update = (from i in AllPricesProducts.Cast<PriceListProduct>()
 						  join p in items on i.Id equals p.Id into joined
 						  from J in joined.DefaultIfEmpty()
