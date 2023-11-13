@@ -1,20 +1,18 @@
 ﻿<Window x:Class="Comparer.DesktopClient.MainWindow"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"		
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:local="clr-namespace:Comparer.DesktopClient"
-		xmlns:mvvm="clr-namespace:CommunityToolkit.Mvvm.Input;assembly=CommunityToolkit.Mvvm"
-		xmlns:vm="clr-namespace:Comparer.DesktopClient.ViewModels"
-		xmlns:convert="clr-namespace:Comparer.DesktopClient.Converters"
-		mc:Ignorable="d"
-		Title="MainWindow" 
-		Height="600" Width="1200"
-		MinHeight="400" MinWidth="600"
-		d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}" >
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:convert="clr-namespace:Comparer.DesktopClient.Converters"
+        xmlns:vm="clr-namespace:Comparer.DesktopClient.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="600" Width="1200"
+        MinHeight="400" MinWidth="600"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}" >
 	<!--<Window.CommandBindings>
-		<CommandBinding Command="ApplicationCommands.New" Executed="LoadMainData_Executed"  CanExecute="LoadMainData_CanExecute" />
-	</Window.CommandBindings>-->
+        <CommandBinding Command="ApplicationCommands.New" Executed="LoadMainData_Executed"  CanExecute="LoadMainData_CanExecute" />
+    </Window.CommandBindings>-->
 	<Window.Resources>
 		<convert:PriceDiffConverter x:Key="DiffConverter"/>
 	</Window.Resources>
@@ -43,10 +41,10 @@
 
 			<Label Content="Distributor:"/>
 			<ComboBox Grid.Column="1" x:Name="distributorsListComboBox" 
-			SelectedValue="Id" 
-			DisplayMemberPath="Name" 
-			SelectedItem="{Binding SelectedDistributor}" 
-			ItemsSource="{Binding Distributors}"/>
+            SelectedValue="Id" 
+            DisplayMemberPath="Name" 
+            SelectedItem="{Binding SelectedDistributor}" 
+            ItemsSource="{Binding Distributors}"/>
 		</Grid>
 		<Grid Grid.Column="1" VerticalAlignment="Center">
 			<Grid.ColumnDefinitions>
@@ -55,13 +53,13 @@
 			</Grid.ColumnDefinitions>
 			<Label Content="Price Lists:"/>
 			<ComboBox Grid.Column="1" x:Name="priceListComboBox" 
-				SelectedValuePath="Id" 
-				DisplayMemberPath="Name" 
-				ItemsSource="{Binding PriceLists}"
-				SelectedItem="{Binding Path=SelectedPrice, Mode=TwoWay}"		
-				SelectedValue="{Binding Path=AnalizeQuery.BasePriceId, Mode=OneWayToSource}" 
-				
-				>
+                SelectedValuePath="Id" 
+                DisplayMemberPath="Name" 
+                ItemsSource="{Binding PriceLists}"
+                SelectedItem="{Binding Path=SelectedPrice, Mode=TwoWay}"		
+                SelectedValue="{Binding Path=AnalizeQuery.BasePriceId, Mode=OneWayToSource}" 
+                
+                >
 			</ComboBox>
 		</Grid>
 		<Grid Grid.Column="2" VerticalAlignment="Center">
@@ -71,11 +69,11 @@
 			</Grid.ColumnDefinitions>
 			<Label Content="Compare Type:"/>
 			<ComboBox Grid.Column="1"  x:Name="compareTypeComboBox" 
-				SelectedIndex="0" 
-				ItemsSource="{Binding CompareKinds}"
-				SelectedValue="{Binding Path=AnalizeQuery.Kind, Mode=OneWayToSource}" 
-				SelectedValuePath="Value"
-				DisplayMemberPath="Key">
+                SelectedIndex="0" 
+                ItemsSource="{Binding CompareKinds}"
+                SelectedValue="{Binding Path=AnalizeQuery.Kind, Mode=OneWayToSource}" 
+                SelectedValuePath="Value"
+                DisplayMemberPath="Key">
 
 			</ComboBox>
 		</Grid>
@@ -83,7 +81,7 @@
 		<Button Grid.Column="3" Command="{Binding Path=StartAnalizeCommand}" CommandParameter="{Binding Path=AnalizeQuery}" Content="Analize" Margin="5, 0 ,0, 0"/>
 
 		<DataGrid Grid.Row="1" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" SelectedItem="{Binding Path=SelectedPriceItem, Mode=OneWayToSource}" ItemsSource="{Binding Path=AllPricesProducts}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
-			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
+            HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
@@ -112,9 +110,9 @@
 		</DataGrid>
 
 		<DataGrid Grid.Row="2" x:Name="productsDataGrid"  Grid.ColumnSpan="3" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
-			HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True"
-			ItemsSource="{Binding SelectedPriceProducts}"
-			>
+            HeadersVisibility="All" CanUserAddRows="False" IsReadOnly="True"
+            ItemsSource="{Binding SelectedPriceProducts}"
+            >
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}" />
 				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.Name}" />

@@ -106,14 +106,14 @@ namespace Comparer.DesktopClient.ViewModels
 			var items = await apiProvider.Products.AnalizeAsync(query);
 
 			var update = (from i in AllPricesProducts.Cast<PriceListProduct>()
-						  join p in items on i.Id equals p.Id into joined
+						  join p in items on (i.Id, i.Price) equals (p.Id, p.BasePrice) into joined
 						  from J in joined.DefaultIfEmpty()
 						  select i with
 						  {
 							  Diff = J,
-							  PriceList = J?.PriceList ?? i.PriceList,
-							  Distributor = J?.PriceList?.DisID is Guid id ? Distributors.FirstOrDefault(d => d.Id == id) : i.Distributor
-						  }).Distinct().OrderBy(o => o.Name);
+							  PriceList = J?.PriceList ?? SelectedPrice,
+							  Distributor = J is not null ? Distributors.FirstOrDefault(d => d.Id == J?.PriceList?.DisID) : SelectedPrice.Distributor
+						  }).Distinct().OrderBy(o => o.Id);
 
 			LoadCollection(AllPricesProducts, update.ToList());
 		}
@@ -130,8 +130,11 @@ namespace Comparer.DesktopClient.ViewModels
 			{
 				var response = await apiProvider.PriceLists.ContentAsync<PriceListProduct>(Id);
 				if (response.Content is DataAccess.Dto.PriceListDto<PriceListProduct> data)
-					LoadCollection(AllPricesProducts, data.Items.ForEachPrepare(
-						item => item.Distributor = SelectedDistributor).OrderBy(o => o.Name));
+				{
+					var items = data.Items.ForEachPrepare(
+							item => item.Distributor = SelectedDistributor).OrderBy(o => o.Id);
+					LoadCollection(AllPricesProducts, items);
+				}
 			}
 			StartAnalizeCommand.NotifyCanExecuteChanged();
 		}

@@ -8,6 +8,7 @@ namespace Comparer.DataAccess.Dto
 		public Guid? DisID { get; init; }
 		public Guid? PriceListId { get; init; }
 		public string? PriceListName { get; init; }
+		public double? BasePrice { get; init; }
 		public double? MinPrice { get; init; }
 		public double? MaxPrice { get; init; }
 		public string? Notes { get; init; }
@@ -20,6 +21,8 @@ namespace Comparer.DataAccess.Dto
 
 		[JsonPropertyName("max")]
 		public double? MaxPrice { get; init; }
+
+		public double? BasePrice { get; init; }
 	}
 
 	public record PriceProductDiffDto : PriceDiffDto, IProductInfoPovider
