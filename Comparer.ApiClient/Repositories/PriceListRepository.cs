@@ -55,7 +55,7 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 	public async Task<IEnumerable<PriceListItem>> ItemsAsync(Guid priceListId, CancellationToken cancel = default)
 	{
 		var reference = await RawQuery<PriceListData>().FirstOrDefaultAsync(f => f.Id == priceListId, cancel);
-		if (reference == null) return null;
+		if (reference == null) return Enumerable.Empty<PriceListItem>();
 
 		var resultQuery =
 				from rec in db.PRICESRECORDS
@@ -67,6 +67,7 @@ public class PriceListRepository : GenericRepository<PRICE>, IPriceListRepositor
 					PriceList = reference,
 					Price = rec.PRICE
 				};
+
 		// need more complicated query for grouping prices
 		var result = await resultQuery.ToListAsync(cancel);
 		return result;

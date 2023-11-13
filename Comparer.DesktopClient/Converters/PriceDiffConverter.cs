@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
@@ -9,14 +10,21 @@ namespace Comparer.DesktopClient.Converters
 {
 	public class PriceDiffConverter : IMultiValueConverter
 	{
-		public object Convert(Models.PriceListProduct product, double price, Type targetType, object parameter, CultureInfo culture)
+		public double? Convert(double basePrice, double? price, Type targetType, object parameter, CultureInfo culture)
 		{
-			return Math.Round(price - product.Price, 2);
+			if (!price.HasValue)
+				return default;
+			return Math.Round(price.Value - basePrice, 2);
 		}
 
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			var price = (double)Convert(values[0] as Models.PriceListProduct, (double)values[1], targetType, parameter, culture);
+			if (values.Any(v => v == DependencyProperty.UnsetValue))
+				return DependencyProperty.UnsetValue;
+
+			var price = Convert((double)values[0], (double?)values[1], targetType, parameter, culture);
+			if (!price.HasValue) return default;
+
 			return price > 0 ? $"+{price}" : $"{price}";
 		}
 

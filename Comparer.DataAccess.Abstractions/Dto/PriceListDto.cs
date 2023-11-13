@@ -6,7 +6,7 @@ namespace Comparer.DataAccess.Dto
 	public class PriceListDto
 	{
 		public PriceListData Info { get; init; }
-		public IEnumerable Items { get; init; }
+		public IEnumerable<object> Items { get; init; }
 	}
 	public class PriceListDto<TListItem> : PriceListDto where TListItem : PriceListItem
 	{

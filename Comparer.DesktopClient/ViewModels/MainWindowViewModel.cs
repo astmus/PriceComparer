@@ -10,11 +10,14 @@ using CommunityToolkit.Mvvm.Input;
 using Comparer.DataAccess.Requests;
 using Comparer.DataAccess.Rest;
 using Comparer.DesktopClient.Models;
+using Comparer.CollectionExtensions;
 
+using CompareKind = Comparer.DataAccess.Dto.CompareKind;
 using Distributor = Comparer.DataAccess.Dto.DistributorData;
 using DistributorPriceList = Comparer.DataAccess.Dto.DistributorPriceListData;
+using IPriceListInfoProvider = Comparer.DataAccess.Dto.IPriceListInfoProvider;
+using IProductInfoPovider = Comparer.DataAccess.Dto.IProductInfoPovider;
 using PriceListItem = Comparer.DataAccess.Dto.PriceListItem;
-using CompareKind = Comparer.DataAccess.Dto.CompareKind;
 
 namespace Comparer.DesktopClient.ViewModels
 {
@@ -25,7 +28,7 @@ namespace Comparer.DesktopClient.ViewModels
 		{
 			apiProvider = apiClientProvider;
 			ReloadPriceItemsCommand = new AsyncRelayCommand<DistributorPriceList>(ReloadPriceListDataAsync, item => item != default);
-			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadPriceProductsAsync, item => item is PriceListProduct);
+			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadPriceProductsAsync, item => item != default);
 			StartAnalizeCommand = new AsyncRelayCommand<CompareRequest>(AnalizeAsync, q => q?.BasePriceId.HasValue == true);
 			AnalizeQuery = new CompareRequest();
 			ReloadPriceLists = new AsyncRelayCommand<Distributor>(UpdatePriceLists, d => d != null);
@@ -101,7 +104,17 @@ namespace Comparer.DesktopClient.ViewModels
 		private async Task AnalizeAsync(CompareRequest query)
 		{
 			var items = await apiProvider.Products.AnalizeAsync(query);
-			LoadCollection(AllPricesProducts, items);
+			var update = (from i in AllPricesProducts.Cast<PriceListProduct>()
+						  join p in items on i.Id equals p.Id into joined
+						  from J in joined.DefaultIfEmpty()
+						  select i with
+						  {
+							  Diff = J,
+							  PriceList = J?.PriceList ?? i.PriceList,
+							  Distributor = J?.PriceList?.DisID is Guid id ? Distributors.FirstOrDefault(d => d.Id == id) : i.Distributor
+						  }).Distinct().OrderBy(o => o.Name);
+
+			LoadCollection(AllPricesProducts, update.ToList());
 		}
 
 		protected override async Task LoadDataAsync()
@@ -117,18 +130,19 @@ namespace Comparer.DesktopClient.ViewModels
 				var response = await apiProvider.PriceLists.ContentAsync<PriceListProduct>(Id);
 				if (response.Content is DataAccess.Dto.PriceListDto<PriceListProduct> data)
 					LoadCollection(AllPricesProducts, data.Items.ForEachPrepare(
-						item => item.Distributor = SelectedDistributor));
+						item => item.Distributor = SelectedDistributor).OrderBy(o => o.Name));
 			}
 			StartAnalizeCommand.NotifyCanExecuteChanged();
 		}
 
 		async Task ReloadPriceProductsAsync(PriceListItem selected)
 		{
-			if (selected is PriceListProduct current)
+			if (selected is IProductInfoPovider current)
 			{
-				var products = await apiProvider.Products.FindAllAsync<PriceListProduct>(current.Product.Id, selected);
+				IPriceListInfoProvider args = selected as IPriceListInfoProvider;
+				var products = await apiProvider.Products.AllAsync<PriceListProduct>(current.Id, args?.GetPriceListId());
 				var distributors = Distributors;
-				products.ForEach(p => p.Distributor = distributors.FirstOrDefault(f => f.Id == p.PriceList.DisID));
+				products.ForEachPrepare(p => p.Distributor = distributors.FirstOrDefault(f => f.Id == p.PriceList.DisID));
 				LoadCollection(SelectedPriceProducts, products);
 			}
 		}
@@ -136,6 +150,8 @@ namespace Comparer.DesktopClient.ViewModels
 		async Task UpdatePriceLists(Distributor distributor)
 		{
 			using var src = new CancellationTokenSource(TimeSpan.FromMinutes(1));
+			PriceLists.Clear();
+
 			var response = await apiProvider.Distributors.PriceListsAsync(distributor);
 			if (response.Content is IEnumerable<DistributorPriceList> prices)
 				LoadCollection<DistributorPriceList>(PriceLists, prices);

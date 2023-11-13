@@ -17,7 +17,7 @@ namespace Comparer.Api
 			builder.Services.AddControllers()
 									.AddJsonOptions(options =>
 									{
-										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault;
+										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
 										options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 										options.JsonSerializerOptions.IgnoreReadOnlyFields = true;
 									});

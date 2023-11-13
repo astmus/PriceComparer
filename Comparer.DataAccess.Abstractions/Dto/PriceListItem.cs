@@ -1,4 +1,6 @@
-﻿using Comparer.Entities;
+﻿using System.Text.Json.Serialization;
+
+using Comparer.Entities;
 
 namespace Comparer.DataAccess.Dto
 {
@@ -11,6 +13,7 @@ namespace Comparer.DataAccess.Dto
 
 	public record PriceListItemDto : PriceListItem
 	{
+		[JsonPropertyName("list")]
 		public PriceListData? PriceList { get; init; }
 	}
 }

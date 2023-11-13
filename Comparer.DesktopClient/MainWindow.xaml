@@ -87,7 +87,7 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
 				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}"/>
-				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=PriceMin}"/>
+				<DataGridTextColumn Header="Min Price" Binding="{Binding Path=MinPrice}"/>
 				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MinPriceDiff, StringFormat='{}{0:n2}'}"/>
 				<DataGridTextColumn Header="Max Price" Binding="{Binding Path=MaxPrice}"/>
 				<DataGridTextColumn Header="Diff" Binding="{Binding Path=MaxPriceDiff, StringFormat='{}{0:n2}'}"/>
@@ -105,11 +105,11 @@
 				<DataGridTextColumn Header="Distributor" Binding="{Binding Path=DistributorName}" />
 				<DataGridTextColumn Header="Price List" Binding="{Binding Path=PriceList.Name}" />
 				<DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}"  />
-				<DataGridTextColumn Header="Price" x:Name="priceColumn" Binding="{Binding Path=Price}" />
+				<DataGridTextColumn Header="Price" Binding="{Binding Path=Price}" />
 				<DataGridTextColumn Header="Price Diff" >
 					<DataGridTextColumn.Binding>
 						<MultiBinding Converter="{StaticResource DiffConverter}">
-							<Binding Path="DataContext.SelectedPriceItem" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}" />
+							<Binding Path="DataContext.SelectedPriceItem.Price" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}" />
 							<Binding Path="Price"/>
 						</MultiBinding>
 					</DataGridTextColumn.Binding>

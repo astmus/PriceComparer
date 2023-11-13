@@ -10,16 +10,8 @@ using Refit;
 
 namespace Comparer.DataAccess.Rest
 {
-	public interface IRestClient
-	{ }
 	public interface IPriceListRestClient : IRestClient
 	{
-		[Get("/")]
-		Task<IEnumerable<Tuple<Guid, string>>> GetAllAsync();
-
-		[Get("/{id}")]
-		Task<Tuple<ID>> InfoAsync<ID>([AliasAs("id")] Guid priceId) where ID : class;
-
 		[Get("/{id}/content")]
 		Task<ApiResponse<PriceListDto<TListItem>>> ContentAsync<TListItem>([AliasAs("id")] Guid priceListId) where TListItem : PriceListItem;
 
@@ -28,6 +20,5 @@ namespace Comparer.DataAccess.Rest
 
 		[Get("/{id}/products")]
 		Task<IEnumerable<ProductUnit>> ProductsAsync([AliasAs("id")] Guid productId);
-
 	}
 }
