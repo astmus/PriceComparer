@@ -16,6 +16,7 @@ namespace Comparer.DataAccess
 			return table.FirstOrDefault(t =>
 				t.Id == ID);
 		}
+
 		public static TDist Find<TDist>(this ITable<TDist> table, Guid ID) where TDist : Distributor
 		{
 			return table.FirstOrDefault(t =>

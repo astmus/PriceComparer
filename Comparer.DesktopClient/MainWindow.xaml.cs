@@ -11,13 +11,13 @@ namespace Comparer.DesktopClient
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		MainWindowViewModel viewModel;
+		UIViewModel<MainWindow> viewModel;
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = (App.Current as App).ServicesProvider.GetRequiredService<UIViewModel<MainWindow>>();
+			DataContext = viewModel = (App.Current as App).ServicesProvider.GetRequiredService<UIViewModel<MainWindow>>();
+			Loaded += (object sender, RoutedEventArgs e)
+				=> viewModel.LoadMainDataCommand.Execute(default);
 		}
-
-
 	}
 }

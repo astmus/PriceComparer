@@ -9,7 +9,7 @@ namespace Comparer.DataAccess.Rest
 {
 	public interface IRestClient
 	{
-		[Get("/{id}")]
-		Task<IEnumerable<DataUnit>> AllAsync([AliasAs("id")] Guid Id);
+		[Get("/")]
+		Task<IEnumerable<DataUnit>> AllAsync();
 	}
 }

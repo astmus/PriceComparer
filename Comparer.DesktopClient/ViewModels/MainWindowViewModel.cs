@@ -18,6 +18,7 @@ using DistributorPriceList = Comparer.DataAccess.Dto.DistributorPriceListData;
 using IPriceListInfoProvider = Comparer.DataAccess.Dto.IPriceListInfoProvider;
 using IProductInfoPovider = Comparer.DataAccess.Dto.IProductInfoPovider;
 using PriceListItem = Comparer.DataAccess.Dto.PriceListItem;
+using System.Windows.Input;
 
 namespace Comparer.DesktopClient.ViewModels
 {
@@ -30,11 +31,14 @@ namespace Comparer.DesktopClient.ViewModels
 			ReloadPriceItemsCommand = new AsyncRelayCommand<DistributorPriceList>(ReloadPriceListDataAsync, item => item != default);
 			ReloadProductsCommand = new AsyncRelayCommand<PriceListItem>(ReloadPriceProductsAsync, item => item != default);
 			StartAnalizeCommand = new AsyncRelayCommand<CompareRequest>(AnalizeAsync, q => q?.BasePriceId.HasValue == true);
+			LoadMainDataCommand = new AsyncRelayCommand(LoadDataAsync);
 			AnalizeQuery = new CompareRequest();
 			ReloadPriceLists = new AsyncRelayCommand<Distributor>(UpdatePriceLists, d => d != null);
 		}
 
 		#region ICommand
+		public override ICommand LoadMainDataCommand { get => Get<AsyncRelayCommand>(); protected set => Set(value); }
+
 		public IAsyncRelayCommand<CompareRequest> StartAnalizeCommand { get => Get<AsyncRelayCommand<CompareRequest>>(); set => Set(value); }
 
 		public IAsyncRelayCommand<Distributor> ReloadPriceLists
@@ -106,20 +110,21 @@ namespace Comparer.DesktopClient.ViewModels
 			var items = await apiProvider.Products.AnalizeAsync(query);
 
 			var update = (from i in AllPricesProducts.Cast<PriceListProduct>()
-						  join p in items on i.Id equals p.Id into joined
+						  join p in items on (i.Id, i.Price) equals (p.Id, p.BasePrice) into joined
 						  from J in joined.DefaultIfEmpty()
 						  select i with
 						  {
 							  Diff = J,
-							  PriceList = J?.PriceList ?? i.PriceList,
-							  Distributor = J?.PriceList?.DisID is Guid id ? Distributors.FirstOrDefault(d => d.Id == id) : i.Distributor
-						  }).Distinct().OrderBy(o => o.Name);
+							  PriceList = J?.PriceList ?? SelectedPrice,
+							  Distributor = J is not null ? Distributors.FirstOrDefault(d => d.Id == J?.PriceList?.DisID) : SelectedPrice.Distributor
+						  }).Distinct().OrderBy(o => o.Id);
 
 			LoadCollection(AllPricesProducts, update.ToList());
 		}
 
 		protected override async Task LoadDataAsync()
 		{
+			var pricelists = await apiProvider.PriceLists.AllAsync();
 			await Task.CompletedTask;
 		}
 
@@ -130,8 +135,11 @@ namespace Comparer.DesktopClient.ViewModels
 			{
 				var response = await apiProvider.PriceLists.ContentAsync<PriceListProduct>(Id);
 				if (response.Content is DataAccess.Dto.PriceListDto<PriceListProduct> data)
-					LoadCollection(AllPricesProducts, data.Items.ForEachPrepare(
-						item => item.Distributor = SelectedDistributor).OrderBy(o => o.Name));
+				{
+					var items = data.Items.ForEachPrepare(
+							item => item.Distributor = SelectedDistributor).OrderBy(o => o.Id);
+					LoadCollection(AllPricesProducts, items);
+				}
 			}
 			StartAnalizeCommand.NotifyCanExecuteChanged();
 		}

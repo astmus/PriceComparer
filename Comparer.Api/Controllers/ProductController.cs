@@ -58,7 +58,7 @@ namespace Comparer.Api.Controllers
 			if (request.BasePriceId is not Guid)
 				return BadRequest("Empty base price list id");
 
-			var query = diffQuery(request.BasePriceId.Value);
+			var query = diffQuery(request.BasePriceId.Value, request.Kind == CompareKind.OtherMinPrice);
 			using var cancel = OperationCancelling;
 
 			var diffs = await _repository.RawQueryAsync<PriceProductDiff>(query, cancel.Token);
@@ -94,6 +94,7 @@ namespace Comparer.Api.Controllers
 					{
 						PriceList = listData.FirstOrDefault(f => f.Name == listProduct.PriceListName),
 						Price = listProduct.Price,
+						BasePrice = listProduct.BasePrice,
 						MinPrice = listProduct.MinPrice,
 						MaxPrice = listProduct.MaxPrice
 					});
@@ -104,7 +105,8 @@ namespace Comparer.Api.Controllers
 		}
 
 
-		string diffQuery(Guid priceListId) => @$"
+		string diffQuery(Guid priceListId, bool onlyMin = false) => @$"
+		declare @onlyMin bit = {Convert.ToInt16(onlyMin)};
 			WITH Pricelistproducts AS (SELECT List.Id               Pricelistid,
 								  Link.Catalogproductid Productid,
 								  Rec.Recordindex       Itemid
@@ -153,12 +155,13 @@ namespace Comparer.Api.Controllers
 							   O.Maxprodprice,
 							   O.Disid
 							FROM Otherproducts O
-							WHERE O.Productid = B.Productid
+							WHERE O.Productid = B.Productid AND (@onlyMin = 0 OR O.OtherPrice < rec.PRICE )
 					)             X
 		WHERE Otherprice = Minprodprice
 )
 SELECT Id,	   		
 		IIF (OtherPrice = 0,NULL,OtherPrice) Price,
+		Baseprice,
 		Pricelistid,
 		PriceListName,
 		IIF(minProdPrice = 0, NULL, minProdPrice) as MinPrice,

@@ -19,8 +19,7 @@ namespace Comparer.DesktopClient.ViewModels
 		protected void OnPropertyChanged([CallerMemberName] string propertyName = default)
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-		public virtual ICommand LoadMainDataCommand
-			=> default;
+		public abstract ICommand LoadMainDataCommand { get; protected set; }
 
 		protected T Get<T>(T defValue = default, bool initialize = false, [CallerMemberName] string name = default)
 		{
