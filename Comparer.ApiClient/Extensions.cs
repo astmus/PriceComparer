@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Comparer.Data;
 using Comparer.DataAccess.Abstractions;
-using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Config;
-using Comparer.DataAccess.Models;
 using Comparer.DataAccess.Repositories;
 using Comparer.DataAccess.Rest;
 
-using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
 
@@ -38,7 +34,10 @@ namespace Comparer.DataAccess
 			if (defaultAddress != null)
 				collection.AddOptions<ConnectionOptions>().Configure(opt => opt.ConnectionString = defaultAddress);
 
-			return collection.AddLogging().AddLinqToDBContext<DataBaseConnection>((provider, options)
+			return collection.AddLogging().AddLinqToDBContext<ComparerDataContext>((provider, options)
+				=> options
+					.UseDefaultLogging(provider))
+				.AddLinqToDBContext<DataBaseConnection>((provider, options)
 				=> options
 					.UseDefaultLogging(provider))
 						.AddScoped<IPriceListRepository, PriceListRepository>()

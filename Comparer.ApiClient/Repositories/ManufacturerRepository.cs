@@ -1,27 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Comparer.DataAccess.Abstractions;
-using Comparer.DataAccess.Abstractions.Repositories;
-using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
 using Comparer.Entities;
 
 using LinqToDB;
+using LinqToDB.Data;
 using LinqToDB.Linq;
 
 namespace Comparer.DataAccess.Repositories;
 
 public class ManufacturerRepository : GenericRepository<MANUFACTURER>, IManufacturerRepository
 {
-	public ManufacturerRepository(DataBaseConnection connection) : base(connection)
+	Data.ComparerDataContext ctx;
+	public ManufacturerRepository(Data.ComparerDataContext connection) : base(connection)
 	{
+		ctx = connection;
 	}
 
-	public IExpressionQuery<MANUFACTURER> Manufacturers => db.GetTable<MANUFACTURER>();
+	public IExpressionQuery<MANUFACTURER> Manufacturers => ctx.GetTable<MANUFACTURER>();
 
 	protected override string rootTableName
 		=> "MANUFACTURERS";
+
+	public IEnumerable<TM> LoadManufacturers<TM>() where TM : Manufacturer
+		=> ctx.QueryProc<TM>().ToList();
 }

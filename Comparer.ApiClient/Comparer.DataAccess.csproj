@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Comparer.DataAccess.Abstractions\Comparer.DataAccess.Abstractions.csproj" />
+		<ProjectReference Include="..\Comparer.DBContext\Comparer.DBContext.csproj" />
 	</ItemGroup>
 
 </Project>

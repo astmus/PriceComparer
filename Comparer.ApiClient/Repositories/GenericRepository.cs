@@ -17,7 +17,7 @@ namespace Comparer.DataAccess.Repositories;
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-	protected readonly DataBaseConnection db;
+	protected readonly LinqToDB.Data.DataConnection db;
 	protected abstract string rootTableName { get; }
 
 	public IQueryable<T> Query() => db.GetTable<T>();
@@ -40,6 +40,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 	protected IQueryable<TEntity> MapToBy<TEntity>(TEntity entity) where TEntity : BaseUnit
 		=> db.FromSql<TEntity>(rootTableName).Where(w => w == entity);
 
-	public GenericRepository(DataBaseConnection connection)
+	public GenericRepository(LinqToDB.Data.DataConnection connection)
 		=> this.db = connection;
 }

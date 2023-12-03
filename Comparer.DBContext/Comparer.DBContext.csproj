@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="ComparerDataContext.generated.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ComparerDataContext.tt</DependentUpon>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="linq2db.SqlServer" Version="5.3.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="ComparerDataContext.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>ComparerDataContext.generated.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="ComparerDataContext.generated.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ComparerDataContext.tt</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+</Project>
