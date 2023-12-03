@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Comparer.Presentation.TitledComboBox"
+﻿<UserControl x:Class="Comparer.Presentation.TitledTextBox"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:Comparer.Presentation"
 			 mc:Ignorable="d"			 
-			 d:DesignHeight="32" d:DesignWidth="128"
+			 d:DesignHeight="32" d:DesignWidth="256"
 			 x:Name="This"
 			 >
 	<UserControl.Resources>
@@ -13,14 +13,10 @@
 			<Setter Property="Margin" Value="4, 4, 0, 4"/>
 		</Style>
 		<Style BasedOn="{StaticResource DefSpacingStyle}" TargetType="{x:Type Label}"/>
-		<Style BasedOn="{StaticResource DefSpacingStyle}" TargetType="{x:Type ComboBox}"/>
+		<Style BasedOn="{StaticResource DefSpacingStyle}" TargetType="{x:Type TextBox}"/>
 	</UserControl.Resources>
-	<Grid MaxWidth="256">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<Label MinWidth="32" Grid.Column="0" x:Name="TitleLabel" Content="{Binding ElementName=This, Path=Caption}"  />
-		<ComboBox Grid.Column="1" x:Name="ItemsComboBox" MinWidth="128"/>
-	</Grid>
+	<StackPanel MaxWidth="256" Orientation="Horizontal">
+		<Label MinWidth="64" Grid.Column="0" x:Name="TitleLabel" Content="{Binding ElementName=This, Path=Caption}"  />
+		<TextBox Grid.Column="1" x:Name="Box" MinWidth="128"/>
+	</StackPanel>
 </UserControl>
