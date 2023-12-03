@@ -4,10 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Comparer.WFDesktopClient
 {
 	internal static class Program
 	{
+		public static readonly IServiceProvider Services;
+
+		static Program()
+		{
+			ServiceCollection services = new ServiceCollection();
+			services.AddSingleton<MainForm>();
+			Services = services.BuildServiceProvider();
+		}
+
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -16,8 +27,7 @@ namespace Comparer.WFDesktopClient
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			//ServiceCollection
-			Application.Run(new MainForm());
+			Application.Run(Services.GetRequiredService<MainForm>());
 		}
 	}
 }
