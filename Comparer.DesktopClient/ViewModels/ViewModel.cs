@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Comparer.DesktopClient.ViewModels
@@ -53,7 +51,6 @@ namespace Comparer.DesktopClient.ViewModels
 			ThreadPool.QueueUserWorkItem(work, args, true);
 			return args;
 		}
-
 
 		protected TParam GetOrScheduleInit<TParam>(Action<TParam> work, [CallerMemberName] string name = default)
 		{

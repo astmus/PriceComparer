@@ -4,8 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-using Comparer.DataAccess.Dto;
-
 namespace Comparer.DesktopClient.Converters
 {
 	public class PriceDiffConverter : IMultiValueConverter

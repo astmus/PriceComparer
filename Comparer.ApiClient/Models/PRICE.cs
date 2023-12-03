@@ -13,6 +13,7 @@ namespace Comparer.DataAccess.Models
 		[PrimaryKey, NotNull] public override Guid ID { get; set; } // uniqueidentifier
 		[Column, NotNull] public override string NAME { get; set; } // varchar(255)
 		[Column, Nullable] public override Guid? DISID { get; set; } // uniqueidentifier
+		[Column, NotNull] public override bool ISACTIVE { get; set; } // bit
 		[Column, NotNull] public override double DISCOUNT { get; set; } // float
 		[Column, NotNull] public byte DEFAULTCURRENCY { get; set; } // tinyint
 		[Column, NotNull] public double TURNDOLLARSRATE { get; set; } // float
@@ -29,7 +30,6 @@ namespace Comparer.DataAccess.Models
 		[Column, NotNull] public string SKURANGE { get; set; } // varchar(16)
 		[Column, NotNull] public string STOCKRANGE { get; set; } // nvarchar(16)
 		[Column, NotNull] public string INSTOCKRANGE { get; set; } // nvarchar(16)
-		[Column, NotNull] public bool ISACTIVE { get; set; } // bit
 
 		#region Associations
 

@@ -22,7 +22,8 @@ using System.Windows.Input;
 
 namespace Comparer.DesktopClient.ViewModels
 {
-	public class MainWindowViewModel : UIViewModel<MainWindow>
+
+	public class MainWindowViewModel : UIViewModel<MainWindow>, IMainWindowView
 	{
 		private readonly IRestClientProvider apiProvider;
 		public MainWindowViewModel(IRestClientProvider apiClientProvider)
@@ -87,16 +88,16 @@ namespace Comparer.DesktopClient.ViewModels
 		#endregion
 
 		#region Collections
-		public ObservableCollection<Distributor> Distributors
+		public IList<Distributor> Distributors
 			=> GetOrScheduleInit<ObservableCollection<Distributor>>(LoadDistributors);
 
-		public ObservableCollection<DistributorPriceList> PriceLists
+		public IList<DistributorPriceList> PriceLists
 			=> Get<ObservableCollection<DistributorPriceList>>(initialize: true);
 
-		public ObservableCollection<PriceListProduct> SelectedPriceProducts
+		public IList<PriceListProduct> SelectedPriceProducts
 			=> Get<ObservableCollection<PriceListProduct>>(initialize: true);
 
-		public ObservableCollection<PriceListItem> AllPricesProducts
+		public IList<PriceListItem> AllPricesProducts
 			=> Get<ObservableCollection<PriceListItem>>(initialize: true);
 
 		public IEnumerable<KeyValuePair<string, CompareKind>> CompareKinds
@@ -151,7 +152,7 @@ namespace Comparer.DesktopClient.ViewModels
 				IPriceListInfoProvider args = selected as IPriceListInfoProvider;
 				var products = await apiProvider.Products.AllAsync<PriceListProduct>(current.Id, args?.GetPriceListId());
 				var distributors = Distributors;
-				products.ForEachPrepare(p => p.Distributor = distributors.FirstOrDefault(f => f.Id == p.PriceList.DisID));
+				products.ForEach(p => p.Distributor = distributors.FirstOrDefault(f => f.Id == p.PriceList.DisID));
 				LoadCollection(SelectedPriceProducts, products);
 			}
 		}
