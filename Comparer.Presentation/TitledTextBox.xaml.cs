@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,12 +16,9 @@ using System.Windows.Shapes;
 
 namespace Comparer.Presentation
 {
-	/// <summary>
-	/// Interaction logic for TitledComboBox.xaml
-	/// </summary>
-	public partial class TitledComboBox : UserControl
+	public partial class TitledTextBox : UserControl
 	{
-		public TitledComboBox()
+		public TitledTextBox()
 		{
 			InitializeComponent();
 		}
@@ -34,18 +30,16 @@ namespace Comparer.Presentation
 			set { SetValue(CaptionProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for Caption.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty CaptionProperty =
-			DependencyProperty.Register("Caption", typeof(string), typeof(TitledComboBox), new PropertyMetadata(""));
+			DependencyProperty.Register("Caption", typeof(string), typeof(TitledTextBox), new PropertyMetadata(""));
 
-		public IList Items
+		public ItemCollection Items
 		{
-			get { return (IList)GetValue(ItemsProperty); }
+			get { return (ItemCollection)GetValue(ItemsProperty); }
 			set { SetValue(ItemsProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for Items.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty ItemsProperty =
-			DependencyProperty.Register("Items", typeof(IList), typeof(TitledComboBox), new PropertyMetadata(null));
+			DependencyProperty.Register("Items", typeof(ItemCollection), typeof(TitledTextBox), new PropertyMetadata(null));
 	}
 }

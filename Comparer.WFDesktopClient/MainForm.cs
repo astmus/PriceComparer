@@ -15,6 +15,13 @@ namespace Comparer.WFDesktopClient
 		public MainForm()
 		{
 			InitializeComponent();
+
+			ProductsControl.DistributorDropDown.Items = new List<object>() { 1, 2, 3 };
+
+			ProductsControl.ManufacturerDropDown.Items = new List<object>();
+			ProductsControl.ManufacturerDropDown.Items.Add("12");
+			ProductsControl.ManufacturerDropDown.Items.Add(2);
+			ProductsControl.ManufacturerDropDown.Items.Add(3);
 		}
 	}
 }

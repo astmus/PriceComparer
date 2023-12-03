@@ -28,26 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-			this.productsControl1 = new Comparer.Presentation.ProductsControl();
+			this.rootHost = new System.Windows.Forms.Integration.ElementHost();
+			this.ProductsControl = new Comparer.Presentation.ProductsControl();
 			this.SuspendLayout();
 			// 
-			// elementHost1
+			// rootHost
 			// 
-			this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.elementHost1.Location = new System.Drawing.Point(0, 0);
-			this.elementHost1.Name = "elementHost1";
-			this.elementHost1.Size = new System.Drawing.Size(800, 450);
-			this.elementHost1.TabIndex = 0;
-			this.elementHost1.Text = "elementHost1";
-			this.elementHost1.Child = this.productsControl1;
+			this.rootHost.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.rootHost.Location = new System.Drawing.Point(0, 0);
+			this.rootHost.Name = "rootHost";
+			this.rootHost.Size = new System.Drawing.Size(1021, 450);
+			this.rootHost.TabIndex = 0;
+			this.rootHost.Text = "elementHost1";
+			this.rootHost.Child = this.ProductsControl;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.elementHost1);
+			this.ClientSize = new System.Drawing.Size(1021, 450);
+			this.Controls.Add(this.rootHost);
 			this.Name = "MainForm";
 			this.Text = "Comparer";
 			this.ResumeLayout(false);
@@ -56,8 +56,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.Integration.ElementHost elementHost1;
-		private Presentation.ProductsControl productsControl1;
+		private System.Windows.Forms.Integration.ElementHost rootHost;
+		private Presentation.ProductsControl ProductsControl;
 	}
 }
 

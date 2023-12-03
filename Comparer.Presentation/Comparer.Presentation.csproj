@@ -54,6 +54,9 @@
     <Compile Include="DistributorsControl.xaml.cs">
       <DependentUpon>DistributorsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TitledTextBox.xaml.cs">
+      <DependentUpon>TitledTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TitledComboBox.xaml.cs">
       <DependentUpon>TitledComboBox.xaml</DependentUpon>
     </Compile>
@@ -73,6 +76,10 @@
       <DependentUpon>ProductsControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TitledTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TitledComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
