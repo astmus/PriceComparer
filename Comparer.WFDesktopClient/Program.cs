@@ -16,6 +16,7 @@ namespace Comparer.WFDesktopClient
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			//ServiceCollection
 			Application.Run(new MainForm());
 		}
 	}

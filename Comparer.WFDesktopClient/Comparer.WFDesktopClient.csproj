@@ -86,6 +86,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Comparer.ApiClient\Comparer.DataAccess.csproj">
+      <Project>{9fe7b08b-47f6-424e-8d0a-7b3996d9ce81}</Project>
+      <Name>Comparer.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Comparer.Presentation\Comparer.Presentation.csproj">
       <Project>{64882d92-f9fa-41de-aedd-dfc997e250e5}</Project>
       <Name>Comparer.Presentation</Name>
