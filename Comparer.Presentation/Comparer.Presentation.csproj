@@ -48,12 +48,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PicturedButton.xaml.cs">
+      <DependentUpon>PicturedButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DistributorsControl.xaml.cs">
       <DependentUpon>DistributorsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TitledComboBox.xaml.cs">
       <DependentUpon>TitledComboBox.xaml</DependentUpon>
     </Compile>
+    <Page Include="PicturedButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DistributorsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
