@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,8 +21,13 @@ namespace Comparer.WFDesktopClient
 		{
 			InitializeComponent();
 
-			ProductsControl.DistributorDropDown.Items = distributorsRepository.Distributors.ToList();
-			ProductsControl.ManufacturerDropDown.Items = mansRepo.LoadManufacturers<Manufacturer>();
+			ThreadPool.QueueUserWorkItem(new WaitCallback(LoadD), distributorsRepository);
+			ThreadPool.QueueUserWorkItem(new WaitCallback(LoadM), mansRepo);
 		}
+
+		void LoadD(object distributorsRepository)
+			=> ProductsControl.DistributorDropDown.Items = ((IDistributorRepository)distributorsRepository).Distributors.ToList();
+		void LoadM(object repo)
+			=> ProductsControl.ManufacturerDropDown.Items = ((IManufacturerRepository)repo).LoadManufacturers<Manufacturer>();
 	}
 }

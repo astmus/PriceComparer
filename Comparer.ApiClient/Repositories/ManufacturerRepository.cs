@@ -23,8 +23,7 @@ public class ManufacturerRepository : GenericRepository<Entities.Manufacturer>, 
 
 	public IEnumerable<TM> LoadManufacturers<TM>() where TM : Entities.Manufacturer
 	{
-		var m = ctx.ManufacturersView<TM>(default);//.QueryProc<TM>("ManufacturersView").ToList();
-
+		var m = ctx.ManufacturersView<TM>(default);
 		return m;
 	}
 }

@@ -66,7 +66,7 @@ namespace Comparer.Presentation
 		public IEnumerable Items
 		{
 			get { return (IEnumerable)GetValue(ItemsProperty); }
-			set { SetValue(ItemsProperty, value); }
+			set { Dispatcher.Invoke(() => SetValue(ItemsProperty, value)); }
 		}
 
 		// Using a DependencyProperty as the backing store for Items.  This enables animation, styling, binding, etc...
