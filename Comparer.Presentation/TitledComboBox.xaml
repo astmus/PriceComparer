@@ -21,6 +21,9 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<Label MinWidth="32" Grid.Column="0" x:Name="TitleLabel" Content="{Binding ElementName=This, Path=Caption}"  />
-		<ComboBox Grid.Column="1" x:Name="ItemsComboBox" MinWidth="128" ItemsSource="{Binding ElementName=This,Path=Items}" VerticalContentAlignment="Center"/>
+		<ComboBox Grid.Column="1" 
+			DisplayMemberPath="{Binding ElementName=This, Path=DisplayMember}" 
+			SelectedValuePath="{Binding ElementName=This, Path=ValueMember}" 
+			x:Name="ItemsComboBox" MinWidth="128" ItemsSource="{Binding ElementName=This,Path=Items}" VerticalContentAlignment="Center"/>
 	</Grid>
 </UserControl>

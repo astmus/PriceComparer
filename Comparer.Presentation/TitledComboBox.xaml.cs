@@ -28,6 +28,31 @@ namespace Comparer.Presentation
 		}
 
 
+
+		public string DisplayMember
+		{
+			get { return (string)GetValue(DisplayMemberProperty); }
+			set { SetValue(DisplayMemberProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for DisplayMember.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty DisplayMemberProperty =
+			DependencyProperty.Register("DisplayMember", typeof(string), typeof(TitledComboBox), null);
+
+
+
+		public string ValueMember
+		{
+			get { return (string)GetValue(ValueMemberProperty); }
+			set { SetValue(ValueMemberProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for ValueMember.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty ValueMemberProperty =
+			DependencyProperty.Register("ValueMember", typeof(string), typeof(TitledComboBox), null);
+
+
+
 		public string Caption
 		{
 			get { return (string)GetValue(CaptionProperty); }

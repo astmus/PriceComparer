@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using Comparer.DataAccess.Abstractions.Repositories;
+using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Models;
 using Comparer.DataAccess.Repositories;
 using Comparer.DataAccess.Rest;
@@ -31,13 +32,18 @@ namespace Comparer.DataAccess
 			ContentSerializer = new SystemTextJsonContentSerializer(serializeOptions)
 		};
 
-		public static IServiceCollection AddDataBaseRepositories(this IServiceCollection collection)
-			=> collection.AddLinqToDBContext<DataBaseConnection>((provider, options)
+		public static IServiceCollection AddDataBaseRepositories(this IServiceCollection collection, string defaultAddress = null)
+		{
+			if (defaultAddress != null)
+				collection.AddOptions<ConnectionOptions>().Configure(opt => opt.ConnectionString = defaultAddress);
+
+			return collection.AddLogging().AddLinqToDBContext<DataBaseConnection>((provider, options)
 				=> options
 					.UseDefaultLogging(provider))
 					.AddScoped<IPriceListRepository, PriceListRepository>()
 					.AddScoped<IDistributorRepository, DistributorRepository>()
 					.AddScoped<IProductRepository, ProductRepository>();
+		}
 
 		public static IServiceCollection AddRestClientFor<TPoint>(this IServiceCollection collection, string address) where TPoint : class, IRestClient
 		{

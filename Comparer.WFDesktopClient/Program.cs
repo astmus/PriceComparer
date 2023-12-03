@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using Comparer.DataAccess;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,12 +9,15 @@ namespace Comparer.WFDesktopClient
 {
 	internal static class Program
 	{
-		public static readonly IServiceProvider Services;
+		static readonly IServiceProvider Services;
 
 		static Program()
 		{
 			ServiceCollection services = new ServiceCollection();
 			services.AddSingleton<MainForm>();
+
+			services.AddDataBaseRepositories("Data Source=DS-FUTARK;Initial Catalog=test;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+
 			Services = services.BuildServiceProvider();
 		}
 
@@ -27,7 +29,8 @@ namespace Comparer.WFDesktopClient
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(Services.GetRequiredService<MainForm>());
+			using (var scope = Services.CreateScope())
+				Application.Run(scope.ServiceProvider.GetRequiredService<MainForm>());
 		}
 	}
 }

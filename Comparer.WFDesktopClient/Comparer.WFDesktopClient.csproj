@@ -90,10 +90,22 @@
       <Project>{9fe7b08b-47f6-424e-8d0a-7b3996d9ce81}</Project>
       <Name>Comparer.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Comparer.DataAccess.Abstractions\Comparer.DataAccess.Abstractions.csproj">
+      <Project>{ec225137-4ebd-41f8-a7be-8dd5b3d43ef5}</Project>
+      <Name>Comparer.DataAccess.Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Comparer.Presentation\Comparer.Presentation.csproj">
       <Project>{64882d92-f9fa-41de-aedd-dfc997e250e5}</Project>
       <Name>Comparer.Presentation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder">
+      <Version>8.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json">
+      <Version>8.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

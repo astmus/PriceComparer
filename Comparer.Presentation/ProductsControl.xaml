@@ -12,8 +12,8 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Orientation="Horizontal">
-			<ui:TitledComboBox x:FieldModifier="public" Caption="Производитель" x:Name="ManufacturerDropDown"/>
-			<ui:TitledComboBox x:FieldModifier="public" Caption="Дистрибьютор" x:Name="DistributorDropDown"/>
+			<ui:TitledComboBox ValueMember="Id" DisplayMember="Name" x:FieldModifier="public" Caption="Производитель" x:Name="ManufacturerDropDown"/>
+			<ui:TitledComboBox ValueMember="Id" DisplayMember="NAME" x:FieldModifier="public" Caption="Дистрибьютор" x:Name="DistributorDropDown"/>
 			<ui:TitledTextBox x:FieldModifier="public" Caption="Наименование" x:Name="ProductNameTextBox"/>
 			<ui:PicturedButton Text="Очистить" Margin="3,3,0,3">
 				<ui:PicturedButton.Picture>
