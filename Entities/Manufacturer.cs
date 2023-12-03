@@ -3,7 +3,7 @@ using System;
 
 namespace Comparer.Entities
 {
-	public record Manufacturer
+	public class Manufacturer
 	{
 		public virtual Guid Id { get; set; }
 		public virtual string Name { get; set; }

@@ -8,22 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Repositories;
 
 namespace Comparer.WFDesktopClient
 {
 	public partial class MainForm : Form
 	{
-		public MainForm(IDistributorRepository distributorsRepository)
+		public MainForm(IDistributorRepository distributorsRepository, IManufacturerRepository mansRepo)
 		{
 			InitializeComponent();
 
 			ProductsControl.DistributorDropDown.Items = distributorsRepository.Distributors.ToList();
-
-			ProductsControl.ManufacturerDropDown.Items = new List<object>();
-			ProductsControl.ManufacturerDropDown.Items.Add("12");
-			ProductsControl.ManufacturerDropDown.Items.Add(2);
-			ProductsControl.ManufacturerDropDown.Items.Add(3);
+			ProductsControl.ManufacturerDropDown.Items = mansRepo.Manufacturers.ToList();
 		}
 	}
 }

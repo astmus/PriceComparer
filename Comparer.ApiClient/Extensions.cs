@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Models;
@@ -40,9 +41,10 @@ namespace Comparer.DataAccess
 			return collection.AddLogging().AddLinqToDBContext<DataBaseConnection>((provider, options)
 				=> options
 					.UseDefaultLogging(provider))
-					.AddScoped<IPriceListRepository, PriceListRepository>()
-					.AddScoped<IDistributorRepository, DistributorRepository>()
-					.AddScoped<IProductRepository, ProductRepository>();
+						.AddScoped<IPriceListRepository, PriceListRepository>()
+						.AddScoped<IDistributorRepository, DistributorRepository>()
+						.AddScoped<IManufacturerRepository, ManufacturerRepository>()
+						.AddScoped<IProductRepository, ProductRepository>();
 		}
 
 		public static IServiceCollection AddRestClientFor<TPoint>(this IServiceCollection collection, string address) where TPoint : class, IRestClient
