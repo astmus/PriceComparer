@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[DataMatrixCRPTPuttingDocumentsArchive] (
+    [Id]                    INT              IDENTITY (1, 1) NOT NULL,
+    [DocId]                 INT              NOT NULL,
+    [PublicId]              NVARCHAR (128)   NULL,
+    [ActionId]              INT              NOT NULL,
+    [ActionDate]            DATETIME         NULL,
+    [ContractorId]          INT              NOT NULL,
+    [StatusId]              INT              NOT NULL,
+    [CRPTStatus]            VARCHAR (128)    NULL,
+    [CRPTStatusId]          INT              DEFAULT ((0)) NOT NULL,
+    [CRPTType]              VARCHAR (128)    NULL,
+    [WMSDocumentId]         BIGINT           NULL,
+    [PrimaryDocumentName]   NVARCHAR (128)   NULL,
+    [PrimaryDocumentNumber] NVARCHAR (128)   NULL,
+    [PrimaryDocumentDate]   DATETIME         NULL,
+    [PrimaryDocumentTypeId] INT              DEFAULT ((0)) NOT NULL,
+    [Comments]              NVARCHAR (255)   NULL,
+    [Error]                 NVARCHAR (4000)  NULL,
+    [RegTryCount]           INT              DEFAULT ((0)) NOT NULL,
+    [NextTryDate]           DATETIME         NULL,
+    [AuthorId]              UNIQUEIDENTIFIER NULL,
+    [CreatedDate]           DATETIME         DEFAULT (getdate()) NOT NULL,
+    [ChangedDate]           DATETIME         DEFAULT (getdate()) NOT NULL,
+    [ArchiveDate]           DATETIME         DEFAULT (getdate()) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC, [DocId] ASC)
+);
+
