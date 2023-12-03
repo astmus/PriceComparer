@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 
 using Comparer.Data;
+using Comparer.Data.Context;
 using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Repositories;
