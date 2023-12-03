@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 
 
-namespace Comparer.Data
+namespace Comparer.Data.Context
 {
 	public abstract class BaseConnection : LinqToDB.Data.DataConnection
 	{

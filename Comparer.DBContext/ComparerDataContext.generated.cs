@@ -95,7 +95,7 @@ namespace Comparer.Data.Context
 		public ITable<ComplectingDocumentsItem>                     ComplectingDocumentsItems                     { get { return this.GetTable<ComplectingDocumentsItem>(); } }
 		public ITable<ComplectingDocumentsItemsArchive>             ComplectingDocumentsItemsArchives             { get { return this.GetTable<ComplectingDocumentsItemsArchive>(); } }
 		public ITable<Country>                                      Countries                                     { get { return this.GetTable<Country>(); } }
-		public ITable<COURIER>                                      COURIERS                                      { get { return this.GetTable<COURIER>(); } }
+		public ITable<Courier>                                      Couriers                                      { get { return this.GetTable<Courier>(); } }
 		public ITable<CouriersArchive>                              CouriersArchives                              { get { return this.GetTable<CouriersArchive>(); } }
 		public ITable<CRPTDataMatrixInternalStatus>                 CRPTDataMatrixInternalStatuses                { get { return this.GetTable<CRPTDataMatrixInternalStatus>(); } }
 		public ITable<CRPTDocument>                                 CRPTDocuments                                 { get { return this.GetTable<CRPTDocument>(); } }
@@ -134,7 +134,7 @@ namespace Comparer.Data.Context
 		public ITable<DiscountsGroupsLink>                          DiscountsGroupsLinks                          { get { return this.GetTable<DiscountsGroupsLink>(); } }
 		public ITable<DiscountType>                                 DiscountTypes                                 { get { return this.GetTable<DiscountType>(); } }
 		public ITable<DiscountValuesToDiscountId>                   DiscountValuesToDiscountIds                   { get { return this.GetTable<DiscountValuesToDiscountId>(); } }
-		public ITable<DISTRIBUTOR>                                  DISTRIBUTORS                                  { get { return this.GetTable<DISTRIBUTOR>(); } }
+		public ITable<Distributor>                                  Distributors                                  { get { return this.GetTable<Distributor>(); } }
 		public ITable<DistributorsApiOrder>                         DistributorsApiOrders                         { get { return this.GetTable<DistributorsApiOrder>(); } }
 		public ITable<DistributorsApiOrdersArchive>                 DistributorsApiOrdersArchives                 { get { return this.GetTable<DistributorsApiOrdersArchive>(); } }
 		public ITable<DistributorsApiOrdersContent>                 DistributorsApiOrdersContents                 { get { return this.GetTable<DistributorsApiOrdersContent>(); } }
@@ -203,8 +203,8 @@ namespace Comparer.Data.Context
 		public ITable<Holiday>                                      Holidays                                      { get { return this.GetTable<Holiday>(); } }
 		public ITable<HttpMethod>                                   HttpMethods                                   { get { return this.GetTable<HttpMethod>(); } }
 		public ITable<KitDefinition>                                KitDefinitions                                { get { return this.GetTable<KitDefinition>(); } }
-		public ITable<LINK>                                         LINKS                                         { get { return this.GetTable<LINK>(); } }
-		public ITable<MANUFACTURER>                                 MANUFACTURERS                                 { get { return this.GetTable<MANUFACTURER>(); } }
+		public ITable<Link>                                         Links                                         { get { return this.GetTable<Link>(); } }
+		public ITable<Manufacturer>                                 Manufacturers                                 { get { return this.GetTable<Manufacturer>(); } }
 		public ITable<MonobrandKit>                                 MonobrandKits                                 { get { return this.GetTable<MonobrandKit>(); } }
 		public ITable<MousetrapClient>                              MousetrapClients                              { get { return this.GetTable<MousetrapClient>(); } }
 		public ITable<MousetrapDonorOrder>                          MousetrapDonorOrders                          { get { return this.GetTable<MousetrapDonorOrder>(); } }
@@ -222,10 +222,10 @@ namespace Comparer.Data.Context
 		public ITable<OrdersStatusHistoryTriggerUpdateOrderNumber>  OrdersStatusHistoryTriggerUpdateOrderNumbers  { get { return this.GetTable<OrdersStatusHistoryTriggerUpdateOrderNumber>(); } }
 		public ITable<OrdersWarehouseContainer>                     OrdersWarehouseContainers                     { get { return this.GetTable<OrdersWarehouseContainer>(); } }
 		public ITable<PaymentType>                                  PaymentTypes                                  { get { return this.GetTable<PaymentType>(); } }
-		public ITable<PRICE>                                        PRICES                                        { get { return this.GetTable<PRICE>(); } }
+		public ITable<Price>                                        Prices                                        { get { return this.GetTable<Price>(); } }
 		public ITable<PriceParam>                                   PriceParams                                   { get { return this.GetTable<PriceParam>(); } }
-		public ITable<PRICESRECORD>                                 PRICESRECORDS                                 { get { return this.GetTable<PRICESRECORD>(); } }
-		public ITable<PRODUCT>                                      PRODUCTS                                      { get { return this.GetTable<PRODUCT>(); } }
+		public ITable<Pricesrecord>                                 Pricesrecords                                 { get { return this.GetTable<Pricesrecord>(); } }
+		public ITable<Product>                                      Products                                      { get { return this.GetTable<Product>(); } }
 		public ITable<ProductInstockCorrectHistory>                 ProductInstockCorrectHistories                { get { return this.GetTable<ProductInstockCorrectHistory>(); } }
 		public ITable<ProductQuality>                               ProductQualities                              { get { return this.GetTable<ProductQuality>(); } }
 		public ITable<ProductReservesChangeHistory>                 ProductReservesChangeHistories                { get { return this.GetTable<ProductReservesChangeHistory>(); } }
@@ -270,7 +270,7 @@ namespace Comparer.Data.Context
 		public ITable<TemplateType>                                 TemplateTypes                                 { get { return this.GetTable<TemplateType>(); } }
 		public ITable<TracingPackage>                               TracingPackages                               { get { return this.GetTable<TracingPackage>(); } }
 		public ITable<TracingPackageItem>                           TracingPackageItems                           { get { return this.GetTable<TracingPackageItem>(); } }
-		public ITable<USER>                                         USERS                                         { get { return this.GetTable<USER>(); } }
+		public ITable<User>                                         Users                                         { get { return this.GetTable<User>(); } }
 		public ITable<UserAction>                                   UserActions                                   { get { return this.GetTable<UserAction>(); } }
 		public ITable<UserPassword>                                 UserPasswords                                 { get { return this.GetTable<UserPassword>(); } }
 		public ITable<UsersBound>                                   UsersBounds                                   { get { return this.GetTable<UsersBound>(); } }
@@ -722,7 +722,7 @@ namespace Comparer.Data.Context
 	[Table(Schema="dbo", Name="BarCodes")]
 	public partial class BarCode
 	{
-		[Column(),          PrimaryKey(1), NotNull] public int      SKU            { get; set; } // int
+		[Column("SKU"),     PrimaryKey(1), NotNull] public int      Sku            { get; set; } // int
 		[Column("BarCode"), PrimaryKey(2), NotNull] public string   BarCodeColumn  { get; set; } // nvarchar(39)
 		[Column(),             Nullable           ] public string   BarFormat      { get; set; } // varchar(10)
 		[Column(),             Nullable           ] public int?     CtrlDigit      { get; set; } // int
@@ -736,10 +736,10 @@ namespace Comparer.Data.Context
 	[Table(Schema="dbo", Name="BarCodesDoubles")]
 	public partial class BarCodesDouble
 	{
-		[PrimaryKey(1), NotNull] public long   SessionID  { get; set; } // bigint
-		[PrimaryKey(2), NotNull] public string BatchNo1РЎ { get; set; } // nchar(10)
-		[PrimaryKey(3), NotNull] public string BarCode    { get; set; } // nvarchar(39)
-		[PrimaryKey(4), NotNull] public int    SKU        { get; set; } // int
+		[Column(),      PrimaryKey(1), NotNull] public long   SessionID  { get; set; } // bigint
+		[Column(),      PrimaryKey(2), NotNull] public string BatchNo1РЎ { get; set; } // nchar(10)
+		[Column(),      PrimaryKey(3), NotNull] public string BarCode    { get; set; } // nvarchar(39)
+		[Column("SKU"), PrimaryKey(4), NotNull] public int    Sku        { get; set; } // int
 	}
 
 	[Table(Schema="dbo", Name="BarCodesSession")]
@@ -1092,34 +1092,34 @@ namespace Comparer.Data.Context
 	}
 
 	[Table(Schema="dbo", Name="COURIERS")]
-	public partial class COURIER
+	public partial class Courier
 	{
-		[Column, Nullable] public int?  ID                  { get; set; } // int
-		[Column, Nullable] public char? LASTNAME            { get; set; } // varchar(1)
-		[Column, Nullable] public char? NAME                { get; set; } // varchar(1)
-		[Column, Nullable] public char? FATHERNAME          { get; set; } // varchar(1)
-		[Column, Nullable] public char? DATIVEFULLNAME      { get; set; } // varchar(1)
-		[Column, Nullable] public char? PHONE               { get; set; } // varchar(1)
-		[Column, Nullable] public char? ADRESS              { get; set; } // varchar(1)
-		[Column, Nullable] public char? PASSPORTDATA        { get; set; } // varchar(1)
-		[Column, Nullable] public int?  MAXDELIVERIESPERDAY { get; set; } // int
-		[Column, Nullable] public bool? METRO               { get; set; } // bit
+		[Column("ID"),                  Nullable] public int?  Id                  { get; set; } // int
+		[Column("LASTNAME"),            Nullable] public char? Lastname            { get; set; } // varchar(1)
+		[Column("NAME"),                Nullable] public char? Name                { get; set; } // varchar(1)
+		[Column("FATHERNAME"),          Nullable] public char? Fathername          { get; set; } // varchar(1)
+		[Column("DATIVEFULLNAME"),      Nullable] public char? Dativefullname      { get; set; } // varchar(1)
+		[Column("PHONE"),               Nullable] public char? Phone               { get; set; } // varchar(1)
+		[Column("ADRESS"),              Nullable] public char? Adress              { get; set; } // varchar(1)
+		[Column("PASSPORTDATA"),        Nullable] public char? Passportdata        { get; set; } // varchar(1)
+		[Column("MAXDELIVERIESPERDAY"), Nullable] public int?  Maxdeliveriesperday { get; set; } // int
+		[Column("METRO"),               Nullable] public bool? Metro               { get; set; } // bit
 	}
 
 	[Table(Schema="dbo", Name="COURIERS_Archive")]
 	public partial class CouriersArchive
 	{
-		[PrimaryKey, NotNull    ] public Guid   ID                  { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public string LASTNAME            { get; set; } // nvarchar(255)
-		[Column,        Nullable] public string NAME                { get; set; } // nvarchar(255)
-		[Column,        Nullable] public string FATHERNAME          { get; set; } // nvarchar(255)
-		[Column,        Nullable] public string DATIVEFULLNAME      { get; set; } // nvarchar(1024)
-		[Column,        Nullable] public string PHONE               { get; set; } // nvarchar(10)
-		[Column,        Nullable] public string ADRESS              { get; set; } // nvarchar(1024)
-		[Column,        Nullable] public string PASSPORTDATA        { get; set; } // nvarchar(1024)
-		[Column,     NotNull    ] public int    MAXDELIVERIESPERDAY { get; set; } // int
-		[Column,     NotNull    ] public byte   METRO               { get; set; } // tinyint
-		[Column,        Nullable] public string UserName            { get; set; } // nchar(128)
+		[Column("ID"),                  PrimaryKey,  NotNull] public Guid   Id                  { get; set; } // uniqueidentifier
+		[Column("LASTNAME"),                         NotNull] public string Lastname            { get; set; } // nvarchar(255)
+		[Column("NAME"),                   Nullable         ] public string Name                { get; set; } // nvarchar(255)
+		[Column("FATHERNAME"),             Nullable         ] public string Fathername          { get; set; } // nvarchar(255)
+		[Column("DATIVEFULLNAME"),         Nullable         ] public string Dativefullname      { get; set; } // nvarchar(1024)
+		[Column("PHONE"),                  Nullable         ] public string Phone               { get; set; } // nvarchar(10)
+		[Column("ADRESS"),                 Nullable         ] public string Adress              { get; set; } // nvarchar(1024)
+		[Column("PASSPORTDATA"),           Nullable         ] public string Passportdata        { get; set; } // nvarchar(1024)
+		[Column("MAXDELIVERIESPERDAY"),              NotNull] public int    Maxdeliveriesperday { get; set; } // int
+		[Column("METRO"),                            NotNull] public byte   Metro               { get; set; } // tinyint
+		[Column(),                         Nullable         ] public string UserName            { get; set; } // nchar(128)
 	}
 
 	[Table(Schema="dbo", Name="CRPTDataMatrixInternalStatuses")]
@@ -1530,28 +1530,28 @@ namespace Comparer.Data.Context
 	}
 
 	[Table(Schema="dbo", Name="DISTRIBUTORS")]
-	public partial class DISTRIBUTOR
+	public partial class Distributor
 	{
-		[PrimaryKey, NotNull    ] public Guid   ID               { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public string NAME             { get; set; } // varchar(255)
-		[Column,     NotNull    ] public bool   ACTIVE           { get; set; } // bit
-		[Column,        Nullable] public bool?  GOINPURCHASELIST { get; set; } // bit
-		[Column,        Nullable] public bool?  FIRSTALWAYS      { get; set; } // bit
-		[Column,        Nullable] public string PHONE            { get; set; } // nvarchar(64)
-		[Column,        Nullable] public string EMAIL            { get; set; } // nvarchar(1024)
-		[Column,        Nullable] public bool?  SENDMAIL         { get; set; } // bit
-		[Column,        Nullable] public string ADDRESS          { get; set; } // nvarchar(1024)
-		[Column,        Nullable] public string COMMENT          { get; set; } // nvarchar(4000)
-		[Column,        Nullable] public byte?  PRIORITY         { get; set; } // tinyint
-		[Column,        Nullable] public int?   DEALERORDER      { get; set; } // int
+		[Column("ID"),               PrimaryKey,  NotNull] public Guid   Id               { get; set; } // uniqueidentifier
+		[Column("NAME"),                          NotNull] public string Name             { get; set; } // varchar(255)
+		[Column("ACTIVE"),                        NotNull] public bool   Active           { get; set; } // bit
+		[Column("GOINPURCHASELIST"),    Nullable         ] public bool?  Goinpurchaselist { get; set; } // bit
+		[Column("FIRSTALWAYS"),         Nullable         ] public bool?  Firstalways      { get; set; } // bit
+		[Column("PHONE"),               Nullable         ] public string Phone            { get; set; } // nvarchar(64)
+		[Column("EMAIL"),               Nullable         ] public string Email            { get; set; } // nvarchar(1024)
+		[Column("SENDMAIL"),            Nullable         ] public bool?  Sendmail         { get; set; } // bit
+		[Column("ADDRESS"),             Nullable         ] public string Address          { get; set; } // nvarchar(1024)
+		[Column("COMMENT"),             Nullable         ] public string Comment          { get; set; } // nvarchar(4000)
+		[Column("PRIORITY"),            Nullable         ] public byte?  Priority         { get; set; } // tinyint
+		[Column("DEALERORDER"),         Nullable         ] public int?   Dealerorder      { get; set; } // int
 
 		#region Associations
 
 		/// <summary>
 		/// PRICESFOREIGNDISTRIBUTOR_BackReference (dbo.PRICES)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="DISID", CanBeNull=true)]
-		public IEnumerable<PRICE> Pricesforeigndistributors { get; set; }
+		[Association(ThisKey="Id", OtherKey="Disid", CanBeNull=true)]
+		public IEnumerable<Price> Pricesforeigndistributors { get; set; }
 
 		#endregion
 	}
@@ -2160,8 +2160,8 @@ namespace Comparer.Data.Context
 		/// <summary>
 		/// FK__KitDefini__Creat__62108194 (dbo.USERS)
 		/// </summary>
-		[Association(ThisKey="CreatorId", OtherKey="ID", CanBeNull=false)]
-		public USER Creator { get; set; }
+		[Association(ThisKey="CreatorId", OtherKey="Id", CanBeNull=false)]
+		public User Creator { get; set; }
 
 		/// <summary>
 		/// FK__Monobrand__MonoI__6304A5CD_BackReference (dbo.MonobrandKits)
@@ -2173,53 +2173,53 @@ namespace Comparer.Data.Context
 	}
 
 	[Table(Schema="dbo", Name="LINKS")]
-	public partial class LINK
+	public partial class Link
 	{
-		[PrimaryKey, NotNull] public Guid ID               { get; set; } // uniqueidentifier
-		[Column,     NotNull] public Guid CATALOGPRODUCTID { get; set; } // uniqueidentifier
-		[Column,     NotNull] public int  PRICERECORDINDEX { get; set; } // int
+		[Column("ID"),               PrimaryKey, NotNull] public Guid Id               { get; set; } // uniqueidentifier
+		[Column("CATALOGPRODUCTID"),             NotNull] public Guid Catalogproductid { get; set; } // uniqueidentifier
+		[Column("PRICERECORDINDEX"),             NotNull] public int  Pricerecordindex { get; set; } // int
 
 		#region Associations
 
 		/// <summary>
 		/// LINKSFOREIGNCATALOGPRODUCT (dbo.PRODUCTS)
 		/// </summary>
-		[Association(ThisKey="CATALOGPRODUCTID", OtherKey="ID", CanBeNull=false)]
-		public PRODUCT CATALOGPRODUCT { get; set; }
+		[Association(ThisKey="Catalogproductid", OtherKey="Id", CanBeNull=false)]
+		public Product Catalogproduct { get; set; }
 
 		/// <summary>
 		/// LINKSFOREIGNPRICERECORD (dbo.PRICESRECORDS)
 		/// </summary>
-		[Association(ThisKey="PRICERECORDINDEX", OtherKey="RECORDINDEX", CanBeNull=false)]
-		public PRICESRECORD LINKSFOREIGNPRICERECORD { get; set; }
+		[Association(ThisKey="Pricerecordindex", OtherKey="Recordindex", CanBeNull=false)]
+		public Pricesrecord Linksforeignpricerecord { get; set; }
 
 		#endregion
 	}
 
 	[Table(Schema="dbo", Name="MANUFACTURERS")]
-	public partial class MANUFACTURER
+	public partial class Manufacturer
 	{
-		[PrimaryKey, NotNull    ] public Guid   ID          { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public string NAME        { get; set; } // varchar(255)
-		[Column,     NotNull    ] public bool   EXTRAUSED   { get; set; } // bit
-		[Column,     NotNull    ] public int    EXTRA       { get; set; } // int
-		[Column,     NotNull    ] public string DESCRIPTION { get; set; } // nvarchar(1024)
-		[Column,     NotNull    ] public bool   PUBLISHED   { get; set; } // bit
-		[Column,        Nullable] public bool?  IsDeleted   { get; set; } // bit
+		[Column("ID"),          PrimaryKey,  NotNull] public Guid   Id          { get; set; } // uniqueidentifier
+		[Column("NAME"),                     NotNull] public string Name        { get; set; } // varchar(255)
+		[Column("EXTRAUSED"),                NotNull] public bool   Extraused   { get; set; } // bit
+		[Column("EXTRA"),                    NotNull] public int    Extra       { get; set; } // int
+		[Column("DESCRIPTION"),              NotNull] public string Description { get; set; } // nvarchar(1024)
+		[Column("PUBLISHED"),                NotNull] public bool   Published   { get; set; } // bit
+		[Column(),                 Nullable         ] public bool?  IsDeleted   { get; set; } // bit
 
 		#region Associations
 
 		/// <summary>
 		/// FK__Monobrand__ManId__63F8CA06_BackReference (dbo.MonobrandKits)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="ManId", CanBeNull=true)]
+		[Association(ThisKey="Id", OtherKey="ManId", CanBeNull=true)]
 		public IEnumerable<MonobrandKit> MonobrandManId63F8Cas { get; set; }
 
 		/// <summary>
 		/// PRODUCTSFOREIGNMANUFACTURER_BackReference (dbo.PRODUCTS)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="MANID", CanBeNull=true)]
-		public IEnumerable<PRODUCT> Productsforeignmanufacturers { get; set; }
+		[Association(ThisKey="Id", OtherKey="Manid", CanBeNull=true)]
+		public IEnumerable<Product> Productsforeignmanufacturers { get; set; }
 
 		#endregion
 	}
@@ -2236,8 +2236,8 @@ namespace Comparer.Data.Context
 		/// <summary>
 		/// FK__Monobrand__ManId__63F8CA06 (dbo.MANUFACTURERS)
 		/// </summary>
-		[Association(ThisKey="ManId", OtherKey="ID", CanBeNull=false)]
-		public MANUFACTURER Man { get; set; }
+		[Association(ThisKey="ManId", OtherKey="Id", CanBeNull=false)]
+		public Manufacturer Man { get; set; }
 
 		/// <summary>
 		/// FK__Monobrand__MonoI__6304A5CD (dbo.KitDefinitions)
@@ -2385,11 +2385,11 @@ namespace Comparer.Data.Context
 	[Table(Schema="dbo", Name="PaymentTypes")]
 	public partial class PaymentType
 	{
-		[Column(),                 PrimaryKey,  Identity] public int     ID            { get; set; } // int
-		[Column(),                 NotNull              ] public string  TITLE         { get; set; } // varchar(100)
-		[Column(),                 NotNull              ] public string  DESCRIPTION   { get; set; } // nvarchar(1024)
-		[Column(),                 NotNull              ] public string  ADAPTER       { get; set; } // nvarchar(25)
-		[Column(),                 NotNull              ] public double  PRICE         { get; set; } // float
+		[Column("ID"),             PrimaryKey,  Identity] public int     Id            { get; set; } // int
+		[Column("TITLE"),          NotNull              ] public string  Title         { get; set; } // varchar(100)
+		[Column("DESCRIPTION"),    NotNull              ] public string  Description   { get; set; } // nvarchar(1024)
+		[Column("ADAPTER"),        NotNull              ] public string  Adapter       { get; set; } // nvarchar(25)
+		[Column("PRICE"),          NotNull              ] public double  Price         { get; set; } // float
 		[Column("PRICE_ORIGINAL"), NotNull              ] public double  PriceOriginal { get; set; } // float
 		[Column("MIN_ORDER_SUM"),  NotNull              ] public double  MinOrderSum   { get; set; } // float
 		[Column("Max_Order_Sum"),     Nullable          ] public double? MaxOrderSum   { get; set; } // float
@@ -2397,47 +2397,47 @@ namespace Comparer.Data.Context
 		[Column("IS_ACTIVE"),      NotNull              ] public bool    IsActive      { get; set; } // bit
 		[Column(),                 NotNull              ] public bool    IsDeleeted    { get; set; } // bit
 		[Column(),                 NotNull              ] public int     SourceID      { get; set; } // int
-		[Column(),                 NotNull              ] public string  DISABLED      { get; set; } // nvarchar(255)
+		[Column("DISABLED"),       NotNull              ] public string  Disabled      { get; set; } // nvarchar(255)
 		[Column(),                 NotNull              ] public bool    IsOld         { get; set; } // bit
 	}
 
 	[Table(Schema="dbo", Name="PRICES")]
-	public partial class PRICE
+	public partial class Price
 	{
-		[PrimaryKey, NotNull    ] public Guid      ID              { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public string    NAME            { get; set; } // varchar(255)
-		[Column,        Nullable] public Guid?     DISID           { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public double    DISCOUNT        { get; set; } // float
-		[Column,     NotNull    ] public byte      DEFAULTCURRENCY { get; set; } // tinyint
-		[Column,     NotNull    ] public double    TURNDOLLARSRATE { get; set; } // float
-		[Column,     NotNull    ] public string    SHEET           { get; set; } // varchar(1024)
-		[Column,     NotNull    ] public string    NAMERANGE       { get; set; } // varchar(16)
-		[Column,     NotNull    ] public string    PRICERANGE      { get; set; } // varchar(16)
-		[Column,     NotNull    ] public int       FIRSTROW        { get; set; } // int
-		[Column,     NotNull    ] public float     MAXPRICECHANGE  { get; set; } // real
-		[Column,        Nullable] public string    STOPWORDS       { get; set; } // varchar(6000)
-		[Column,        Nullable] public string    FILENAME        { get; set; } // varchar(1024)
-		[Column,        Nullable] public DateTime? FILEDATE        { get; set; } // datetime
-		[Column,        Nullable] public string    FILESHEETS      { get; set; } // varchar(1024)
-		[Column,     NotNull    ] public string    COMMENT         { get; set; } // nvarchar(1024)
-		[Column,     NotNull    ] public string    SKURANGE        { get; set; } // varchar(16)
-		[Column,     NotNull    ] public string    STOCKRANGE      { get; set; } // nvarchar(16)
-		[Column,     NotNull    ] public string    INSTOCKRANGE    { get; set; } // nvarchar(16)
-		[Column,     NotNull    ] public bool      ISACTIVE        { get; set; } // bit
+		[Column("ID"),              PrimaryKey,  NotNull] public Guid      Id              { get; set; } // uniqueidentifier
+		[Column("NAME"),                         NotNull] public string    Name            { get; set; } // varchar(255)
+		[Column("DISID"),              Nullable         ] public Guid?     Disid           { get; set; } // uniqueidentifier
+		[Column("DISCOUNT"),                     NotNull] public double    Discount        { get; set; } // float
+		[Column("DEFAULTCURRENCY"),              NotNull] public byte      Defaultcurrency { get; set; } // tinyint
+		[Column("TURNDOLLARSRATE"),              NotNull] public double    Turndollarsrate { get; set; } // float
+		[Column("SHEET"),                        NotNull] public string    Sheet           { get; set; } // varchar(1024)
+		[Column("NAMERANGE"),                    NotNull] public string    Namerange       { get; set; } // varchar(16)
+		[Column("PRICERANGE"),                   NotNull] public string    Pricerange      { get; set; } // varchar(16)
+		[Column("FIRSTROW"),                     NotNull] public int       Firstrow        { get; set; } // int
+		[Column("MAXPRICECHANGE"),               NotNull] public float     Maxpricechange  { get; set; } // real
+		[Column("STOPWORDS"),          Nullable         ] public string    Stopwords       { get; set; } // varchar(6000)
+		[Column("FILENAME"),           Nullable         ] public string    Filename        { get; set; } // varchar(1024)
+		[Column("FILEDATE"),           Nullable         ] public DateTime? Filedate        { get; set; } // datetime
+		[Column("FILESHEETS"),         Nullable         ] public string    Filesheets      { get; set; } // varchar(1024)
+		[Column("COMMENT"),                      NotNull] public string    Comment         { get; set; } // nvarchar(1024)
+		[Column("SKURANGE"),                     NotNull] public string    Skurange        { get; set; } // varchar(16)
+		[Column("STOCKRANGE"),                   NotNull] public string    Stockrange      { get; set; } // nvarchar(16)
+		[Column("INSTOCKRANGE"),                 NotNull] public string    Instockrange    { get; set; } // nvarchar(16)
+		[Column("ISACTIVE"),                     NotNull] public bool      Isactive        { get; set; } // bit
 
 		#region Associations
 
 		/// <summary>
 		/// PRICESFOREIGNDISTRIBUTOR (dbo.DISTRIBUTORS)
 		/// </summary>
-		[Association(ThisKey="DISID", OtherKey="ID", CanBeNull=true)]
-		public DISTRIBUTOR DI { get; set; }
+		[Association(ThisKey="Disid", OtherKey="Id", CanBeNull=true)]
+		public Distributor Di { get; set; }
 
 		/// <summary>
 		/// PRICESRECORDSFOREIGNPRICE_BackReference (dbo.PRICESRECORDS)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="PRICEID", CanBeNull=true)]
-		public IEnumerable<PRICESRECORD> Pricesrecordsforeignprices { get; set; }
+		[Association(ThisKey="Id", OtherKey="Priceid", CanBeNull=true)]
+		public IEnumerable<Pricesrecord> Pricesrecordsforeignprices { get; set; }
 
 		#endregion
 	}
@@ -2450,87 +2450,87 @@ namespace Comparer.Data.Context
 	}
 
 	[Table(Schema="dbo", Name="PRICESRECORDS")]
-	public partial class PRICESRECORD
+	public partial class Pricesrecord
 	{
-		[PrimaryKey, Identity] public int    RECORDINDEX { get; set; } // int
-		[Column,     NotNull ] public Guid   PRICEID     { get; set; } // uniqueidentifier
-		[Column,     NotNull ] public string NAME        { get; set; } // nvarchar(1024)
-		[Column,     NotNull ] public byte   STATE       { get; set; } // tinyint
-		[Column,     NotNull ] public bool   USED        { get; set; } // bit
-		[Column,     NotNull ] public double PRICE       { get; set; } // float
-		[Column,     NotNull ] public bool   DELETED     { get; set; } // bit
-		[Column,     NotNull ] public string COMMENT     { get; set; } // nvarchar(1024)
-		[Column,     NotNull ] public string SKU         { get; set; } // nvarchar(50)
-		[Column,     NotNull ] public int    STOCK       { get; set; } // int
-		[Column,     NotNull ] public int    INSTOCK     { get; set; } // int
+		[Column("RECORDINDEX"), PrimaryKey, Identity] public int    Recordindex { get; set; } // int
+		[Column("PRICEID"),     NotNull             ] public Guid   Priceid     { get; set; } // uniqueidentifier
+		[Column("NAME"),        NotNull             ] public string Name        { get; set; } // nvarchar(1024)
+		[Column("STATE"),       NotNull             ] public byte   State       { get; set; } // tinyint
+		[Column("USED"),        NotNull             ] public bool   Used        { get; set; } // bit
+		[Column("PRICE"),       NotNull             ] public double Price       { get; set; } // float
+		[Column("DELETED"),     NotNull             ] public bool   Deleted     { get; set; } // bit
+		[Column("COMMENT"),     NotNull             ] public string Comment     { get; set; } // nvarchar(1024)
+		[Column("SKU"),         NotNull             ] public string Sku         { get; set; } // nvarchar(50)
+		[Column("STOCK"),       NotNull             ] public int    Stock       { get; set; } // int
+		[Column("INSTOCK"),     NotNull             ] public int    Instock     { get; set; } // int
 
 		#region Associations
 
 		/// <summary>
 		/// LINKSFOREIGNPRICERECORD_BackReference (dbo.LINKS)
 		/// </summary>
-		[Association(ThisKey="RECORDINDEX", OtherKey="PRICERECORDINDEX", CanBeNull=true)]
-		public IEnumerable<LINK> Linksforeignpricerecords { get; set; }
+		[Association(ThisKey="Recordindex", OtherKey="Pricerecordindex", CanBeNull=true)]
+		public IEnumerable<Link> Linksforeignpricerecords { get; set; }
 
 		/// <summary>
 		/// PRICESRECORDSFOREIGNPRICE (dbo.PRICES)
 		/// </summary>
-		[Association(ThisKey="PRICEID", OtherKey="ID", CanBeNull=false)]
-		public PRICE PRICESRECORDSFOREIGNPRICE { get; set; }
+		[Association(ThisKey="Priceid", OtherKey="Id", CanBeNull=false)]
+		public Price Pricesrecordsforeignprice { get; set; }
 
 		#endregion
 	}
 
 	[Table(Schema="dbo", Name="PRODUCTS")]
-	public partial class PRODUCT
+	public partial class Product
 	{
-		[Column(),           PrimaryKey,  NotNull] public Guid      ID              { get; set; } // uniqueidentifier
-		[Column(),                        NotNull] public string    NAME            { get; set; } // varchar(1024)
-		[Column(),                        NotNull] public Guid      MANID           { get; set; } // uniqueidentifier
-		[Column(),                        NotNull] public double    PRICE           { get; set; } // float
-		[Column(),              Nullable         ] public double?   BASEPRICE       { get; set; } // float
-		[Column(),                        NotNull] public string    LABEL           { get; set; } // varchar(255)
-		[Column(),              Nullable         ] public string    PARENTLABEL     { get; set; } // varchar(255)
-		[Column(),                        NotNull] public byte      STATE           { get; set; } // tinyint
-		[Column(),                        NotNull] public bool      USERCHANGED     { get; set; } // bit
-		[Column(),                        NotNull] public bool      EXTRAUSED       { get; set; } // bit
-		[Column(),                        NotNull] public int       EXTRA           { get; set; } // int
-		[Column(),                        NotNull] public bool      AUTOUPDATE      { get; set; } // bit
-		[Column(),              Nullable         ] public bool?     AUTOUPDATETESTS { get; set; } // bit
-		[Column(),              Nullable         ] public bool?     PRODUCTEXISTS   { get; set; } // bit
-		[Column(),                        NotNull] public bool      PHOTOEXISTS     { get; set; } // bit
-		[Column(),                        NotNull] public int       VIEWSTYLEID     { get; set; } // int
-		[Column(),                        NotNull] public string    CHILDNAME       { get; set; } // nvarchar(1024)
-		[Column(),                        NotNull] public bool      TESTER          { get; set; } // bit
-		[Column(),                        NotNull] public bool      PUBLISHED       { get; set; } // bit
-		[Column(),                        NotNull] public DateTime  CREATEDATE      { get; set; } // datetime
-		[Column(),                        NotNull] public DateTime  CHANGEDATE      { get; set; } // datetime
-		[Column(),                        NotNull] public byte      CORRECTEDSTATUS { get; set; } // tinyint
-		[Column(),                        NotNull] public int       INSTOCK         { get; set; } // int
-		[Column(),                        NotNull] public bool      ISPROBIRKA      { get; set; } // bit
-		[Column(),                        NotNull] public string    COMMENT         { get; set; } // nvarchar(500)
-		[Column(),                        NotNull] public bool      DELETED         { get; set; } // bit
-		[Column("IS_PROMO"),              NotNull] public bool      IsPromo         { get; set; } // bit
-		[Column(),                        NotNull] public int       TEMPLATEID      { get; set; } // int
-		[Column(),                        NotNull] public int       SKU             { get; set; } // int
-		[Column(),                        NotNull] public bool      ISNEW           { get; set; } // bit
-		[Column(),              Nullable         ] public DateTime? ISNEWSTARTDATE  { get; set; } // datetime
-		[Column(),                        NotNull] public double    WEIGHT          { get; set; } // float
-		[Column(),                        NotNull] public byte      DEFAULTCURRENCY { get; set; } // tinyint
+		[Column("ID"),              PrimaryKey,  NotNull] public Guid      Id              { get; set; } // uniqueidentifier
+		[Column("NAME"),                         NotNull] public string    Name            { get; set; } // varchar(1024)
+		[Column("MANID"),                        NotNull] public Guid      Manid           { get; set; } // uniqueidentifier
+		[Column("PRICE"),                        NotNull] public double    Price           { get; set; } // float
+		[Column("BASEPRICE"),          Nullable         ] public double?   Baseprice       { get; set; } // float
+		[Column("LABEL"),                        NotNull] public string    Label           { get; set; } // varchar(255)
+		[Column("PARENTLABEL"),        Nullable         ] public string    Parentlabel     { get; set; } // varchar(255)
+		[Column("STATE"),                        NotNull] public byte      State           { get; set; } // tinyint
+		[Column("USERCHANGED"),                  NotNull] public bool      Userchanged     { get; set; } // bit
+		[Column("EXTRAUSED"),                    NotNull] public bool      Extraused       { get; set; } // bit
+		[Column("EXTRA"),                        NotNull] public int       Extra           { get; set; } // int
+		[Column("AUTOUPDATE"),                   NotNull] public bool      Autoupdate      { get; set; } // bit
+		[Column("AUTOUPDATETESTS"),    Nullable         ] public bool?     Autoupdatetests { get; set; } // bit
+		[Column("PRODUCTEXISTS"),      Nullable         ] public bool?     Productexists   { get; set; } // bit
+		[Column("PHOTOEXISTS"),                  NotNull] public bool      Photoexists     { get; set; } // bit
+		[Column("VIEWSTYLEID"),                  NotNull] public int       Viewstyleid     { get; set; } // int
+		[Column("CHILDNAME"),                    NotNull] public string    Childname       { get; set; } // nvarchar(1024)
+		[Column("TESTER"),                       NotNull] public bool      Tester          { get; set; } // bit
+		[Column("PUBLISHED"),                    NotNull] public bool      Published       { get; set; } // bit
+		[Column("CREATEDATE"),                   NotNull] public DateTime  Createdate      { get; set; } // datetime
+		[Column("CHANGEDATE"),                   NotNull] public DateTime  Changedate      { get; set; } // datetime
+		[Column("CORRECTEDSTATUS"),              NotNull] public byte      Correctedstatus { get; set; } // tinyint
+		[Column("INSTOCK"),                      NotNull] public int       Instock         { get; set; } // int
+		[Column("ISPROBIRKA"),                   NotNull] public bool      Isprobirka      { get; set; } // bit
+		[Column("COMMENT"),                      NotNull] public string    Comment         { get; set; } // nvarchar(500)
+		[Column("DELETED"),                      NotNull] public bool      Deleted         { get; set; } // bit
+		[Column("IS_PROMO"),                     NotNull] public bool      IsPromo         { get; set; } // bit
+		[Column("TEMPLATEID"),                   NotNull] public int       Templateid      { get; set; } // int
+		[Column("SKU"),                          NotNull] public int       Sku             { get; set; } // int
+		[Column("ISNEW"),                        NotNull] public bool      Isnew           { get; set; } // bit
+		[Column("ISNEWSTARTDATE"),     Nullable         ] public DateTime? Isnewstartdate  { get; set; } // datetime
+		[Column("WEIGHT"),                       NotNull] public double    Weight          { get; set; } // float
+		[Column("DEFAULTCURRENCY"),              NotNull] public byte      Defaultcurrency { get; set; } // tinyint
 
 		#region Associations
 
 		/// <summary>
 		/// LINKSFOREIGNCATALOGPRODUCT_BackReference (dbo.LINKS)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="CATALOGPRODUCTID", CanBeNull=true)]
-		public IEnumerable<LINK> Linksforeigncatalogproducts { get; set; }
+		[Association(ThisKey="Id", OtherKey="Catalogproductid", CanBeNull=true)]
+		public IEnumerable<Link> Linksforeigncatalogproducts { get; set; }
 
 		/// <summary>
 		/// PRODUCTSFOREIGNMANUFACTURER (dbo.MANUFACTURERS)
 		/// </summary>
-		[Association(ThisKey="MANID", OtherKey="ID", CanBeNull=false)]
-		public MANUFACTURER MAN { get; set; }
+		[Association(ThisKey="Manid", OtherKey="Id", CanBeNull=false)]
+		public Manufacturer Man { get; set; }
 
 		#endregion
 	}
@@ -2782,14 +2782,14 @@ namespace Comparer.Data.Context
 	[Table(Schema="dbo", Name="SUZOrderItems")]
 	public partial class SUZOrderItem
 	{
-		[PrimaryKey, Identity] public int      Id              { get; set; } // int
-		[Column,     NotNull ] public int      OrderId         { get; set; } // int
-		[Column,     NotNull ] public string   GTIN            { get; set; } // nvarchar(14)
-		[Column,     NotNull ] public int      Quantity        { get; set; } // int
-		[Column,     NotNull ] public int      PrintedQuantity { get; set; } // int
-		[Column,     NotNull ] public bool     IsActive        { get; set; } // bit
-		[Column,     NotNull ] public Guid     ProductId       { get; set; } // uniqueidentifier
-		[Column,     NotNull ] public DateTime CreatedDate     { get; set; } // datetime
+		[Column(),       PrimaryKey, Identity] public int      Id              { get; set; } // int
+		[Column(),       NotNull             ] public int      OrderId         { get; set; } // int
+		[Column("GTIN"), NotNull             ] public string   Gtin            { get; set; } // nvarchar(14)
+		[Column(),       NotNull             ] public int      Quantity        { get; set; } // int
+		[Column(),       NotNull             ] public int      PrintedQuantity { get; set; } // int
+		[Column(),       NotNull             ] public bool     IsActive        { get; set; } // bit
+		[Column(),       NotNull             ] public Guid     ProductId       { get; set; } // uniqueidentifier
+		[Column(),       NotNull             ] public DateTime CreatedDate     { get; set; } // datetime
 	}
 
 	[Table(Schema="dbo", Name="SUZOrderItemDataMatrixes")]
@@ -2975,15 +2975,15 @@ namespace Comparer.Data.Context
 	[Table(Schema="dbo", Name="TaskScheduler")]
 	public partial class TaskScheduler
 	{
-		[PrimaryKey, Identity   ] public int      ID         { get; set; } // int
-		[Column,     NotNull    ] public DateTime RunTime    { get; set; } // datetime
-		[Column,     NotNull    ] public string   Path       { get; set; } // nvarchar(500)
-		[Column,     NotNull    ] public string   Commentary { get; set; } // nvarchar(500)
-		[Column,     NotNull    ] public string   Action     { get; set; } // nvarchar(255)
-		[Column,     NotNull    ] public int      Done       { get; set; } // int
-		[Column,        Nullable] public string   Params     { get; set; } // nvarchar(500)
-		[Column,     NotNull    ] public int      TaskType   { get; set; } // int
-		[Column,     NotNull    ] public int      Counter    { get; set; } // int
+		[Column("ID"), PrimaryKey,  Identity] public int      Id         { get; set; } // int
+		[Column(),     NotNull              ] public DateTime RunTime    { get; set; } // datetime
+		[Column(),     NotNull              ] public string   Path       { get; set; } // nvarchar(500)
+		[Column(),     NotNull              ] public string   Commentary { get; set; } // nvarchar(500)
+		[Column(),     NotNull              ] public string   Action     { get; set; } // nvarchar(255)
+		[Column(),     NotNull              ] public int      Done       { get; set; } // int
+		[Column(),        Nullable          ] public string   Params     { get; set; } // nvarchar(500)
+		[Column(),     NotNull              ] public int      TaskType   { get; set; } // int
+		[Column(),     NotNull              ] public int      Counter    { get; set; } // int
 	}
 
 	[Table(Schema="dbo", Name="Templates")]
@@ -3033,26 +3033,26 @@ namespace Comparer.Data.Context
 	}
 
 	[Table(Schema="dbo", Name="USERS")]
-	public partial class USER
+	public partial class User
 	{
-		[PrimaryKey, NotNull    ] public Guid   ID           { get; set; } // uniqueidentifier
-		[Column,     NotNull    ] public string NAME         { get; set; } // varchar(255)
-		[Column,        Nullable] public byte?  USERSGROUP   { get; set; } // tinyint
-		[Column,     NotNull    ] public string Password     { get; set; } // nvarchar(16)
-		[Column,        Nullable] public string FirstName    { get; set; } // nvarchar(25)
-		[Column,        Nullable] public string Patronymic   { get; set; } // nvarchar(25)
-		[Column,        Nullable] public string LastName     { get; set; } // nvarchar(25)
-		[Column,        Nullable] public string Email        { get; set; } // nvarchar(255)
-		[Column,        Nullable] public int?   DepartmentId { get; set; } // int
-		[Column,        Nullable] public int?   RoleId       { get; set; } // int
-		[Column,        Nullable] public string Status       { get; set; } // nvarchar(255)
+		[Column("ID"),         PrimaryKey,  NotNull] public Guid   Id           { get; set; } // uniqueidentifier
+		[Column("NAME"),                    NotNull] public string Name         { get; set; } // varchar(255)
+		[Column("USERSGROUP"),    Nullable         ] public byte?  Usersgroup   { get; set; } // tinyint
+		[Column(),                          NotNull] public string Password     { get; set; } // nvarchar(16)
+		[Column(),                Nullable         ] public string FirstName    { get; set; } // nvarchar(25)
+		[Column(),                Nullable         ] public string Patronymic   { get; set; } // nvarchar(25)
+		[Column(),                Nullable         ] public string LastName     { get; set; } // nvarchar(25)
+		[Column(),                Nullable         ] public string Email        { get; set; } // nvarchar(255)
+		[Column(),                Nullable         ] public int?   DepartmentId { get; set; } // int
+		[Column(),                Nullable         ] public int?   RoleId       { get; set; } // int
+		[Column(),                Nullable         ] public string Status       { get; set; } // nvarchar(255)
 
 		#region Associations
 
 		/// <summary>
 		/// FK__KitDefini__Creat__62108194_BackReference (dbo.KitDefinitions)
 		/// </summary>
-		[Association(ThisKey="ID", OtherKey="CreatorId", CanBeNull=true)]
+		[Association(ThisKey="Id", OtherKey="CreatorId", CanBeNull=true)]
 		public IEnumerable<KitDefinition> KitDefiniCreats { get; set; }
 
 		#endregion
@@ -3975,9 +3975,9 @@ namespace Comparer.Data.Context
 					TypeId       = Converter.ChangeTypeTo<int>     (dataReader.GetValue(0), ms),
 					Name         = Converter.ChangeTypeTo<string>  (dataReader.GetValue(1), ms),
 					SourceId     = Converter.ChangeTypeTo<int>     (dataReader.GetValue(2), ms),
-					Column4      = Converter.ChangeTypeTo<string>  (dataReader.GetValue(3), ms),
+					SrcName      = Converter.ChangeTypeTo<string>  (dataReader.GetValue(3), ms),
 					UserId       = Converter.ChangeTypeTo<Guid>    (dataReader.GetValue(4), ms),
-					NAME         = Converter.ChangeTypeTo<string>  (dataReader.GetValue(5), ms),
+					UserName     = Converter.ChangeTypeTo<string>  (dataReader.GetValue(5), ms),
 					EntityTypeId = Converter.ChangeTypeTo<int>     (dataReader.GetValue(6), ms),
 					Column8      = Converter.ChangeTypeTo<string>  (dataReader.GetValue(7), ms),
 					EntityId     = Converter.ChangeTypeTo<string>  (dataReader.GetValue(8), ms),
@@ -3992,9 +3992,9 @@ namespace Comparer.Data.Context
 			                 public int      TypeId       { get; set; }
 			                 public string   Name         { get; set; }
 			                 public int      SourceId     { get; set; }
-			[Column("Name")] public string   Column4      { get; set; }
+			                 public string   SrcName      { get; set; }
 			                 public Guid     UserId       { get; set; }
-			                 public string   NAME         { get; set; }
+			                 public string   UserName     { get; set; }
 			                 public int      EntityTypeId { get; set; }
 			[Column("Name")] public string   Column8      { get; set; }
 			                 public string   EntityId     { get; set; }
@@ -5985,20 +5985,20 @@ namespace Comparer.Data.Context
 
 		public partial class DistributorApiOrdersContentViewResult
 		{
-			public int      OrderId          { get; set; }
-			public Guid     PriceListId      { get; set; }
-			public Guid     ProductId        { get; set; }
-			public string   OutSku           { get; set; }
-			public int      Quantity         { get; set; }
-			public DateTime ReportDate       { get; set; }
-			public string   Comment          { get; set; }
-			public string   PriceListName    { get; set; }
-			public string   ProductName      { get; set; }
-			public string   ProductChildName { get; set; }
-			public int      SKU              { get; set; }
-			public int      VIEWSTYLEID      { get; set; }
-			public Guid     BrendId          { get; set; }
-			public string   BrendName        { get; set; }
+			                        public int      OrderId          { get; set; }
+			                        public Guid     PriceListId      { get; set; }
+			                        public Guid     ProductId        { get; set; }
+			                        public string   OutSku           { get; set; }
+			                        public int      Quantity         { get; set; }
+			                        public DateTime ReportDate       { get; set; }
+			                        public string   Comment          { get; set; }
+			                        public string   PriceListName    { get; set; }
+			                        public string   ProductName      { get; set; }
+			                        public string   ProductChildName { get; set; }
+			[Column("SKU")        ] public int      Sku              { get; set; }
+			[Column("VIEWSTYLEID")] public int      Viewstyleid      { get; set; }
+			                        public Guid     BrendId          { get; set; }
+			                        public string   BrendName        { get; set; }
 		}
 
 		#endregion
@@ -6263,14 +6263,14 @@ namespace Comparer.Data.Context
 
 		#region ManufacturersView
 
-		public static IEnumerable<MANUFACTURER> ManufacturersView(this ComparerDataContext dataConnection, Guid? @Id)
+		public static IEnumerable<Manufacturer> ManufacturersView(this ComparerDataContext dataConnection, Guid? @Id)
 		{
 			var parameters = new []
 			{
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<MANUFACTURER>("[dbo].[ManufacturersView]", parameters);
+			return dataConnection.QueryProc<Manufacturer>("[dbo].[ManufacturersView]", parameters);
 		}
 
 		#endregion
@@ -6372,20 +6372,20 @@ namespace Comparer.Data.Context
 
 		public partial class PaymentTypesViewResult
 		{
-			public int     ID             { get; set; }
-			public string  TITLE          { get; set; }
-			public string  DESCRIPTION    { get; set; }
-			public string  ADAPTER        { get; set; }
-			public double  PRICE          { get; set; }
-			public double  PRICE_ORIGINAL { get; set; }
-			public string  DISABLED       { get; set; }
-			public double  MIN_ORDER_SUM  { get; set; }
-			public double? Max_Order_Sum  { get; set; }
-			public int     SORT_ID        { get; set; }
-			public bool    IS_ACTIVE      { get; set; }
-			public bool    IsDeleeted     { get; set; }
-			public int     SourceID       { get; set; }
-			public bool    IsOld          { get; set; }
+			[Column("ID")         ] public int     Id             { get; set; }
+			[Column("TITLE")      ] public string  Title          { get; set; }
+			[Column("DESCRIPTION")] public string  Description    { get; set; }
+			[Column("ADAPTER")    ] public string  Adapter        { get; set; }
+			[Column("PRICE")      ] public double  Price          { get; set; }
+			                        public double  PRICE_ORIGINAL { get; set; }
+			[Column("DISABLED")   ] public string  Disabled       { get; set; }
+			                        public double  MIN_ORDER_SUM  { get; set; }
+			                        public double? Max_Order_Sum  { get; set; }
+			                        public int     SORT_ID        { get; set; }
+			                        public bool    IS_ACTIVE      { get; set; }
+			                        public bool    IsDeleeted     { get; set; }
+			                        public int     SourceID       { get; set; }
+			                        public bool    IsOld          { get; set; }
 		}
 
 		#endregion
@@ -6731,8 +6731,8 @@ namespace Comparer.Data.Context
 
 		public partial class StoredBarcodesViewResult
 		{
-			public int    SKU     { get; set; }
-			public string Barcode { get; set; }
+			[Column("SKU")] public int    Sku     { get; set; }
+			                public string Barcode { get; set; }
 		}
 
 		#endregion
@@ -6762,11 +6762,11 @@ namespace Comparer.Data.Context
 
 		#region SUZOrderForLabelPrintView
 
-		public static IEnumerable<SUZOrderForLabelPrintViewResult> SUZOrderForLabelPrintView(this ComparerDataContext dataConnection, string @GTIN, Guid? @ProductId, int? @Sku)
+		public static IEnumerable<SUZOrderForLabelPrintViewResult> SUZOrderForLabelPrintView(this ComparerDataContext dataConnection, string @gtin, Guid? @ProductId, int? @Sku)
 		{
 			var parameters = new []
 			{
-				new DataParameter("@GTIN",      @GTIN,      LinqToDB.DataType.NVarChar)
+				new DataParameter("@GTIN",      @gtin,      LinqToDB.DataType.NVarChar)
 				{
 					Size = 14
 				},
@@ -6779,26 +6779,26 @@ namespace Comparer.Data.Context
 
 		public partial class SUZOrderForLabelPrintViewResult
 		{
-			public int      Id          { get; set; }
-			public string   PublicId    { get; set; }
-			public bool     IsActive    { get; set; }
-			public int      StatusId    { get; set; }
-			public DateTime CreatedDate { get; set; }
-			public int      ItemId      { get; set; }
-			public string   GTIN        { get; set; }
-			public int      Quantity    { get; set; }
-			public int?     Rest        { get; set; }
+			                 public int      Id          { get; set; }
+			                 public string   PublicId    { get; set; }
+			                 public bool     IsActive    { get; set; }
+			                 public int      StatusId    { get; set; }
+			                 public DateTime CreatedDate { get; set; }
+			                 public int      ItemId      { get; set; }
+			[Column("GTIN")] public string   Gtin        { get; set; }
+			                 public int      Quantity    { get; set; }
+			                 public int?     Rest        { get; set; }
 		}
 
 		#endregion
 
 		#region SUZOrderForLabelPrintViewV2
 
-		public static IEnumerable<SUZOrderForLabelPrintViewV2Result> SUZOrderForLabelPrintViewV2(this ComparerDataContext dataConnection, string @GTIN, Guid? @ProductId, int? @Sku)
+		public static IEnumerable<SUZOrderForLabelPrintViewV2Result> SUZOrderForLabelPrintViewV2(this ComparerDataContext dataConnection, string @gtin, Guid? @ProductId, int? @Sku)
 		{
 			var parameters = new []
 			{
-				new DataParameter("@GTIN",      @GTIN,      LinqToDB.DataType.NVarChar)
+				new DataParameter("@GTIN",      @gtin,      LinqToDB.DataType.NVarChar)
 				{
 					Size = 14
 				},
@@ -6811,15 +6811,15 @@ namespace Comparer.Data.Context
 
 		public partial class SUZOrderForLabelPrintViewV2Result
 		{
-			public int      Id          { get; set; }
-			public string   PublicId    { get; set; }
-			public bool     IsActive    { get; set; }
-			public int      StatusId    { get; set; }
-			public DateTime CreatedDate { get; set; }
-			public int      ItemId      { get; set; }
-			public string   GTIN        { get; set; }
-			public int      Quantity    { get; set; }
-			public int      Rest        { get; set; }
+			                 public int      Id          { get; set; }
+			                 public string   PublicId    { get; set; }
+			                 public bool     IsActive    { get; set; }
+			                 public int      StatusId    { get; set; }
+			                 public DateTime CreatedDate { get; set; }
+			                 public int      ItemId      { get; set; }
+			[Column("GTIN")] public string   Gtin        { get; set; }
+			                 public int      Quantity    { get; set; }
+			                 public int      Rest        { get; set; }
 		}
 
 		#endregion
@@ -6881,7 +6881,7 @@ namespace Comparer.Data.Context
 
 		#region SUZOrdersView
 
-		public static IEnumerable<SUZOrdersViewResult> SUZOrdersView(this ComparerDataContext dataConnection, int? @Id, string @PublicId, string @GTIN, bool? @IsActive, int? @StatusId)
+		public static IEnumerable<SUZOrdersViewResult> SUZOrdersView(this ComparerDataContext dataConnection, int? @Id, string @PublicId, string @gtin, bool? @IsActive, int? @StatusId)
 		{
 			var parameters = new []
 			{
@@ -6890,7 +6890,7 @@ namespace Comparer.Data.Context
 				{
 					Size = 128
 				},
-				new DataParameter("@GTIN",     @GTIN,     LinqToDB.DataType.NVarChar)
+				new DataParameter("@GTIN",     @gtin,     LinqToDB.DataType.NVarChar)
 				{
 					Size = 14
 				},
@@ -6915,7 +6915,7 @@ namespace Comparer.Data.Context
 
 		#region SUZOrdersViewV2
 
-		public static IEnumerable<SUZOrdersViewV2Result> SUZOrdersViewV2(this ComparerDataContext dataConnection, int? @Id, string @PublicId, string @GTIN, bool? @IsActive, int? @StatusId, int? @Sku)
+		public static IEnumerable<SUZOrdersViewV2Result> SUZOrdersViewV2(this ComparerDataContext dataConnection, int? @Id, string @PublicId, string @gtin, bool? @IsActive, int? @StatusId, int? @Sku)
 		{
 			var parameters = new []
 			{
@@ -6924,7 +6924,7 @@ namespace Comparer.Data.Context
 				{
 					Size = 128
 				},
-				new DataParameter("@GTIN",     @GTIN,     LinqToDB.DataType.NVarChar)
+				new DataParameter("@GTIN",     @gtin,     LinqToDB.DataType.NVarChar)
 				{
 					Size = 14
 				},
@@ -7305,11 +7305,11 @@ namespace Comparer.Data.Context
 
 		#region TaskSchedulerDone
 
-		public static int TaskSchedulerDone(this ComparerDataContext dataConnection, int? @ID)
+		public static int TaskSchedulerDone(this ComparerDataContext dataConnection, int? @id)
 		{
 			var parameters = new []
 			{
-				new DataParameter("@ID", @ID, LinqToDB.DataType.Int32)
+				new DataParameter("@ID", @id, LinqToDB.DataType.Int32)
 			};
 
 			return dataConnection.ExecuteProc("[dbo].[TaskSchedulerDone]", parameters);
@@ -7326,26 +7326,26 @@ namespace Comparer.Data.Context
 
 		public partial class TaskSchedulerToRunResult
 		{
-			public int      ID         { get; set; }
-			public DateTime RunTime    { get; set; }
-			public string   Path       { get; set; }
-			public string   Commentary { get; set; }
-			public int      Done       { get; set; }
-			public string   Action     { get; set; }
-			public string   Params     { get; set; }
-			public int      TaskType   { get; set; }
-			public int      Counter    { get; set; }
+			[Column("ID")] public int      Id         { get; set; }
+			               public DateTime RunTime    { get; set; }
+			               public string   Path       { get; set; }
+			               public string   Commentary { get; set; }
+			               public int      Done       { get; set; }
+			               public string   Action     { get; set; }
+			               public string   Params     { get; set; }
+			               public int      TaskType   { get; set; }
+			               public int      Counter    { get; set; }
 		}
 
 		#endregion
 
 		#region TaskSchedulerView
 
-		public static IEnumerable<TaskSchedulerViewResult> TaskSchedulerView(this ComparerDataContext dataConnection, int? @ID)
+		public static IEnumerable<TaskSchedulerViewResult> TaskSchedulerView(this ComparerDataContext dataConnection, int? @id)
 		{
 			var parameters = new []
 			{
-				new DataParameter("@ID", @ID, LinqToDB.DataType.Int32)
+				new DataParameter("@ID", @id, LinqToDB.DataType.Int32)
 			};
 
 			return dataConnection.QueryProc<TaskSchedulerViewResult>("[dbo].[TaskSchedulerView]", parameters);
@@ -7353,15 +7353,15 @@ namespace Comparer.Data.Context
 
 		public partial class TaskSchedulerViewResult
 		{
-			public int      ID         { get; set; }
-			public DateTime RunTime    { get; set; }
-			public string   Path       { get; set; }
-			public string   Commentary { get; set; }
-			public int      Done       { get; set; }
-			public string   Action     { get; set; }
-			public string   Params     { get; set; }
-			public int      TaskType   { get; set; }
-			public int      Counter    { get; set; }
+			[Column("ID")] public int      Id         { get; set; }
+			               public DateTime RunTime    { get; set; }
+			               public string   Path       { get; set; }
+			               public string   Commentary { get; set; }
+			               public int      Done       { get; set; }
+			               public string   Action     { get; set; }
+			               public string   Params     { get; set; }
+			               public int      TaskType   { get; set; }
+			               public int      Counter    { get; set; }
 		}
 
 		#endregion
@@ -7562,11 +7562,11 @@ namespace Comparer.Data.Context
 
 		public partial class UserActionStatisticResult
 		{
-			public string    NAME        { get; set; }
-			public DateTime? CREATEDDATE { get; set; }
-			public int       OBJECTTYPE  { get; set; }
-			public int       ACTIONTYPE  { get; set; }
-			public int?      Quantity    { get; set; }
+			[Column("NAME")       ] public string    Name        { get; set; }
+			[Column("CREATEDDATE")] public DateTime? Createddate { get; set; }
+			[Column("OBJECTTYPE") ] public int       Objecttype  { get; set; }
+			[Column("ACTIONTYPE") ] public int       Actiontype  { get; set; }
+			                        public int?      Quantity    { get; set; }
 		}
 
 		#endregion
@@ -7606,15 +7606,15 @@ namespace Comparer.Data.Context
 
 		public partial class UserAuthResult
 		{
-			public Guid   ID             { get; set; }
-			public string NAME           { get; set; }
-			public byte?  USERSGROUP     { get; set; }
-			public string Email          { get; set; }
-			public int?   DepartmentId   { get; set; }
-			public string DepartmentName { get; set; }
-			public int?   RoleId         { get; set; }
-			public string RoleName       { get; set; }
-			public bool?  IsLeader       { get; set; }
+			[Column("ID")        ] public Guid   Id             { get; set; }
+			[Column("NAME")      ] public string Name           { get; set; }
+			[Column("USERSGROUP")] public byte?  Usersgroup     { get; set; }
+			                       public string Email          { get; set; }
+			                       public int?   DepartmentId   { get; set; }
+			                       public string DepartmentName { get; set; }
+			                       public int?   RoleId         { get; set; }
+			                       public string RoleName       { get; set; }
+			                       public bool?  IsLeader       { get; set; }
 		}
 
 		#endregion
@@ -7691,19 +7691,19 @@ namespace Comparer.Data.Context
 
 		public partial class UserByIdViewResult
 		{
-			public Guid   ID             { get; set; }
-			public string NAME           { get; set; }
-			public byte?  USERSGROUP     { get; set; }
-			public string FirstName      { get; set; }
-			public string Patronymic     { get; set; }
-			public string LastName       { get; set; }
-			public string Email          { get; set; }
-			public string Status         { get; set; }
-			public string StatusName     { get; set; }
-			public int?   DepartmentId   { get; set; }
-			public int?   RoleId         { get; set; }
-			public string DepartmentName { get; set; }
-			public string RoleName       { get; set; }
+			[Column("ID")        ] public Guid   Id             { get; set; }
+			[Column("NAME")      ] public string Name           { get; set; }
+			[Column("USERSGROUP")] public byte?  Usersgroup     { get; set; }
+			                       public string FirstName      { get; set; }
+			                       public string Patronymic     { get; set; }
+			                       public string LastName       { get; set; }
+			                       public string Email          { get; set; }
+			                       public string Status         { get; set; }
+			                       public string StatusName     { get; set; }
+			                       public int?   DepartmentId   { get; set; }
+			                       public int?   RoleId         { get; set; }
+			                       public string DepartmentName { get; set; }
+			                       public string RoleName       { get; set; }
 		}
 
 		#endregion
@@ -7765,12 +7765,12 @@ namespace Comparer.Data.Context
 
 		public partial class UsersBoundsViewResult
 		{
-			public Guid   UserId   { get; set; }
-			public string Name     { get; set; }
-			public string FIO      { get; set; }
-			public string Role     { get; set; }
-			public int?   TypeId   { get; set; }
-			public Guid?  ParentId { get; set; }
+			                public Guid   UserId   { get; set; }
+			                public string Name     { get; set; }
+			[Column("FIO")] public string Fio      { get; set; }
+			                public string Role     { get; set; }
+			                public int?   TypeId   { get; set; }
+			                public Guid?  ParentId { get; set; }
 		}
 
 		#endregion
@@ -7893,13 +7893,13 @@ namespace Comparer.Data.Context
 
 		public partial class UsersViewV2Result
 		{
-			public Guid   ID         { get; set; }
-			public string NAME       { get; set; }
-			public string FIO        { get; set; }
-			public byte?  USERSGROUP { get; set; }
-			public string Email      { get; set; }
-			public string Status     { get; set; }
-			public string StatusName { get; set; }
+			[Column("ID")        ] public Guid   Id         { get; set; }
+			[Column("NAME")      ] public string Name       { get; set; }
+			[Column("FIO")       ] public string Fio        { get; set; }
+			[Column("USERSGROUP")] public byte?  Usersgroup { get; set; }
+			                       public string Email      { get; set; }
+			                       public string Status     { get; set; }
+			                       public string StatusName { get; set; }
 		}
 
 		#endregion
@@ -7929,24 +7929,24 @@ namespace Comparer.Data.Context
 
 		public partial class UsersViewV3Result
 		{
-			public Guid   ID             { get; set; }
-			public string NAME           { get; set; }
-			public string FIO            { get; set; }
-			public byte?  USERSGROUP     { get; set; }
-			public string Email          { get; set; }
-			public string Status         { get; set; }
-			public string StatusName     { get; set; }
-			public int?   DepartmentId   { get; set; }
-			public int?   RoleId         { get; set; }
-			public string DepartmentName { get; set; }
-			public string RoleName       { get; set; }
+			[Column("ID")        ] public Guid   Id             { get; set; }
+			[Column("NAME")      ] public string Name           { get; set; }
+			[Column("FIO")       ] public string Fio            { get; set; }
+			[Column("USERSGROUP")] public byte?  Usersgroup     { get; set; }
+			                       public string Email          { get; set; }
+			                       public string Status         { get; set; }
+			                       public string StatusName     { get; set; }
+			                       public int?   DepartmentId   { get; set; }
+			                       public int?   RoleId         { get; set; }
+			                       public string DepartmentName { get; set; }
+			                       public string RoleName       { get; set; }
 		}
 
 		#endregion
 
 		#region UsersViewV4
 
-		public static IEnumerable<UsersViewV4Result> UsersViewV4(this ComparerDataContext dataConnection, byte? @Group, int? @Status, string @Name, string @Email, int? @DepartmentId, int? @RoleId, string @FIO)
+		public static IEnumerable<UsersViewV4Result> UsersViewV4(this ComparerDataContext dataConnection, byte? @Group, int? @Status, string @Name, string @Email, int? @DepartmentId, int? @RoleId, string @fio)
 		{
 			var parameters = new []
 			{
@@ -7962,7 +7962,7 @@ namespace Comparer.Data.Context
 				},
 				new DataParameter("@DepartmentId", @DepartmentId, LinqToDB.DataType.Int32),
 				new DataParameter("@RoleId",       @RoleId,       LinqToDB.DataType.Int32),
-				new DataParameter("@FIO",          @FIO,          LinqToDB.DataType.VarChar)
+				new DataParameter("@FIO",          @fio,          LinqToDB.DataType.VarChar)
 				{
 					Size = 255
 				}
@@ -7973,17 +7973,17 @@ namespace Comparer.Data.Context
 
 		public partial class UsersViewV4Result
 		{
-			public Guid   ID             { get; set; }
-			public string NAME           { get; set; }
-			public string FIO            { get; set; }
-			public byte?  USERSGROUP     { get; set; }
-			public string Email          { get; set; }
-			public string Status         { get; set; }
-			public string StatusName     { get; set; }
-			public int?   DepartmentId   { get; set; }
-			public int?   RoleId         { get; set; }
-			public string DepartmentName { get; set; }
-			public string RoleName       { get; set; }
+			[Column("ID")        ] public Guid   Id             { get; set; }
+			[Column("NAME")      ] public string Name           { get; set; }
+			[Column("FIO")       ] public string Fio            { get; set; }
+			[Column("USERSGROUP")] public byte?  Usersgroup     { get; set; }
+			                       public string Email          { get; set; }
+			                       public string Status         { get; set; }
+			                       public string StatusName     { get; set; }
+			                       public int?   DepartmentId   { get; set; }
+			                       public int?   RoleId         { get; set; }
+			                       public string DepartmentName { get; set; }
+			                       public string RoleName       { get; set; }
 		}
 
 		#endregion
@@ -9243,20 +9243,20 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static BarCode Find(this ITable<BarCode> table, int SKU, string BarCodeColumn)
+		public static BarCode Find(this ITable<BarCode> table, int Sku, string BarCodeColumn)
 		{
 			return table.FirstOrDefault(t =>
-				t.SKU           == SKU &&
+				t.Sku           == Sku &&
 				t.BarCodeColumn == BarCodeColumn);
 		}
 
-		public static BarCodesDouble Find(this ITable<BarCodesDouble> table, long SessionID, string BatchNo1РЎ, string BarCode, int SKU)
+		public static BarCodesDouble Find(this ITable<BarCodesDouble> table, long SessionID, string BatchNo1РЎ, string BarCode, int Sku)
 		{
 			return table.FirstOrDefault(t =>
 				t.SessionID  == SessionID  &&
 				t.BatchNo1РЎ == BatchNo1РЎ &&
 				t.BarCode    == BarCode    &&
-				t.SKU        == SKU);
+				t.Sku        == Sku);
 		}
 
 		public static BarCodesSession Find(this ITable<BarCodesSession> table, long SessionID)
@@ -9437,10 +9437,10 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static CouriersArchive Find(this ITable<CouriersArchive> table, Guid ID)
+		public static CouriersArchive Find(this ITable<CouriersArchive> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static CRPTDataMatrixInternalStatus Find(this ITable<CRPTDataMatrixInternalStatus> table, int Id)
@@ -9668,10 +9668,10 @@ namespace Comparer.Data.Context
 				t.Value      == Value);
 		}
 
-		public static DISTRIBUTOR Find(this ITable<DISTRIBUTOR> table, Guid ID)
+		public static Distributor Find(this ITable<Distributor> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static DistributorsApiOrder Find(this ITable<DistributorsApiOrder> table, int Id)
@@ -10101,16 +10101,16 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static LINK Find(this ITable<LINK> table, Guid ID)
+		public static Link Find(this ITable<Link> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
-		public static MANUFACTURER Find(this ITable<MANUFACTURER> table, Guid ID)
+		public static Manufacturer Find(this ITable<Manufacturer> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static MonobrandKit Find(this ITable<MonobrandKit> table, int Id)
@@ -10190,28 +10190,28 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static PaymentType Find(this ITable<PaymentType> table, int ID)
+		public static PaymentType Find(this ITable<PaymentType> table, int Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
-		public static PRICE Find(this ITable<PRICE> table, Guid ID)
+		public static Price Find(this ITable<Price> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
-		public static PRICESRECORD Find(this ITable<PRICESRECORD> table, int RECORDINDEX)
+		public static Pricesrecord Find(this ITable<Pricesrecord> table, int Recordindex)
 		{
 			return table.FirstOrDefault(t =>
-				t.RECORDINDEX == RECORDINDEX);
+				t.Recordindex == Recordindex);
 		}
 
-		public static PRODUCT Find(this ITable<PRODUCT> table, Guid ID)
+		public static Product Find(this ITable<Product> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static ProductInstockCorrectHistory Find(this ITable<ProductInstockCorrectHistory> table, int Sku, DateTime ReportDate)
@@ -10452,10 +10452,10 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static TaskScheduler Find(this ITable<TaskScheduler> table, int ID)
+		public static TaskScheduler Find(this ITable<TaskScheduler> table, int Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static Template Find(this ITable<Template> table, int Id)
@@ -10482,10 +10482,10 @@ namespace Comparer.Data.Context
 				t.Id == Id);
 		}
 
-		public static USER Find(this ITable<USER> table, Guid ID)
+		public static User Find(this ITable<User> table, Guid Id)
 		{
 			return table.FirstOrDefault(t =>
-				t.ID == ID);
+				t.Id == Id);
 		}
 
 		public static UserAction Find(this ITable<UserAction> table, int Id)

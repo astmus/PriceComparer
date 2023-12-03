@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Comparer.DataAccess.Abstractions.Repositories;
-using Comparer.DataAccess.Models;
-using Comparer.Entities;
 
 using LinqToDB.Linq;
 
 namespace Comparer.DataAccess.Abstractions;
 
-public interface IManufacturerRepository : IGenericRepository<MANUFACTURER>
+public interface IManufacturerRepository : IGenericRepository<Entities.Manufacturer>
 {
-	IExpressionQuery<MANUFACTURER> Manufacturers { get; }
-	IEnumerable<TM> LoadManufacturers<TM>() where TM : Manufacturer;
+	IExpressionQuery<Entities.Manufacturer> Manufacturers { get; }
+	IEnumerable<TM> LoadManufacturers<TM>() where TM : Entities.Manufacturer;
 }

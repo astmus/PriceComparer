@@ -85,7 +85,7 @@
 //	GenerateDatabaseNameFromTable       = ;                       // generate database name from TableSchema.CatalogName
 	GenerateAssociations                = true;                   // generate associations
 	GenerateBackReferences              = true;                   // generate back references
-//	GenerateAssociationExtensions       = false;                  // generate associations as extension methods
+	GenerateAssociationExtensions       = false;                  // generate associations as extension methods
 //	IncludeDefaultSchema                = true;                   // generated default schema name, such as 'dbo'
 
 	// Column settings
@@ -106,7 +106,7 @@
 	PluralizeForeignKeyNames            = true;                   // pluralize foreign key names
 //	SingularizeForeignKeyNames          = true;                   // singularize foreign key names
 	NormalizeNames                      = true;                   // normalize names containing '_', lower case first letters, etc
-//	NormalizeNamesWithoutUnderscores    = ;                       // normalize names without underscores
+	NormalizeNamesWithoutUnderscores    = true;                       // normalize names without underscores
 
 	// Stored procedures
 	ReplaceSimilarTables                = true;                   // when generate stored procedure results, use the same type if types are similar

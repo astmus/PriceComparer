@@ -8,9 +8,9 @@ namespace Comparer.Data.Context
 {
 	public partial class ComparerDataContext
 	{
-
 		public ComparerDataContext(IOptions<ConnectionOptions> options, LinqToDB.DataOptions dataOptions = default) : base(options, dataOptions)
-		{ }
+		{
 
+		}
 	}
 }
