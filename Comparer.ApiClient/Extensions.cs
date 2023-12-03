@@ -6,6 +6,7 @@ using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Repositories;
 using Comparer.DataAccess.Rest;
+using Comparer.DBContext;
 
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;

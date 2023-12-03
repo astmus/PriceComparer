@@ -12,7 +12,7 @@ using LinqToDB.SqlQuery;
 
 using Microsoft.Extensions.Options;
 
-namespace Comparer.DataAccess
+namespace Comparer.DBContext
 {
 	public class DataBaseConnection : LinqToDB.Data.DataConnection, IRepository
 	{

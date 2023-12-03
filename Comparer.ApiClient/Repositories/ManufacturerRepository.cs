@@ -25,5 +25,5 @@ public class ManufacturerRepository : GenericRepository<MANUFACTURER>, IManufact
 		=> "MANUFACTURERS";
 
 	public IEnumerable<TM> LoadManufacturers<TM>() where TM : Manufacturer
-		=> ctx.QueryProc<TM>().ToList();
+		=> ctx.QueryProc<TM>("ManufacturersView").ToList();
 }

@@ -52,16 +52,16 @@
 */
 
 	// File settings
-//	EnforceModelNullability             = true;                   // #nullable enable
-//	EnableNullableReferenceTypes        = true;                   // #nullable enable
+	//EnforceModelNullability             = true;                   // #nullable enable
+	//EnableNullableReferenceTypes        = true;                   // #nullable enable
 
 	// DataContext settings
-	NamespaceName                       = "Comparer.Data";           // DataContext class namespace name
+	NamespaceName                       = "Comparer.Data.Context";           // DataContext class namespace name
 	DataContextName                     = "ComparerDataContext";           // DataContext class name
-//	BaseDataContextClass                = "MyDataContext";        // name of the base DataContext class
-//	GenerateDatabaseInfo                = true;                   // adds comment contained database info
-//	GenerateFindExtensions              = true;                   // generate Find(...) extension methods
-//	GenerateViews                       = true;                   // generate views
+	BaseDataContextClass                = "BaseConnection";        // name of the base DataContext class
+	GenerateDatabaseInfo                = true;                   // adds comment contained database info
+	GenerateFindExtensions              = true;                   // generate Find(...) extension methods
+	GenerateViews                       = true;                   // generate views
 
 	// Schema settings
 //	GenerateSchemaAsType                = false;                  // generate database schema as type (db.MySchema.MyTable)
@@ -71,20 +71,20 @@
 //	PrefixTableMappingForDefaultSchema  = false;                  // add default schema name as prefix to table type name
 
 	// Constructors
-//	GenerateConstructors                = true;                   // generate constructors
+	GenerateConstructors                = false;                   // generate constructors
 //	DefaultConfiguration                = "SqlServer";            // use default configuration
 //	GetDataOptionsMethod                = "GetDataOptions({0})";  // constructors call user defined methods that returns DataOptions
-//	GenerateDataOptionsConstructors     = true;                   // generate data options constructors
+	GenerateDataOptionsConstructors     = false;                   // generate data options constructors
 
 	// Entity class settings
 //	BaseEntityClass                     = "MyEntity";             // entity base class
-	ServerName                          = "DS-FUTARK";           // specified server name
-	DatabaseName                        = "shopbasetest";         // specified database name
-//	OneToManyAssociationType            = "IEnumerable<{0}>";     // association base type
+//	ServerName                          = "DS-FUTARK";           // specified server name
+//	DatabaseName                        = "shopbasetest";         // specified database name
+	OneToManyAssociationType            = "IEnumerable<{0}>";     // association base type
 //	GenerateDatabaseName                = ;                       // generate database name
 //	GenerateDatabaseNameFromTable       = ;                       // generate database name from TableSchema.CatalogName
-//	GenerateAssociations                = true;                   // generate associations
-//	GenerateBackReferences              = true;                   // generate back references
+	GenerateAssociations                = true;                   // generate associations
+	GenerateBackReferences              = true;                   // generate back references
 //	GenerateAssociationExtensions       = false;                  // generate associations as extension methods
 //	IncludeDefaultSchema                = true;                   // generated default schema name, such as 'dbo'
 
@@ -103,9 +103,9 @@
 //	SingularizeClassNames               = true;                   // singularize class names
 //	PluralizeDataContextPropertyNames   = true;                   // pluralize DataContext property names
 //	SingularizeDataContextPropertyNames = ;                       // singularize DataContext property names
-//	PluralizeForeignKeyNames            = true;                   // pluralize foreign key names
+	PluralizeForeignKeyNames            = true;                   // pluralize foreign key names
 //	SingularizeForeignKeyNames          = true;                   // singularize foreign key names
-//	NormalizeNames                      = true;                   // normalize names containing '_', lower case first letters, etc
+	NormalizeNames                      = true;                   // normalize names containing '_', lower case first letters, etc
 //	NormalizeNamesWithoutUnderscores    = ;                       // normalize names without underscores
 
 	// Stored procedures

@@ -18,14 +18,14 @@ using LinqToDB.Configuration;
 using LinqToDB.Data;
 using LinqToDB.Mapping;
 
-namespace Comparer.Data
+namespace Comparer.Data.Context
 {
 	/// <summary>
 	/// Database       : shopbasetest
 	/// Data Source    : DS-FUTARK
 	/// Server Version : 16.00.1000
 	/// </summary>
-	public partial class ComparerDataContext : LinqToDB.Data.DataConnection
+	public partial class ComparerDataContext : BaseConnection
 	{
 		public ITable<ActionsProcessingHandler>                     ActionsProcessingHandlers                     { get { return this.GetTable<ActionsProcessingHandler>(); } }
 		public ITable<ActionsProcessingHandleResult>                ActionsProcessingHandleResults                { get { return this.GetTable<ActionsProcessingHandleResult>(); } }
@@ -333,39 +333,9 @@ namespace Comparer.Data
 		public ITable<WmsVerificationDocumentsArchive>              WmsVerificationDocumentsArchives              { get { return this.GetTable<WmsVerificationDocumentsArchive>(); } }
 		public ITable<WmsVerificationDocumentsItem>                 WmsVerificationDocumentsItems                 { get { return this.GetTable<WmsVerificationDocumentsItem>(); } }
 		public ITable<WmsVerificationDocumentsItemsArchive>         WmsVerificationDocumentsItemsArchives         { get { return this.GetTable<WmsVerificationDocumentsItemsArchive>(); } }
-
-		public ComparerDataContext()
-		{
-			InitDataContext();
-			InitMappingSchema();
-		}
-
-		public ComparerDataContext(string configuration)
-			: base(configuration)
-		{
-			InitDataContext();
-			InitMappingSchema();
-		}
-
-		public ComparerDataContext(DataOptions options)
-			: base(options)
-		{
-			InitDataContext();
-			InitMappingSchema();
-		}
-
-		public ComparerDataContext(DataOptions<ComparerDataContext> options)
-			: base(options.Options)
-		{
-			InitDataContext();
-			InitMappingSchema();
-		}
-
-		partial void InitDataContext  ();
-		partial void InitMappingSchema();
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActionsProcessingHandlers")]
+	[Table(Schema="dbo", Name="ActionsProcessingHandlers")]
 	public partial class ActionsProcessingHandler
 	{
 		[PrimaryKey, Identity] public int      Id               { get; set; } // int
@@ -373,7 +343,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime RegistrationDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActionsProcessingHandleResults")]
+	[Table(Schema="dbo", Name="ActionsProcessingHandleResults")]
 	public partial class ActionsProcessingHandleResult
 	{
 		[PrimaryKey, Identity   ] public long     Id        { get; set; } // bigint
@@ -385,7 +355,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime EndAt     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActionsProcessingQueue")]
+	[Table(Schema="dbo", Name="ActionsProcessingQueue")]
 	public partial class ActionsProcessingQueue
 	{
 		[PrimaryKey, Identity] public long     Id            { get; set; } // bigint
@@ -399,7 +369,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActionsProcessingQueueArchive")]
+	[Table(Schema="dbo", Name="ActionsProcessingQueueArchive")]
 	public partial class ActionsProcessingQueueArchive
 	{
 		[PrimaryKey, NotNull] public long     Id            { get; set; } // bigint
@@ -413,7 +383,7 @@ namespace Comparer.Data
 		[Column,     NotNull] public DateTime ArchivedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityActions")]
+	[Table(Schema="dbo", Name="ActivityActions")]
 	public partial class ActivityAction
 	{
 		[PrimaryKey, Identity] public int    Id       { get; set; } // int
@@ -421,21 +391,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Name     { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityBatchItems")]
+	[Table(Schema="dbo", Name="ActivityBatchItems")]
 	public partial class ActivityBatchItem
 	{
 		[PrimaryKey(1), NotNull] public long BatchId  { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public int  ActionId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityEntities")]
+	[Table(Schema="dbo", Name="ActivityEntities")]
 	public partial class ActivityEntity
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityProcesses")]
+	[Table(Schema="dbo", Name="ActivityProcesses")]
 	public partial class ActivityProcess
 	{
 		[PrimaryKey, Identity] public long     Id           { get; set; } // bigint
@@ -448,21 +418,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime FinishTime   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityProcessTypes")]
+	[Table(Schema="dbo", Name="ActivityProcessTypes")]
 	public partial class ActivityProcessType
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivitySources")]
+	[Table(Schema="dbo", Name="ActivitySources")]
 	public partial class ActivitySource
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ActivityUserBatch")]
+	[Table(Schema="dbo", Name="ActivityUserBatch")]
 	public partial class ActivityUserBatch
 	{
 		[PrimaryKey, Identity] public long     Id          { get; set; } // bigint
@@ -473,7 +443,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServices")]
+	[Table(Schema="dbo", Name="ApiDeliveryServices")]
 	public partial class ApiDeliveryService
 	{
 		[PrimaryKey, NotNull    ] public int      Id            { get; set; } // int
@@ -483,14 +453,14 @@ namespace Comparer.Data
 		[Column,        Nullable] public bool?    IsMarketPlace { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceActionTypes")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceActionTypes")]
 	public partial class ApiDeliveryServiceActionType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceGroups")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceGroups")]
 	public partial class ApiDeliveryServiceGroup
 	{
 		[PrimaryKey, Identity   ] public int      Id          { get; set; } // int
@@ -504,7 +474,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ChangedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceGroupOrderLinks")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceGroupOrderLinks")]
 	public partial class ApiDeliveryServiceGroupOrderLink
 	{
 		[PrimaryKey(1), NotNull    ] public Guid      OrderId     { get; set; } // uniqueidentifier
@@ -512,7 +482,7 @@ namespace Comparer.Data
 		[Column,           Nullable] public DateTime? CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceGroupsInfo")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceGroupsInfo")]
 	public partial class ApiDeliveryServiceGroupsInfo
 	{
 		[PrimaryKey, NotNull    ] public int       Id           { get; set; } // int
@@ -524,14 +494,14 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? SentDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceGroupStatuses")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceGroupStatuses")]
 	public partial class ApiDeliveryServiceGroupStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceOrders")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceOrders")]
 	public partial class ApiDeliveryServiceOrder
 	{
 		[PrimaryKey(1), NotNull    ] public Guid      InnerId           { get; set; } // uniqueidentifier
@@ -548,7 +518,7 @@ namespace Comparer.Data
 		[Column,           Nullable] public DateTime? StatusDate        { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceOrdersArchive")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceOrdersArchive")]
 	public partial class ApiDeliveryServiceOrdersArchive
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -563,7 +533,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceOrdersInfo")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceOrdersInfo")]
 	public partial class ApiDeliveryServiceOrdersInfo
 	{
 		[PrimaryKey, NotNull    ] public Guid      InnerId                { get; set; } // uniqueidentifier
@@ -581,14 +551,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public bool      DisabledForTracking    { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceOrderStatuses")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceOrderStatuses")]
 	public partial class ApiDeliveryServiceOrderStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceOrderStatusesHistory")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceOrderStatusesHistory")]
 	public partial class ApiDeliveryServiceOrderStatusesHistory
 	{
 		[PrimaryKey, Identity   ] public int      Id                { get; set; } // int
@@ -599,7 +569,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ArchiveDate       { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceQueue")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceQueue")]
 	public partial class ApiDeliveryServiceQueue
 	{
 		[PrimaryKey, NotNull    ] public Guid      OrderId         { get; set; } // uniqueidentifier
@@ -611,7 +581,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  ChangedDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceQueueArchive")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceQueueArchive")]
 	public partial class ApiDeliveryServiceQueueArchive
 	{
 		[PrimaryKey, Identity   ] public int       Id              { get; set; } // int
@@ -626,21 +596,21 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public int       ArchiveStatus   { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceRusPostGroupCaregories")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceRusPostGroupCaregories")]
 	public partial class ApiDeliveryServiceRusPostGroupCaregory
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceRusPostGroupTypes")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceRusPostGroupTypes")]
 	public partial class ApiDeliveryServiceRusPostGroupType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesAccounts")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesAccounts")]
 	public partial class ApiDeliveryServicesAccount
 	{
 		[PrimaryKey, Identity   ] public int       Id             { get; set; } // int
@@ -662,14 +632,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public bool      UseAggregator  { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesCastOrderDeliveryKinds")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesCastOrderDeliveryKinds")]
 	public partial class ApiDeliveryServicesCastOrderDeliveryKind
 	{
 		[PrimaryKey(1), NotNull] public int   ServiceId      { get; set; } // int
 		[PrimaryKey(2), NotNull] public short DeliveryKindId { get; set; } // smallint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNs")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNs")]
 	public partial class ApiDeliveryServicesIKN
 	{
 		[PrimaryKey, Identity] public int    Id        { get; set; } // int
@@ -677,7 +647,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Name      { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNConditions")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNConditions")]
 	public partial class ApiDeliveryServicesIKNCondition
 	{
 		[PrimaryKey, Identity] public int    Id         { get; set; } // int
@@ -687,7 +657,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int    OrderNum   { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNRules")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNRules")]
 	public partial class ApiDeliveryServicesIKNRule
 	{
 		[PrimaryKey, Identity] public int    Id       { get; set; } // int
@@ -696,7 +666,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int    OrderNum { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNRuleConditions")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNRuleConditions")]
 	public partial class ApiDeliveryServicesIKNRuleCondition
 	{
 		[PrimaryKey, Identity] public int    Id     { get; set; } // int
@@ -705,7 +675,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Args   { get; set; } // nvarchar(max)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNRuleConstraints")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNRuleConstraints")]
 	public partial class ApiDeliveryServicesIKNRuleConstraint
 	{
 		[PrimaryKey, Identity] public int    Id     { get; set; } // int
@@ -714,7 +684,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Args   { get; set; } // nvarchar(max)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServicesIKNRules_old")]
+	[Table(Schema="dbo", Name="ApiDeliveryServicesIKNRules_old")]
 	public partial class ApiDeliveryServicesIKNRulesOld
 	{
 		[Column, NotNull] public int    Id       { get; set; } // int
@@ -723,7 +693,7 @@ namespace Comparer.Data
 		[Column, NotNull] public int    OrderNum { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceTrackers")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceTrackers")]
 	public partial class ApiDeliveryServiceTracker
 	{
 		[PrimaryKey, Identity   ] public int       Id                 { get; set; } // int
@@ -736,7 +706,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public bool      IsActive           { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ApiDeliveryServiceUserActions")]
+	[Table(Schema="dbo", Name="ApiDeliveryServiceUserActions")]
 	public partial class ApiDeliveryServiceUserAction
 	{
 		[PrimaryKey, Identity   ] public int       Id            { get; set; } // int
@@ -749,7 +719,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? CreatedDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BarCodes")]
+	[Table(Schema="dbo", Name="BarCodes")]
 	public partial class BarCode
 	{
 		[Column(),          PrimaryKey(1), NotNull] public int      SKU            { get; set; } // int
@@ -763,7 +733,7 @@ namespace Comparer.Data
 		[Column(),                         NotNull] public DateTime ReportDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BarCodesDoubles")]
+	[Table(Schema="dbo", Name="BarCodesDoubles")]
 	public partial class BarCodesDouble
 	{
 		[PrimaryKey(1), NotNull] public long   SessionID  { get; set; } // bigint
@@ -772,7 +742,7 @@ namespace Comparer.Data
 		[PrimaryKey(4), NotNull] public int    SKU        { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BarCodesSession")]
+	[Table(Schema="dbo", Name="BarCodesSession")]
 	public partial class BarCodesSession
 	{
 		[PrimaryKey, Identity] public long     SessionID    { get; set; } // bigint
@@ -780,7 +750,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      SourceType   { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BarCodesSessionBatches")]
+	[Table(Schema="dbo", Name="BarCodesSessionBatches")]
 	public partial class BarCodesSessionBatch
 	{
 		[PrimaryKey(1), NotNull] public long     SessionID  { get; set; } // bigint
@@ -791,14 +761,14 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      BatchDuble { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BlackListStatuses")]
+	[Table(Schema="dbo", Name="BlackListStatuses")]
 	public partial class BlackListStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // varchar(200)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQExportOrders")]
+	[Table(Schema="dbo", Name="BQExportOrders")]
 	public partial class BQExportOrder
 	{
 		[PrimaryKey, Identity] public int      Id         { get; set; } // int
@@ -806,14 +776,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQObjectTypes")]
+	[Table(Schema="dbo", Name="BQObjectTypes")]
 	public partial class BQObjectType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQOrderItemsLastData")]
+	[Table(Schema="dbo", Name="BQOrderItemsLastData")]
 	public partial class BQOrderItemsLastData
 	{
 		[PrimaryKey, Identity] public int      Id                      { get; set; } // int
@@ -827,7 +797,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ChangedDate             { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQOrdersLastData")]
+	[Table(Schema="dbo", Name="BQOrdersLastData")]
 	public partial class BQOrdersLastData
 	{
 		[PrimaryKey, Identity   ] public int      Id               { get; set; } // int
@@ -853,7 +823,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ChangedDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQQueue")]
+	[Table(Schema="dbo", Name="BQQueue")]
 	public partial class BQQueue
 	{
 		[PrimaryKey, Identity   ] public long      Id           { get; set; } // bigint
@@ -866,7 +836,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? NextTryDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQQueueHistory")]
+	[Table(Schema="dbo", Name="BQQueueHistory")]
 	public partial class BQQueueHistory
 	{
 		[PrimaryKey, Identity] public long     Id          { get; set; } // bigint
@@ -875,13 +845,13 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="BQQueueHistoryDate")]
+	[Table(Schema="dbo", Name="BQQueueHistoryDate")]
 	public partial class BQQueueHistoryDate
 	{
 		[Column, NotNull] public DateTime HistoryDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClientDeliveredWhatsAppTemplatesBuffer")]
+	[Table(Schema="dbo", Name="ClientDeliveredWhatsAppTemplatesBuffer")]
 	public partial class ClientDeliveredWhatsAppTemplatesBuffer
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -890,7 +860,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClientOrdersDelivery")]
+	[Table(Schema="dbo", Name="ClientOrdersDelivery")]
 	public partial class ClientOrdersDelivery
 	{
 		[PrimaryKey, NotNull    ] public Guid OrderId           { get; set; } // uniqueidentifier
@@ -898,7 +868,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public int? DeliveryKindId    { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClientOrdersSync")]
+	[Table(Schema="dbo", Name="ClientOrdersSync")]
 	public partial class ClientOrdersSync
 	{
 		[PrimaryKey, NotNull    ] public Guid     OrderId        { get; set; } // uniqueidentifier
@@ -910,27 +880,27 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate    { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClientsBlackList")]
+	[Table(Schema="dbo", Name="ClientsBlackList")]
 	public partial class ClientsBlackList
 	{
 		[PrimaryKey, NotNull    ] public Guid ClientId { get; set; } // uniqueidentifier
 		[Column,        Nullable] public int? StatusId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_clientsForDelete")]
+	[Table(Schema="dbo", Name="_clientsForDelete")]
 	public partial class ClientsForDelete
 	{
 		[PrimaryKey, NotNull] public Guid Id { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClientTypes")]
+	[Table(Schema="dbo", Name="ClientTypes")]
 	public partial class ClientType
 	{
 		[PrimaryKey, NotNull    ] public int    Id   { get; set; } // int
 		[Column,        Nullable] public string Name { get; set; } // varchar(200)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ClosestCompetitors")]
+	[Table(Schema="dbo", Name="ClosestCompetitors")]
 	public partial class ClosestCompetitor
 	{
 		[PrimaryKey, NotNull    ] public Guid     ProductId     { get; set; } // uniqueidentifier
@@ -946,7 +916,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Competitors")]
+	[Table(Schema="dbo", Name="Competitors")]
 	public partial class Competitor
 	{
 		[PrimaryKey, Identity   ] public int      Id           { get; set; } // int
@@ -957,7 +927,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeeds")]
+	[Table(Schema="dbo", Name="CompetitorsFeeds")]
 	public partial class CompetitorsFeed
 	{
 		[PrimaryKey, Identity   ] public int       Id           { get; set; } // int
@@ -969,7 +939,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedItems")]
+	[Table(Schema="dbo", Name="CompetitorsFeedItems")]
 	public partial class CompetitorsFeedItem
 	{
 		[PrimaryKey, Identity   ] public int       Id                { get; set; } // int
@@ -1004,7 +974,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  CreatedDate       { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedItemsHistory")]
+	[Table(Schema="dbo", Name="CompetitorsFeedItemsHistory")]
 	public partial class CompetitorsFeedItemsHistory
 	{
 		[PrimaryKey, Identity   ] public int      Id          { get; set; } // int
@@ -1015,14 +985,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedItemsOperations")]
+	[Table(Schema="dbo", Name="CompetitorsFeedItemsOperations")]
 	public partial class CompetitorsFeedItemsOperation
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedProductLinks")]
+	[Table(Schema="dbo", Name="CompetitorsFeedProductLinks")]
 	public partial class CompetitorsFeedProductLink
 	{
 		[PrimaryKey(2), NotNull] public Guid     ProductId   { get; set; } // uniqueidentifier
@@ -1030,7 +1000,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedSettings")]
+	[Table(Schema="dbo", Name="CompetitorsFeedSettings")]
 	public partial class CompetitorsFeedSetting
 	{
 		[PrimaryKey, Identity] public int      Id             { get; set; } // int
@@ -1045,7 +1015,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate    { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CompetitorsFeedSettingsLinks")]
+	[Table(Schema="dbo", Name="CompetitorsFeedSettingsLinks")]
 	public partial class CompetitorsFeedSettingsLink
 	{
 		[PrimaryKey(2), NotNull] public int      FeedId      { get; set; } // int
@@ -1055,7 +1025,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ComplectingDocuments")]
+	[Table(Schema="dbo", Name="ComplectingDocuments")]
 	public partial class ComplectingDocument
 	{
 		[PrimaryKey, Identity   ] public long      Id          { get; set; } // bigint
@@ -1069,7 +1039,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid      AuthorId    { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ComplectingDocumentsArchive")]
+	[Table(Schema="dbo", Name="ComplectingDocumentsArchive")]
 	public partial class ComplectingDocumentsArchive
 	{
 		[PrimaryKey(1), Identity   ] public long      Id          { get; set; } // bigint
@@ -1085,7 +1055,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime  ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ComplectingDocumentsItems")]
+	[Table(Schema="dbo", Name="ComplectingDocumentsItems")]
 	public partial class ComplectingDocumentsItem
 	{
 		[PrimaryKey, Identity] public long     Id          { get; set; } // bigint
@@ -1097,7 +1067,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreateDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ComplectingDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="ComplectingDocumentsItemsArchive")]
 	public partial class ComplectingDocumentsItemsArchive
 	{
 		[PrimaryKey, Identity] public long     Id           { get; set; } // bigint
@@ -1111,7 +1081,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchiveDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Countries")]
+	[Table(Schema="dbo", Name="Countries")]
 	public partial class Country
 	{
 		[PrimaryKey, Identity   ] public int    Id          { get; set; } // int
@@ -1121,7 +1091,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string Alfa2       { get; set; } // nvarchar(2)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="COURIERS")]
+	[Table(Schema="dbo", Name="COURIERS")]
 	public partial class COURIER
 	{
 		[Column, Nullable] public int?  ID                  { get; set; } // int
@@ -1136,7 +1106,7 @@ namespace Comparer.Data
 		[Column, Nullable] public bool? METRO               { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="COURIERS_Archive")]
+	[Table(Schema="dbo", Name="COURIERS_Archive")]
 	public partial class CouriersArchive
 	{
 		[PrimaryKey, NotNull    ] public Guid   ID                  { get; set; } // uniqueidentifier
@@ -1152,14 +1122,14 @@ namespace Comparer.Data
 		[Column,        Nullable] public string UserName            { get; set; } // nchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDataMatrixInternalStatuses")]
+	[Table(Schema="dbo", Name="CRPTDataMatrixInternalStatuses")]
 	public partial class CRPTDataMatrixInternalStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocuments")]
+	[Table(Schema="dbo", Name="CRPTDocuments")]
 	public partial class CRPTDocument
 	{
 		[PrimaryKey,                                   Identity   ] public int       Id                       { get; set; } // int
@@ -1190,14 +1160,14 @@ namespace Comparer.Data
 		[Column,                                       NotNull    ] public DateTime  ChangedDate              { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocumentInternalStatuses")]
+	[Table(Schema="dbo", Name="CRPTDocumentInternalStatuses")]
 	public partial class CRPTDocumentInternalStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocumentItems")]
+	[Table(Schema="dbo", Name="CRPTDocumentItems")]
 	public partial class CRPTDocumentItem
 	{
 		[PrimaryKey,                                   Identity   ] public int    Id          { get; set; } // int
@@ -1208,7 +1178,7 @@ namespace Comparer.Data
 		[Column(SkipOnInsert=true, SkipOnUpdate=true),    Nullable] public string Barcode     { get; set; } // nvarchar(14)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocumentStatuses")]
+	[Table(Schema="dbo", Name="CRPTDocumentStatuses")]
 	public partial class CRPTDocumentStatus
 	{
 		[PrimaryKey, Identity] public int    Id    { get; set; } // int
@@ -1217,7 +1187,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Note  { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocumentTypes")]
+	[Table(Schema="dbo", Name="CRPTDocumentTypes")]
 	public partial class CRPTDocumentType
 	{
 		[PrimaryKey, Identity] public int    Id    { get; set; } // int
@@ -1225,28 +1195,28 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Name  { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTDocumentWithPurchaseTaskLinks")]
+	[Table(Schema="dbo", Name="CRPTDocumentWithPurchaseTaskLinks")]
 	public partial class CRPTDocumentWithPurchaseTaskLink
 	{
 		[PrimaryKey(1), NotNull] public int CRPTDocId { get; set; } // int
 		[PrimaryKey(2), NotNull] public int TaskId    { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTTechCardBarcodes")]
+	[Table(Schema="dbo", Name="CRPTTechCardBarcodes")]
 	public partial class CRPTTechCardBarcode
 	{
 		[PrimaryKey(1), NotNull] public Guid   ProductId { get; set; } // uniqueidentifier
 		[PrimaryKey(2), NotNull] public string Barcode   { get; set; } // nvarchar(14)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="CRPTWithEDODocumentLinks")]
+	[Table(Schema="dbo", Name="CRPTWithEDODocumentLinks")]
 	public partial class CRPTWithEDODocumentLink
 	{
 		[PrimaryKey(1), NotNull] public int CRPTDocId { get; set; } // int
 		[PrimaryKey(2), NotNull] public int EDODocId  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Currencies")]
+	[Table(Schema="dbo", Name="Currencies")]
 	public partial class Currency
 	{
 		[PrimaryKey, NotNull] public int    Id         { get; set; } // int
@@ -1256,7 +1226,7 @@ namespace Comparer.Data
 		[Column,     NotNull] public int    CurrencyId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DailyCurrencies")]
+	[Table(Schema="dbo", Name="DailyCurrencies")]
 	public partial class DailyCurrency
 	{
 		[PrimaryKey, NotNull] public string   CharCode  { get; set; } // nvarchar(5)
@@ -1265,14 +1235,14 @@ namespace Comparer.Data
 		[Column,     NotNull] public decimal  RateValue { get; set; } // decimal(10, 5)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataFormats")]
+	[Table(Schema="dbo", Name="DataFormats")]
 	public partial class DataFormat
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTPuttingDocuments")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTPuttingDocuments")]
 	public partial class DataMatrixCRPTPuttingDocument
 	{
 		[PrimaryKey, Identity   ] public int       Id                    { get; set; } // int
@@ -1298,7 +1268,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  ChangedDate           { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTPuttingDocumentItems")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTPuttingDocumentItems")]
 	public partial class DataMatrixCRPTPuttingDocumentItem
 	{
 		[PrimaryKey,                                   Identity   ] public int    Id         { get; set; } // int
@@ -1308,7 +1278,7 @@ namespace Comparer.Data
 		[Column,                                       NotNull    ] public string DataMatrix { get; set; } // nvarchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTPuttingDocumentsArchive")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTPuttingDocumentsArchive")]
 	public partial class DataMatrixCRPTPuttingDocumentsArchive
 	{
 		[PrimaryKey(1), Identity   ] public int       Id                    { get; set; } // int
@@ -1336,14 +1306,14 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public DateTime  ArchiveDate           { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTPuttingQueue")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTPuttingQueue")]
 	public partial class DataMatrixCRPTPuttingQueue
 	{
 		[PrimaryKey, Identity] public int    Id         { get; set; } // int
 		[Column,     NotNull ] public string DataMatrix { get; set; } // nvarchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTPuttingQueueArchive")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTPuttingQueueArchive")]
 	public partial class DataMatrixCRPTPuttingQueueArchive
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -1352,7 +1322,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocuments")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocuments")]
 	public partial class DataMatrixCRPTWithdrawalDocument
 	{
 		[PrimaryKey, Identity   ] public int       Id                    { get; set; } // int
@@ -1380,7 +1350,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  ChangedDate           { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentActions")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentActions")]
 	public partial class DataMatrixCRPTWithdrawalDocumentAction
 	{
 		[PrimaryKey, NotNull] public int    Id          { get; set; } // int
@@ -1388,7 +1358,7 @@ namespace Comparer.Data
 		[Column,     NotNull] public string Description { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentCRPTStatuses")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentCRPTStatuses")]
 	public partial class DataMatrixCRPTWithdrawalDocumentCRPTStatus
 	{
 		[PrimaryKey, NotNull] public int    Id          { get; set; } // int
@@ -1396,7 +1366,7 @@ namespace Comparer.Data
 		[Column,     NotNull] public string Description { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentItems")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentItems")]
 	public partial class DataMatrixCRPTWithdrawalDocumentItem
 	{
 		[PrimaryKey, Identity   ] public int       Id                    { get; set; } // int
@@ -1410,7 +1380,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string    PrimaryDocumentName   { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentsArchive")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentsArchive")]
 	public partial class DataMatrixCRPTWithdrawalDocumentsArchive
 	{
 		[PrimaryKey, Identity   ] public int       Id                    { get; set; } // int
@@ -1439,21 +1409,21 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  ArchiveDate           { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentStatuses")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentStatuses")]
 	public partial class DataMatrixCRPTWithdrawalDocumentStatus
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentTypes")]
+	[Table(Schema="dbo", Name="DataMatrixCRPTWithdrawalDocumentTypes")]
 	public partial class DataMatrixCRPTWithdrawalDocumentType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DebugFiles")]
+	[Table(Schema="dbo", Name="DebugFiles")]
 	public partial class DebugFile
 	{
 		[PrimaryKey(1), NotNull    ] public int    SessionID    { get; set; } // int
@@ -1463,7 +1433,7 @@ namespace Comparer.Data
 		[Column,           Nullable] public string ErrorMessage { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DebugParameters")]
+	[Table(Schema="dbo", Name="DebugParameters")]
 	public partial class DebugParameter
 	{
 		[PrimaryKey(1), NotNull    ] public int    SessionID      { get; set; } // int
@@ -1472,20 +1442,20 @@ namespace Comparer.Data
 		[Column,           Nullable] public string ParameterValue { get; set; } // nvarchar(4000)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DebugSession")]
+	[Table(Schema="dbo", Name="DebugSession")]
 	public partial class DebugSession
 	{
 		[PrimaryKey, Identity] public int      SessionID   { get; set; } // int
 		[Column,     NotNull ] public DateTime SessionDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DeliveryHolydays")]
+	[Table(Schema="dbo", Name="DeliveryHolydays")]
 	public partial class DeliveryHolyday
 	{
 		[PrimaryKey, NotNull] public DateTime Date { get; set; } // date
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DeliveryKindsServices")]
+	[Table(Schema="dbo", Name="DeliveryKindsServices")]
 	public partial class DeliveryKindsService
 	{
 		[PrimaryKey(1), NotNull    ] public int   DeliveryServiceId { get; set; } // int
@@ -1493,7 +1463,7 @@ namespace Comparer.Data
 		[Column,           Nullable] public bool? DefaultService    { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DeliveryServicePrinterConfigurations")]
+	[Table(Schema="dbo", Name="DeliveryServicePrinterConfigurations")]
 	public partial class DeliveryServicePrinterConfiguration
 	{
 		[PrimaryKey, Identity] public int    Id            { get; set; } // int
@@ -1502,7 +1472,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string LabelPrinters { get; set; } // nvarchar(4000)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Departments")]
+	[Table(Schema="dbo", Name="Departments")]
 	public partial class Department
 	{
 		[PrimaryKey, NotNull] public int    Id        { get; set; } // int
@@ -1510,7 +1480,7 @@ namespace Comparer.Data
 		[Column,     NotNull] public string ShortName { get; set; } // nvarchar(32)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountCalcArchive")]
+	[Table(Schema="dbo", Name="DiscountCalcArchive")]
 	public partial class DiscountCalcArchive
 	{
 		[Column, NotNull    ] public int     CalcId     { get; set; } // int
@@ -1520,7 +1490,7 @@ namespace Comparer.Data
 		[Column,    Nullable] public double? FinalPrice { get; set; } // float
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountGroups")]
+	[Table(Schema="dbo", Name="DiscountGroups")]
 	public partial class DiscountGroup
 	{
 		[PrimaryKey, Identity   ] public int       Id          { get; set; } // int
@@ -1530,21 +1500,21 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? MaxDateTo   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountObjectType")]
+	[Table(Schema="dbo", Name="DiscountObjectType")]
 	public partial class DiscountObjectType
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountsGroupsLinks")]
+	[Table(Schema="dbo", Name="DiscountsGroupsLinks")]
 	public partial class DiscountsGroupsLink
 	{
 		[PrimaryKey(1), NotNull] public int GroupId    { get; set; } // int
 		[PrimaryKey(2), NotNull] public int DiscountId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountType")]
+	[Table(Schema="dbo", Name="DiscountType")]
 	public partial class DiscountType
 	{
 		[PrimaryKey, Identity] public int    Id        { get; set; } // int
@@ -1552,14 +1522,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string ShortName { get; set; } // nvarchar(10)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DiscountValuesToDiscountIds")]
+	[Table(Schema="dbo", Name="DiscountValuesToDiscountIds")]
 	public partial class DiscountValuesToDiscountId
 	{
 		[PrimaryKey(1), NotNull] public int    DiscountId { get; set; } // int
 		[PrimaryKey(2), NotNull] public double Value      { get; set; } // float
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DISTRIBUTORS")]
+	[Table(Schema="dbo", Name="DISTRIBUTORS")]
 	public partial class DISTRIBUTOR
 	{
 		[PrimaryKey, NotNull    ] public Guid   ID               { get; set; } // uniqueidentifier
@@ -1586,7 +1556,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DistributorsApiOrders")]
+	[Table(Schema="dbo", Name="DistributorsApiOrders")]
 	public partial class DistributorsApiOrder
 	{
 		[PrimaryKey, Identity   ] public int       Id            { get; set; } // int
@@ -1600,7 +1570,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? CloseDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DistributorsApiOrdersArchive")]
+	[Table(Schema="dbo", Name="DistributorsApiOrdersArchive")]
 	public partial class DistributorsApiOrdersArchive
 	{
 		[PrimaryKey(1), NotNull    ] public int       Id            { get; set; } // int
@@ -1616,7 +1586,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime  ArchiveDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DistributorsApiOrdersContent")]
+	[Table(Schema="dbo", Name="DistributorsApiOrdersContent")]
 	public partial class DistributorsApiOrdersContent
 	{
 		[PrimaryKey(1), NotNull    ] public int      OrderId     { get; set; } // int
@@ -1630,7 +1600,7 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public string   Comment     { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DistributorsApiOrdersContentArchive")]
+	[Table(Schema="dbo", Name="DistributorsApiOrdersContentArchive")]
 	public partial class DistributorsApiOrdersContentArchive
 	{
 		[PrimaryKey(1), NotNull    ] public int      OrderId     { get; set; } // int
@@ -1646,7 +1616,7 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public string   Comment     { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="DistributorsApiSettings")]
+	[Table(Schema="dbo", Name="DistributorsApiSettings")]
 	public partial class DistributorsApiSetting
 	{
 		[PrimaryKey, NotNull    ] public Guid   DistributorId    { get; set; } // uniqueidentifier
@@ -1657,7 +1627,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public int?   AnswerDataFormat { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="EmailSiteStatusTemplates")]
+	[Table(Schema="dbo", Name="EmailSiteStatusTemplates")]
 	public partial class EmailSiteStatusTemplate
 	{
 		[PrimaryKey(1), NotNull] public Guid SiteId     { get; set; } // uniqueidentifier
@@ -1665,13 +1635,13 @@ namespace Comparer.Data
 		[PrimaryKey(3), NotNull] public int  TemplateId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_excludedOrdersForReserves")]
+	[Table(Schema="dbo", Name="_excludedOrdersForReserves")]
 	public partial class ExcludedOrdersForReserve
 	{
 		[PrimaryKey, NotNull] public Guid OrderId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBarcodes")]
+	[Table(Schema="dbo", Name="ExportBarcodes")]
 	public partial class ExportBarcode
 	{
 		[PrimaryKey(1), Identity] public long     Id         { get; set; } // bigint
@@ -1681,21 +1651,21 @@ namespace Comparer.Data
 		[Column,        NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBarcodesSessions")]
+	[Table(Schema="dbo", Name="ExportBarcodesSessions")]
 	public partial class ExportBarcodesSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBarcodesSessionItems")]
+	[Table(Schema="dbo", Name="ExportBarcodesSessionItems")]
 	public partial class ExportBarcodesSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBarcodesSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportBarcodesSessionItemsArchive")]
 	public partial class ExportBarcodesSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -1706,7 +1676,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBarcodesSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportBarcodesSessionsArchive")]
 	public partial class ExportBarcodesSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1716,7 +1686,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBrands")]
+	[Table(Schema="dbo", Name="ExportBrands")]
 	public partial class ExportBrand
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -1725,21 +1695,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBrandsSessions")]
+	[Table(Schema="dbo", Name="ExportBrandsSessions")]
 	public partial class ExportBrandsSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBrandsSessionItems")]
+	[Table(Schema="dbo", Name="ExportBrandsSessionItems")]
 	public partial class ExportBrandsSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBrandsSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportBrandsSessionItemsArchive")]
 	public partial class ExportBrandsSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -1749,7 +1719,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportBrandsSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportBrandsSessionsArchive")]
 	public partial class ExportBrandsSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1759,7 +1729,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportClients")]
+	[Table(Schema="dbo", Name="ExportClients")]
 	public partial class ExportClient
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -1768,21 +1738,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportClientsSessions")]
+	[Table(Schema="dbo", Name="ExportClientsSessions")]
 	public partial class ExportClientsSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportClientsSessionItems")]
+	[Table(Schema="dbo", Name="ExportClientsSessionItems")]
 	public partial class ExportClientsSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportClientsSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportClientsSessionItemsArchive")]
 	public partial class ExportClientsSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -1792,7 +1762,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportClientsSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportClientsSessionsArchive")]
 	public partial class ExportClientsSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1802,7 +1772,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributors")]
+	[Table(Schema="dbo", Name="ExportDistributors")]
 	public partial class ExportDistributor
 	{
 		[PrimaryKey, Identity] public long     Id            { get; set; } // bigint
@@ -1811,28 +1781,28 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation     { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributorsExchangeIds")]
+	[Table(Schema="dbo", Name="ExportDistributorsExchangeIds")]
 	public partial class ExportDistributorsExchangeId
 	{
 		[PrimaryKey(1), NotNull] public Guid InnerId { get; set; } // uniqueidentifier
 		[PrimaryKey(2), NotNull] public Guid OuterId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributorsSessions")]
+	[Table(Schema="dbo", Name="ExportDistributorsSessions")]
 	public partial class ExportDistributorsSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributorsSessionItems")]
+	[Table(Schema="dbo", Name="ExportDistributorsSessionItems")]
 	public partial class ExportDistributorsSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributorsSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportDistributorsSessionItemsArchive")]
 	public partial class ExportDistributorsSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId     { get; set; } // bigint
@@ -1842,7 +1812,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation     { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportDistributorsSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportDistributorsSessionsArchive")]
 	public partial class ExportDistributorsSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1852,7 +1822,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrders")]
+	[Table(Schema="dbo", Name="ExportOrders")]
 	public partial class ExportOrder
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -1863,7 +1833,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      OrderState { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderInvoiceSummary")]
+	[Table(Schema="dbo", Name="ExportOrderInvoiceSummary")]
 	public partial class ExportOrderInvoiceSummary
 	{
 		[PrimaryKey, Identity] public long     Id              { get; set; } // bigint
@@ -1872,21 +1842,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderInvoiceSummarySessions")]
+	[Table(Schema="dbo", Name="ExportOrderInvoiceSummarySessions")]
 	public partial class ExportOrderInvoiceSummarySession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderInvoiceSummarySessionItems")]
+	[Table(Schema="dbo", Name="ExportOrderInvoiceSummarySessionItems")]
 	public partial class ExportOrderInvoiceSummarySessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderInvoiceSummarySessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportOrderInvoiceSummarySessionItemsArchive")]
 	public partial class ExportOrderInvoiceSummarySessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId       { get; set; } // bigint
@@ -1896,7 +1866,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime ReportDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderInvoiceSummarySessionsArchive")]
+	[Table(Schema="dbo", Name="ExportOrderInvoiceSummarySessionsArchive")]
 	public partial class ExportOrderInvoiceSummarySessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1906,21 +1876,21 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrdersSessions")]
+	[Table(Schema="dbo", Name="ExportOrdersSessions")]
 	public partial class ExportOrdersSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrdersSessionItems")]
+	[Table(Schema="dbo", Name="ExportOrdersSessionItems")]
 	public partial class ExportOrdersSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrdersSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportOrdersSessionItemsArchive")]
 	public partial class ExportOrdersSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -1932,7 +1902,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      OrderState { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrdersSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportOrdersSessionsArchive")]
 	public partial class ExportOrdersSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1942,7 +1912,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderWMS")]
+	[Table(Schema="dbo", Name="ExportOrderWMS")]
 	public partial class ExportOrderWM
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -1950,21 +1920,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderWMSSessions")]
+	[Table(Schema="dbo", Name="ExportOrderWMSSessions")]
 	public partial class ExportOrderWMSSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderWMSSessionItems")]
+	[Table(Schema="dbo", Name="ExportOrderWMSSessionItems")]
 	public partial class ExportOrderWMSSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderWMSSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportOrderWMSSessionItemsArchive")]
 	public partial class ExportOrderWMSSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -1973,7 +1943,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportOrderWMSSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportOrderWMSSessionsArchive")]
 	public partial class ExportOrderWMSSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -1983,7 +1953,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProducts")]
+	[Table(Schema="dbo", Name="ExportProducts")]
 	public partial class ExportProduct
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -1992,27 +1962,27 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProductReservesChangesDates")]
+	[Table(Schema="dbo", Name="ExportProductReservesChangesDates")]
 	public partial class ExportProductReservesChangesDate
 	{
 		[Column, NotNull] public DateTime ExportTime { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProductsSessions")]
+	[Table(Schema="dbo", Name="ExportProductsSessions")]
 	public partial class ExportProductsSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProductsSessionItems")]
+	[Table(Schema="dbo", Name="ExportProductsSessionItems")]
 	public partial class ExportProductsSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProductsSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportProductsSessionItemsArchive")]
 	public partial class ExportProductsSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -2022,7 +1992,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportProductsSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportProductsSessionsArchive")]
 	public partial class ExportProductsSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -2032,7 +2002,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasks")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasks")]
 	public partial class ExportPurchaseTask
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -2041,21 +2011,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasksSessions")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasksSessions")]
 	public partial class ExportPurchaseTasksSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasksSessionItems")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasksSessionItems")]
 	public partial class ExportPurchaseTasksSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasksSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasksSessionItemsArchive")]
 	public partial class ExportPurchaseTasksSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -2065,7 +2035,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasksSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasksSessionsArchive")]
 	public partial class ExportPurchaseTasksSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -2075,13 +2045,13 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportPurchaseTasksSettings")]
+	[Table(Schema="dbo", Name="ExportPurchaseTasksSettings")]
 	public partial class ExportPurchaseTasksSetting
 	{
 		[Column, NotNull] public bool OnlyStorageArea { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRefundTasks")]
+	[Table(Schema="dbo", Name="ExportRefundTasks")]
 	public partial class ExportRefundTask
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -2089,21 +2059,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRefundTasksSessions")]
+	[Table(Schema="dbo", Name="ExportRefundTasksSessions")]
 	public partial class ExportRefundTasksSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRefundTasksSessionItems")]
+	[Table(Schema="dbo", Name="ExportRefundTasksSessionItems")]
 	public partial class ExportRefundTasksSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRefundTasksSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportRefundTasksSessionItemsArchive")]
 	public partial class ExportRefundTasksSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -2112,7 +2082,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRefundTasksSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportRefundTasksSessionsArchive")]
 	public partial class ExportRefundTasksSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -2122,7 +2092,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRozliv")]
+	[Table(Schema="dbo", Name="ExportRozliv")]
 	public partial class ExportRozliv
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -2131,21 +2101,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRozlivSessions")]
+	[Table(Schema="dbo", Name="ExportRozlivSessions")]
 	public partial class ExportRozlivSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRozlivSessionItems")]
+	[Table(Schema="dbo", Name="ExportRozlivSessionItems")]
 	public partial class ExportRozlivSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRozlivSessionItemsArchive")]
+	[Table(Schema="dbo", Name="ExportRozlivSessionItemsArchive")]
 	public partial class ExportRozlivSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -2155,7 +2125,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      Operation  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ExportRozlivSessionsArchive")]
+	[Table(Schema="dbo", Name="ExportRozlivSessionsArchive")]
 	public partial class ExportRozlivSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -2165,20 +2135,20 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Holidays")]
+	[Table(Schema="dbo", Name="Holidays")]
 	public partial class Holiday
 	{
 		[PrimaryKey, NotNull] public DateTime Date { get; set; } // date
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="HttpMethods")]
+	[Table(Schema="dbo", Name="HttpMethods")]
 	public partial class HttpMethod
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // varchar(10)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="KitDefinitions")]
+	[Table(Schema="dbo", Name="KitDefinitions")]
 	public partial class KitDefinition
 	{
 		[PrimaryKey, Identity   ] public int    Id        { get; set; } // int
@@ -2202,7 +2172,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="LINKS")]
+	[Table(Schema="dbo", Name="LINKS")]
 	public partial class LINK
 	{
 		[PrimaryKey, NotNull] public Guid ID               { get; set; } // uniqueidentifier
@@ -2226,7 +2196,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="MANUFACTURERS")]
+	[Table(Schema="dbo", Name="MANUFACTURERS")]
 	public partial class MANUFACTURER
 	{
 		[PrimaryKey, NotNull    ] public Guid   ID          { get; set; } // uniqueidentifier
@@ -2254,7 +2224,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="MonobrandKits")]
+	[Table(Schema="dbo", Name="MonobrandKits")]
 	public partial class MonobrandKit
 	{
 		[PrimaryKey, Identity] public int  Id     { get; set; } // int
@@ -2278,14 +2248,14 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_mousetrapClients")]
+	[Table(Schema="dbo", Name="_mousetrapClients")]
 	public partial class MousetrapClient
 	{
 		[PrimaryKey, Identity] public int  Id       { get; set; } // int
 		[Column,     NotNull ] public Guid ClientId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_mousetrapDonorOrders")]
+	[Table(Schema="dbo", Name="_mousetrapDonorOrders")]
 	public partial class MousetrapDonorOrder
 	{
 		[PrimaryKey(1), NotNull] public Guid     ClientId  { get; set; } // uniqueidentifier
@@ -2293,7 +2263,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull] public DateTime ExportDay { get; set; } // date
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_mousetrapExportInterval")]
+	[Table(Schema="dbo", Name="_mousetrapExportInterval")]
 	public partial class MousetrapExportInterval
 	{
 		[PrimaryKey, Identity] public int Id          { get; set; } // int
@@ -2301,7 +2271,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int WmsHourTo   { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_needReceivedOrders")]
+	[Table(Schema="dbo", Name="_needReceivedOrders")]
 	public partial class NeedReceivedOrder
 	{
 		[PrimaryKey, NotNull    ] public Guid     Id             { get; set; } // uniqueidentifier
@@ -2311,21 +2281,21 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate    { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ObjectSyncSettings")]
+	[Table(Schema="dbo", Name="ObjectSyncSettings")]
 	public partial class ObjectSyncSetting
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ObjectTypes")]
+	[Table(Schema="dbo", Name="ObjectTypes")]
 	public partial class ObjectType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // varchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="OrderExportToWmsFilters")]
+	[Table(Schema="dbo", Name="OrderExportToWmsFilters")]
 	public partial class OrderExportToWmsFilter
 	{
 		[PrimaryKey, Identity   ] public int       Id          { get; set; } // int
@@ -2336,7 +2306,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid      Author      { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="OrderItemsInstockQuantityCorrectHistory")]
+	[Table(Schema="dbo", Name="OrderItemsInstockQuantityCorrectHistory")]
 	public partial class OrderItemsInstockQuantityCorrectHistory
 	{
 		[PrimaryKey(1), NotNull] public long     CorrectId        { get; set; } // bigint
@@ -2351,13 +2321,13 @@ namespace Comparer.Data
 		[PrimaryKey(5), NotNull] public DateTime ReportDate       { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_OrdersContentTriggerUpdateOrderNumbers")]
+	[Table(Schema="dbo", Name="_OrdersContentTriggerUpdateOrderNumbers")]
 	public partial class OrdersContentTriggerUpdateOrderNumber
 	{
 		[Column, NotNull] public int Number { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_OrdersContentTriggerUpdateResults")]
+	[Table(Schema="dbo", Name="_OrdersContentTriggerUpdateResults")]
 	public partial class OrdersContentTriggerUpdateResult
 	{
 		[Column, NotNull] public int  Number          { get; set; } // int
@@ -2368,14 +2338,14 @@ namespace Comparer.Data
 		[Column, NotNull] public int  InstockQuantity { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="OrdersInstockQuantityCorrectHistory")]
+	[Table(Schema="dbo", Name="OrdersInstockQuantityCorrectHistory")]
 	public partial class OrdersInstockQuantityCorrectHistory
 	{
 		[PrimaryKey, Identity] public long     CorrectId  { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreateDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="OrdersReservesMovedHistory")]
+	[Table(Schema="dbo", Name="OrdersReservesMovedHistory")]
 	public partial class OrdersReservesMovedHistory
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -2387,7 +2357,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_ordersStatusHistoryTriggerActions")]
+	[Table(Schema="dbo", Name="_ordersStatusHistoryTriggerActions")]
 	public partial class OrdersStatusHistoryTriggerAction
 	{
 		[Column, NotNull] public Guid     Number     { get; set; } // uniqueidentifier
@@ -2395,14 +2365,14 @@ namespace Comparer.Data
 		[Column, NotNull] public DateTime ReportDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_OrdersStatusHistoryTriggerUpdateOrderNumbers")]
+	[Table(Schema="dbo", Name="_OrdersStatusHistoryTriggerUpdateOrderNumbers")]
 	public partial class OrdersStatusHistoryTriggerUpdateOrderNumber
 	{
 		[Column, NotNull] public int Number { get; set; } // int
 		[Column, NotNull] public int Sku    { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="OrdersWarehouseContainers")]
+	[Table(Schema="dbo", Name="OrdersWarehouseContainers")]
 	public partial class OrdersWarehouseContainer
 	{
 		[PrimaryKey, Identity] public long     Id              { get; set; } // bigint
@@ -2412,7 +2382,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="PaymentTypes")]
+	[Table(Schema="dbo", Name="PaymentTypes")]
 	public partial class PaymentType
 	{
 		[Column(),                 PrimaryKey,  Identity] public int     ID            { get; set; } // int
@@ -2431,7 +2401,7 @@ namespace Comparer.Data
 		[Column(),                 NotNull              ] public bool    IsOld         { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="PRICES")]
+	[Table(Schema="dbo", Name="PRICES")]
 	public partial class PRICE
 	{
 		[PrimaryKey, NotNull    ] public Guid      ID              { get; set; } // uniqueidentifier
@@ -2472,14 +2442,14 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="PriceParams")]
+	[Table(Schema="dbo", Name="PriceParams")]
 	public partial class PriceParam
 	{
 		[Column,                                       NotNull    ] public decimal  USDRateExtra        { get; set; } // decimal(10, 5)
 		[Column(SkipOnInsert=true, SkipOnUpdate=true),    Nullable] public decimal? USDRateExtraAsRatio { get; set; } // numeric(17, 10)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="PRICESRECORDS")]
+	[Table(Schema="dbo", Name="PRICESRECORDS")]
 	public partial class PRICESRECORD
 	{
 		[PrimaryKey, Identity] public int    RECORDINDEX { get; set; } // int
@@ -2511,7 +2481,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="PRODUCTS")]
+	[Table(Schema="dbo", Name="PRODUCTS")]
 	public partial class PRODUCT
 	{
 		[Column(),           PrimaryKey,  NotNull] public Guid      ID              { get; set; } // uniqueidentifier
@@ -2565,7 +2535,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ProductInstockCorrectHistory")]
+	[Table(Schema="dbo", Name="ProductInstockCorrectHistory")]
 	public partial class ProductInstockCorrectHistory
 	{
 		[Column,        NotNull    ] public int      WarehouseId  { get; set; } // int
@@ -2577,7 +2547,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ReportDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ProductQuality")]
+	[Table(Schema="dbo", Name="ProductQuality")]
 	public partial class ProductQuality
 	{
 		[PrimaryKey, Identity] public int    Id       { get; set; } // int
@@ -2585,7 +2555,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public Guid   PublicId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ProductReservesChangeHistory")]
+	[Table(Schema="dbo", Name="ProductReservesChangeHistory")]
 	public partial class ProductReservesChangeHistory
 	{
 		[PrimaryKey, Identity   ] public long     Id             { get; set; } // bigint
@@ -2596,7 +2566,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ReportDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ProductsQualityInstock")]
+	[Table(Schema="dbo", Name="ProductsQualityInstock")]
 	public partial class ProductsQualityInstock
 	{
 		[PrimaryKey(1), NotNull] public Guid ProductId { get; set; } // uniqueidentifier
@@ -2604,7 +2574,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int  Quantity  { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ProductsSync")]
+	[Table(Schema="dbo", Name="ProductsSync")]
 	public partial class ProductsSync
 	{
 		[PrimaryKey(1), NotNull    ] public Guid     ProductId   { get; set; } // uniqueidentifier
@@ -2616,7 +2586,7 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Roles")]
+	[Table(Schema="dbo", Name="Roles")]
 	public partial class Role
 	{
 		[PrimaryKey, Identity   ] public int    Id                  { get; set; } // int
@@ -2626,7 +2596,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public int?   TypeId              { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="RozlivUtDocuments")]
+	[Table(Schema="dbo", Name="RozlivUtDocuments")]
 	public partial class RozlivUtDocument
 	{
 		[PrimaryKey, Identity] public int      Id            { get; set; } // int
@@ -2638,7 +2608,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public bool     ConfirmedByUt { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="RozlivUtDocumentItems")]
+	[Table(Schema="dbo", Name="RozlivUtDocumentItems")]
 	public partial class RozlivUtDocumentItem
 	{
 		[PrimaryKey, Identity   ] public int     Id            { get; set; } // int
@@ -2648,14 +2618,14 @@ namespace Comparer.Data
 		[Column,        Nullable] public double? PurchasePrice { get; set; } // float
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ShopBaseObjectTypes")]
+	[Table(Schema="dbo", Name="ShopBaseObjectTypes")]
 	public partial class ShopBaseObjectType
 	{
 		[PrimaryKey, NotNull] public int    Id   { get; set; } // int
 		[Column,     NotNull] public string Name { get; set; } // nvarchar(100)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="ShowcaseProductsStock")]
+	[Table(Schema="dbo", Name="ShowcaseProductsStock")]
 	public partial class ShowcaseProductsStock
 	{
 		[PrimaryKey(1),                                NotNull    ] public Guid SiteId              { get; set; } // uniqueidentifier
@@ -2668,7 +2638,7 @@ namespace Comparer.Data
 		[Column(SkipOnInsert=true, SkipOnUpdate=true),    Nullable] public int? TotalReserveStock   { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteApiRequests")]
+	[Table(Schema="dbo", Name="SiteApiRequests")]
 	public partial class SiteApiRequest
 	{
 		[PrimaryKey, Identity   ] public long     Id           { get; set; } // bigint
@@ -2686,7 +2656,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteObjectSyncSettings")]
+	[Table(Schema="dbo", Name="SiteObjectSyncSettings")]
 	public partial class SiteObjectSyncSetting
 	{
 		[PrimaryKey(1), NotNull] public Guid     SiteId       { get; set; } // uniqueidentifier
@@ -2696,7 +2666,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public DateTime CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRules")]
+	[Table(Schema="dbo", Name="SiteProductsRules")]
 	public partial class SiteProductsRule
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -2710,14 +2680,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ChangedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRuleObjectTypes")]
+	[Table(Schema="dbo", Name="SiteProductsRuleObjectTypes")]
 	public partial class SiteProductsRuleObjectType
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRulesBrandLinks")]
+	[Table(Schema="dbo", Name="SiteProductsRulesBrandLinks")]
 	public partial class SiteProductsRulesBrandLink
 	{
 		[PrimaryKey(1), NotNull] public int  RuleId    { get; set; } // int
@@ -2725,7 +2695,7 @@ namespace Comparer.Data
 		[PrimaryKey(3), NotNull] public bool Inversion { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRulesDistributorLinks")]
+	[Table(Schema="dbo", Name="SiteProductsRulesDistributorLinks")]
 	public partial class SiteProductsRulesDistributorLink
 	{
 		[PrimaryKey(1), NotNull] public int  RuleId        { get; set; } // int
@@ -2733,7 +2703,7 @@ namespace Comparer.Data
 		[PrimaryKey(3), NotNull] public bool Inversion     { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRulesProductLinks")]
+	[Table(Schema="dbo", Name="SiteProductsRulesProductLinks")]
 	public partial class SiteProductsRulesProductLink
 	{
 		[PrimaryKey(1), NotNull] public int  RuleId    { get; set; } // int
@@ -2741,7 +2711,7 @@ namespace Comparer.Data
 		[PrimaryKey(3), NotNull] public bool Inversion { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SiteProductsRuleTypes")]
+	[Table(Schema="dbo", Name="SiteProductsRuleTypes")]
 	public partial class SiteProductsRuleType
 	{
 		[PrimaryKey, Identity   ] public int    Id           { get; set; } // int
@@ -2751,7 +2721,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string Description  { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SitesSync")]
+	[Table(Schema="dbo", Name="SitesSync")]
 	public partial class SitesSync
 	{
 		[PrimaryKey, NotNull    ] public Guid     SiteId       { get; set; } // uniqueidentifier
@@ -2764,7 +2734,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SitesSyncBlockInfo")]
+	[Table(Schema="dbo", Name="SitesSyncBlockInfo")]
 	public partial class SitesSyncBlockInfo
 	{
 		[PrimaryKey, NotNull    ] public Guid     SiteId                 { get; set; } // uniqueidentifier
@@ -2772,7 +2742,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public decimal? HighPricesBlockPercent { get; set; } // decimal(6, 2)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SmsSiteStatusTemplates")]
+	[Table(Schema="dbo", Name="SmsSiteStatusTemplates")]
 	public partial class SmsSiteStatusTemplate
 	{
 		[Column, NotNull    ] public Guid SiteId     { get; set; } // uniqueidentifier
@@ -2782,7 +2752,7 @@ namespace Comparer.Data
 		[Column,    Nullable] public int? TemplateId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="StoringScanHistory")]
+	[Table(Schema="dbo", Name="StoringScanHistory")]
 	public partial class StoringScanHistory
 	{
 		[PrimaryKey, Identity] public long     Id              { get; set; } // bigint
@@ -2795,7 +2765,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZOrders")]
+	[Table(Schema="dbo", Name="SUZOrders")]
 	public partial class SUZOrder
 	{
 		[PrimaryKey, Identity   ] public int       Id           { get; set; } // int
@@ -2809,7 +2779,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZOrderItems")]
+	[Table(Schema="dbo", Name="SUZOrderItems")]
 	public partial class SUZOrderItem
 	{
 		[PrimaryKey, Identity] public int      Id              { get; set; } // int
@@ -2822,7 +2792,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate     { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZOrderItemDataMatrixes")]
+	[Table(Schema="dbo", Name="SUZOrderItemDataMatrixes")]
 	public partial class SUZOrderItemDataMatrix
 	{
 		[PrimaryKey, Identity   ] public int       Id          { get; set; } // int
@@ -2833,7 +2803,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZPurchaseTasks")]
+	[Table(Schema="dbo", Name="SUZPurchaseTasks")]
 	public partial class SUZPurchaseTask
 	{
 		[PrimaryKey, Identity] public int      Id           { get; set; } // int
@@ -2843,14 +2813,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate  { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZPurchaseTaskOrders")]
+	[Table(Schema="dbo", Name="SUZPurchaseTaskOrders")]
 	public partial class SUZPurchaseTaskOrder
 	{
 		[PrimaryKey(1), NotNull] public int TaskId  { get; set; } // int
 		[PrimaryKey(2), NotNull] public int OrderId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZPurchaseTaskOrdersArchive")]
+	[Table(Schema="dbo", Name="SUZPurchaseTaskOrdersArchive")]
 	public partial class SUZPurchaseTaskOrdersArchive
 	{
 		[PrimaryKey(1), NotNull] public int      TaskId       { get; set; } // int
@@ -2858,7 +2828,7 @@ namespace Comparer.Data
 		[PrimaryKey(3), NotNull] public DateTime ArchivedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SUZPurchaseTasksArchive")]
+	[Table(Schema="dbo", Name="SUZPurchaseTasksArchive")]
 	public partial class SUZPurchaseTasksArchive
 	{
 		[PrimaryKey, Identity] public int      Id           { get; set; } // int
@@ -2869,7 +2839,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchivedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncDeletedObjectSites")]
+	[Table(Schema="dbo", Name="SyncDeletedObjectSites")]
 	public partial class SyncDeletedObjectSite
 	{
 		[Column, NotNull] public string ObjectId { get; set; } // nvarchar(50)
@@ -2877,7 +2847,7 @@ namespace Comparer.Data
 		[Column, NotNull] public Guid   SiteId   { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncObjectsQueue")]
+	[Table(Schema="dbo", Name="SyncObjectsQueue")]
 	public partial class SyncObjectsQueue
 	{
 		[PrimaryKey, Identity   ] public long     Id          { get; set; } // bigint
@@ -2890,7 +2860,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncObjectsQueueArchive")]
+	[Table(Schema="dbo", Name="SyncObjectsQueueArchive")]
 	public partial class SyncObjectsQueueArchive
 	{
 		[PrimaryKey, Identity   ] public long     Id          { get; set; } // bigint
@@ -2905,7 +2875,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncProductsQueue")]
+	[Table(Schema="dbo", Name="SyncProductsQueue")]
 	public partial class SyncProductsQueue
 	{
 		[PrimaryKey, NotNull    ] public Guid      Id          { get; set; } // uniqueidentifier
@@ -2915,7 +2885,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string    LastError   { get; set; } // varchar(1024)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncProductsQueueArchive")]
+	[Table(Schema="dbo", Name="SyncProductsQueueArchive")]
 	public partial class SyncProductsQueueArchive
 	{
 		[PrimaryKey(1), NotNull] public Guid     Id       { get; set; } // uniqueidentifier
@@ -2923,7 +2893,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull] public DateTime SyncDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncProtocol")]
+	[Table(Schema="dbo", Name="SyncProtocol")]
 	public partial class SyncProtocol
 	{
 		[PrimaryKey, Identity   ] public long     Id             { get; set; } // bigint
@@ -2940,7 +2910,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate    { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncQueueIn")]
+	[Table(Schema="dbo", Name="SyncQueueIn")]
 	public partial class SyncQueueIn
 	{
 		[PrimaryKey, Identity   ] public long      Id          { get; set; } // bigint
@@ -2956,7 +2926,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? NextTryDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncQueueInArchive")]
+	[Table(Schema="dbo", Name="SyncQueueInArchive")]
 	public partial class SyncQueueInArchive
 	{
 		[PrimaryKey, NotNull    ] public long      Id          { get; set; } // bigint
@@ -2973,7 +2943,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime  ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncQueueOut")]
+	[Table(Schema="dbo", Name="SyncQueueOut")]
 	public partial class SyncQueueOut
 	{
 		[PrimaryKey, Identity   ] public long      Id          { get; set; } // bigint
@@ -2988,7 +2958,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? NextTryDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="SyncQueueOutArchive")]
+	[Table(Schema="dbo", Name="SyncQueueOutArchive")]
 	public partial class SyncQueueOutArchive
 	{
 		[PrimaryKey, NotNull    ] public long     Id          { get; set; } // bigint
@@ -3002,7 +2972,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="TaskScheduler")]
+	[Table(Schema="dbo", Name="TaskScheduler")]
 	public partial class TaskScheduler
 	{
 		[PrimaryKey, Identity   ] public int      ID         { get; set; } // int
@@ -3016,7 +2986,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public int      Counter    { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Templates")]
+	[Table(Schema="dbo", Name="Templates")]
 	public partial class Template
 	{
 		[PrimaryKey, Identity   ] public int      Id            { get; set; } // int
@@ -3028,14 +2998,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid     AuthorId      { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="TemplateTypes")]
+	[Table(Schema="dbo", Name="TemplateTypes")]
 	public partial class TemplateType
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="TracingPackages")]
+	[Table(Schema="dbo", Name="TracingPackages")]
 	public partial class TracingPackage
 	{
 		[PrimaryKey, Identity] public int      Id            { get; set; } // int
@@ -3046,7 +3016,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="TracingPackageItems")]
+	[Table(Schema="dbo", Name="TracingPackageItems")]
 	public partial class TracingPackageItem
 	{
 		[PrimaryKey, Identity   ] public int      Id            { get; set; } // int
@@ -3062,7 +3032,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   ResponseError { get; set; } // varchar(4000)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="USERS")]
+	[Table(Schema="dbo", Name="USERS")]
 	public partial class USER
 	{
 		[PrimaryKey, NotNull    ] public Guid   ID           { get; set; } // uniqueidentifier
@@ -3088,7 +3058,7 @@ namespace Comparer.Data
 		#endregion
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UserActions")]
+	[Table(Schema="dbo", Name="UserActions")]
 	public partial class UserAction
 	{
 		[PrimaryKey, NotNull    ] public int      Id          { get; set; } // int
@@ -3100,21 +3070,21 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UserPasswords")]
+	[Table(Schema="dbo", Name="UserPasswords")]
 	public partial class UserPassword
 	{
 		[PrimaryKey, NotNull] public Guid   UserId         { get; set; } // uniqueidentifier
 		[Column,     NotNull] public string HashedPassword { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UsersBounds")]
+	[Table(Schema="dbo", Name="UsersBounds")]
 	public partial class UsersBound
 	{
 		[Column, NotNull    ] public Guid  UserId   { get; set; } // uniqueidentifier
 		[Column,    Nullable] public Guid? ParentId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UserSession")]
+	[Table(Schema="dbo", Name="UserSession")]
 	public partial class UserSession
 	{
 		[PrimaryKey, Identity   ] public int       Id          { get; set; } // int
@@ -3123,7 +3093,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public DateTime? DateSession { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UsersPlanReportCallCount")]
+	[Table(Schema="dbo", Name="UsersPlanReportCallCount")]
 	public partial class UsersPlanReportCallCount
 	{
 		[PrimaryKey, Identity] public int      Id        { get; set; } // int
@@ -3132,7 +3102,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime Date      { get; set; } // date
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UsersPlanReportParams")]
+	[Table(Schema="dbo", Name="UsersPlanReportParams")]
 	public partial class UsersPlanReportParam
 	{
 		[PrimaryKey, Identity   ] public int      Id                 { get; set; } // int
@@ -3148,14 +3118,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime Date               { get; set; } // date
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UserStatuses")]
+	[Table(Schema="dbo", Name="UserStatuses")]
 	public partial class UserStatus
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // nvarchar(255)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtCurrencyExchangeRateHistory")]
+	[Table(Schema="dbo", Name="UtCurrencyExchangeRateHistory")]
 	public partial class UtCurrencyExchangeRateHistory
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -3165,7 +3135,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtDoubtfulPrices")]
+	[Table(Schema="dbo", Name="UtDoubtfulPrices")]
 	public partial class UtDoubtfulPrice
 	{
 		[PrimaryKey, Identity   ] public int  Id        { get; set; } // int
@@ -3175,7 +3145,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public int? LastDocId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtDoubtfulPriceDocuments")]
+	[Table(Schema="dbo", Name="UtDoubtfulPriceDocuments")]
 	public partial class UtDoubtfulPriceDocument
 	{
 		[PrimaryKey, NotNull    ] public int      DocId       { get; set; } // int
@@ -3183,7 +3153,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public int?     ReasonId    { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UTExportOrders")]
+	[Table(Schema="dbo", Name="UTExportOrders")]
 	public partial class UTExportOrder
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -3194,21 +3164,21 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int      OrderState { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UTExportOrdersSessions")]
+	[Table(Schema="dbo", Name="UTExportOrdersSessions")]
 	public partial class UTExportOrdersSession
 	{
 		[PrimaryKey, Identity] public long     SessionId   { get; set; } // bigint
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UTExportOrdersSessionItems")]
+	[Table(Schema="dbo", Name="UTExportOrdersSessionItems")]
 	public partial class UTExportOrdersSessionItem
 	{
 		[PrimaryKey(1), NotNull] public long SessionId { get; set; } // bigint
 		[PrimaryKey(2), NotNull] public long Id        { get; set; } // bigint
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UTExportOrdersSessionItemsArchive")]
+	[Table(Schema="dbo", Name="UTExportOrdersSessionItemsArchive")]
 	public partial class UTExportOrdersSessionItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     SessionId  { get; set; } // bigint
@@ -3220,7 +3190,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int      OrderState { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UTExportOrdersSessionsArchive")]
+	[Table(Schema="dbo", Name="UTExportOrdersSessionsArchive")]
 	public partial class UTExportOrdersSessionsArchive
 	{
 		[PrimaryKey, NotNull    ] public long     SessionId    { get; set; } // bigint
@@ -3230,7 +3200,7 @@ namespace Comparer.Data
 		[Column,        Nullable] public string   Comment      { get; set; } // nvarchar(500)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="_UTOrderHistory")]
+	[Table(Schema="dbo", Name="_UTOrderHistory")]
 	public partial class UTOrderHistory
 	{
 		[Column, NotNull] public Guid OrderId               { get; set; } // uniqueidentifier
@@ -3239,7 +3209,7 @@ namespace Comparer.Data
 		[Column, NotNull] public bool IsPutToUTExportOrders { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtPrices")]
+	[Table(Schema="dbo", Name="UtPrices")]
 	public partial class UtPrice
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -3251,7 +3221,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtPriceDocuments")]
+	[Table(Schema="dbo", Name="UtPriceDocuments")]
 	public partial class UtPriceDocument
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -3264,7 +3234,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ChangedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtPriceDocumentsArchive")]
+	[Table(Schema="dbo", Name="UtPriceDocumentsArchive")]
 	public partial class UtPriceDocumentsArchive
 	{
 		[PrimaryKey, Identity] public int      Id           { get; set; } // int
@@ -3279,7 +3249,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchivedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtPricesArchive")]
+	[Table(Schema="dbo", Name="UtPricesArchive")]
 	public partial class UtPricesArchive
 	{
 		[PrimaryKey, Identity] public int      Id           { get; set; } // int
@@ -3291,7 +3261,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ArchivedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="UtPriceTypes")]
+	[Table(Schema="dbo", Name="UtPriceTypes")]
 	public partial class UtPriceType
 	{
 		[Column, NotNull] public int    Id      { get; set; } // int
@@ -3299,7 +3269,7 @@ namespace Comparer.Data
 		[Column, NotNull] public string Name    { get; set; } // nvarchar(64)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="VoximplantOrders")]
+	[Table(Schema="dbo", Name="VoximplantOrders")]
 	public partial class VoximplantOrder
 	{
 		[PrimaryKey, Identity   ] public int      Id          { get; set; } // int
@@ -3310,7 +3280,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ChangedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="VoximplantOrdersArchive")]
+	[Table(Schema="dbo", Name="VoximplantOrdersArchive")]
 	public partial class VoximplantOrdersArchive
 	{
 		[PrimaryKey, Identity   ] public int      Id           { get; set; } // int
@@ -3322,7 +3292,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ArchivedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="Warehouses")]
+	[Table(Schema="dbo", Name="Warehouses")]
 	public partial class Warehouse
 	{
 		[PrimaryKey, Identity] public int    Id       { get; set; } // int
@@ -3330,7 +3300,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Name     { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseCells")]
+	[Table(Schema="dbo", Name="WarehouseCells")]
 	public partial class WarehouseCell
 	{
 		[PrimaryKey, Identity] public int    Id     { get; set; } // int
@@ -3338,7 +3308,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public int    ZoneId { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseProductQuality")]
+	[Table(Schema="dbo", Name="WarehouseProductQuality")]
 	public partial class WarehouseProductQuality
 	{
 		[PrimaryKey, Identity] public int    Id       { get; set; } // int
@@ -3347,7 +3317,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public Guid   PublicId { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseProductReserves")]
+	[Table(Schema="dbo", Name="WarehouseProductReserves")]
 	public partial class WarehouseProductReserve
 	{
 		[PrimaryKey(1), NotNull    ] public int  WarehouseId         { get; set; } // int
@@ -3356,7 +3326,7 @@ namespace Comparer.Data
 		[Column,           Nullable] public int? PassiveReserveStock { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseProductsStockHistory")]
+	[Table(Schema="dbo", Name="WarehouseProductsStockHistory")]
 	public partial class WarehouseProductsStockHistory
 	{
 		[PrimaryKey, Identity   ] public int      Id           { get; set; } // int
@@ -3369,7 +3339,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ReportDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseShowcaseLinks")]
+	[Table(Schema="dbo", Name="WarehouseShowcaseLinks")]
 	public partial class WarehouseShowcaseLink
 	{
 		[PrimaryKey(2), NotNull] public Guid SiteId      { get; set; } // uniqueidentifier
@@ -3378,7 +3348,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public bool IsActive    { get; set; } // bit
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehousesStock")]
+	[Table(Schema="dbo", Name="WarehousesStock")]
 	public partial class WarehousesStock
 	{
 		[PrimaryKey(1), NotNull] public int  WarehouseId    { get; set; } // int
@@ -3387,7 +3357,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int  ConditionStock { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehousesStockQuality")]
+	[Table(Schema="dbo", Name="WarehousesStockQuality")]
 	public partial class WarehousesStockQuality
 	{
 		[PrimaryKey(1), NotNull] public int  WarehouseId { get; set; } // int
@@ -3396,7 +3366,7 @@ namespace Comparer.Data
 		[Column,        NotNull] public int  Stock       { get; set; } // int
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WarehouseZones")]
+	[Table(Schema="dbo", Name="WarehouseZones")]
 	public partial class WarehouseZone
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
@@ -3404,14 +3374,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public string Name { get; set; } // varchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WhatsAppMessageStatuses")]
+	[Table(Schema="dbo", Name="WhatsAppMessageStatuses")]
 	public partial class WhatsAppMessageStatus
 	{
 		[PrimaryKey, Identity] public int    Id         { get; set; } // int
 		[Column,     NotNull ] public string StatusName { get; set; } // varchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WhatsAppOrderMessagesHistory")]
+	[Table(Schema="dbo", Name="WhatsAppOrderMessagesHistory")]
 	public partial class WhatsAppOrderMessagesHistory
 	{
 		[PrimaryKey, Identity] public int      Id          { get; set; } // int
@@ -3421,14 +3391,14 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreatedDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WhatsAppTemplates")]
+	[Table(Schema="dbo", Name="WhatsAppTemplates")]
 	public partial class WhatsAppTemplate
 	{
 		[PrimaryKey, Identity] public int    Id           { get; set; } // int
 		[Column,     NotNull ] public string TemplateName { get; set; } // varchar(50)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WhatsAppTemplateMessages")]
+	[Table(Schema="dbo", Name="WhatsAppTemplateMessages")]
 	public partial class WhatsAppTemplateMessage
 	{
 		[PrimaryKey, Identity   ] public int      Id               { get; set; } // int
@@ -3442,7 +3412,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreatedDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsExpectedReceiptDocuments")]
+	[Table(Schema="dbo", Name="WmsExpectedReceiptDocuments")]
 	public partial class WmsExpectedReceiptDocument
 	{
 		[PrimaryKey, Identity   ] public long     Id               { get; set; } // bigint
@@ -3463,7 +3433,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime ReportDate       { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsExpectedReceiptDocumentsArchive")]
+	[Table(Schema="dbo", Name="WmsExpectedReceiptDocumentsArchive")]
 	public partial class WmsExpectedReceiptDocumentsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id               { get; set; } // bigint
@@ -3485,7 +3455,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsExpectedReceiptDocumentsItems")]
+	[Table(Schema="dbo", Name="WmsExpectedReceiptDocumentsItems")]
 	public partial class WmsExpectedReceiptDocumentsItem
 	{
 		[PrimaryKey, Identity   ] public long     Id                 { get; set; } // bigint
@@ -3501,7 +3471,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreateDate         { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsExpectedReceiptDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="WmsExpectedReceiptDocumentsItemsArchive")]
 	public partial class WmsExpectedReceiptDocumentsItemsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id                 { get; set; } // bigint
@@ -3518,7 +3488,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate        { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocuments")]
+	[Table(Schema="dbo", Name="WmsReceiptDocuments")]
 	public partial class WmsReceiptDocument
 	{
 		[PrimaryKey, Identity   ] public long     Id              { get; set; } // bigint
@@ -3535,7 +3505,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid     AuthorId        { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocumentsArchive")]
+	[Table(Schema="dbo", Name="WmsReceiptDocumentsArchive")]
 	public partial class WmsReceiptDocumentsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id              { get; set; } // bigint
@@ -3553,7 +3523,7 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public Guid     AuthorId        { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocumentsItems")]
+	[Table(Schema="dbo", Name="WmsReceiptDocumentsItems")]
 	public partial class WmsReceiptDocumentsItem
 	{
 		[PrimaryKey, Identity   ] public long     Id         { get; set; } // bigint
@@ -3567,7 +3537,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreateDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocumentsItemDataMatrixes")]
+	[Table(Schema="dbo", Name="WmsReceiptDocumentsItemDataMatrixes")]
 	public partial class WmsReceiptDocumentsItemDataMatrix
 	{
 		[PrimaryKey, Identity   ] public int    Id         { get; set; } // int
@@ -3576,7 +3546,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public string DataMatrix { get; set; } // nvarchar(128)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocumentsItemDataMatrixesArchive")]
+	[Table(Schema="dbo", Name="WmsReceiptDocumentsItemDataMatrixesArchive")]
 	public partial class WmsReceiptDocumentsItemDataMatrixesArchive
 	{
 		[PrimaryKey(1), NotNull    ] public int      Id          { get; set; } // int
@@ -3586,7 +3556,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsReceiptDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="WmsReceiptDocumentsItemsArchive")]
 	public partial class WmsReceiptDocumentsItemsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id          { get; set; } // bigint
@@ -3601,7 +3571,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocuments")]
+	[Table(Schema="dbo", Name="WmsShipmentDocuments")]
 	public partial class WmsShipmentDocument
 	{
 		[PrimaryKey, Identity   ] public long     Id                { get; set; } // bigint
@@ -3621,7 +3591,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid     AuthorId          { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocumentsArchive")]
+	[Table(Schema="dbo", Name="WmsShipmentDocumentsArchive")]
 	public partial class WmsShipmentDocumentsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id                { get; set; } // bigint
@@ -3642,7 +3612,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate       { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocumentsItems")]
+	[Table(Schema="dbo", Name="WmsShipmentDocumentsItems")]
 	public partial class WmsShipmentDocumentsItem
 	{
 		[PrimaryKey, Identity   ] public long     Id         { get; set; } // bigint
@@ -3656,7 +3626,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreateDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="WmsShipmentDocumentsItemsArchive")]
 	public partial class WmsShipmentDocumentsItemsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id          { get; set; } // bigint
@@ -3671,7 +3641,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull    ] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocumentsItemsDataMatrixes")]
+	[Table(Schema="dbo", Name="WmsShipmentDocumentsItemsDataMatrixes")]
 	public partial class WmsShipmentDocumentsItemsDataMatrix
 	{
 		[Identity                                                 ] public long   Id             { get; set; } // bigint
@@ -3682,7 +3652,7 @@ namespace Comparer.Data
 		[Column(SkipOnInsert=true, SkipOnUpdate=true),    Nullable] public string Barcode        { get; set; } // nvarchar(14)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentDocumentWarehouseContainers")]
+	[Table(Schema="dbo", Name="WmsShipmentDocumentWarehouseContainers")]
 	public partial class WmsShipmentDocumentWarehouseContainer
 	{
 		[PrimaryKey, Identity] public long     Id              { get; set; } // bigint
@@ -3692,7 +3662,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime ReportDate      { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocuments")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocuments")]
 	public partial class WmsShipmentOrderDocument
 	{
 		[PrimaryKey, Identity   ] public long      Id                { get; set; } // bigint
@@ -3718,14 +3688,14 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public Guid      AuthorId          { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocumentDirections")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocumentDirections")]
 	public partial class WmsShipmentOrderDocumentDirection
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(36)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocumentsArchive")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocumentsArchive")]
 	public partial class WmsShipmentOrderDocumentsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long      Id                { get; set; } // bigint
@@ -3752,7 +3722,7 @@ namespace Comparer.Data
 		[Column,        NotNull    ] public Guid      AuthorId          { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocumentsItems")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocumentsItems")]
 	public partial class WmsShipmentOrderDocumentsItem
 	{
 		[PrimaryKey, Identity] public long     Id         { get; set; } // bigint
@@ -3765,7 +3735,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public DateTime CreateDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocumentsItemsArchive")]
 	public partial class WmsShipmentOrderDocumentsItemsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     Id          { get; set; } // bigint
@@ -3779,14 +3749,14 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsShipmentOrderDocumentStatuses")]
+	[Table(Schema="dbo", Name="WmsShipmentOrderDocumentStatuses")]
 	public partial class WmsShipmentOrderDocumentStatus
 	{
 		[PrimaryKey, Identity] public int    Id   { get; set; } // int
 		[Column,     NotNull ] public string Name { get; set; } // varchar(36)
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsVerificationDocuments")]
+	[Table(Schema="dbo", Name="WmsVerificationDocuments")]
 	public partial class WmsVerificationDocument
 	{
 		[PrimaryKey, Identity] public long     Id          { get; set; } // bigint
@@ -3799,7 +3769,7 @@ namespace Comparer.Data
 		[Column,     NotNull ] public Guid     AuthorId    { get; set; } // uniqueidentifier
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsVerificationDocumentsArchive")]
+	[Table(Schema="dbo", Name="WmsVerificationDocumentsArchive")]
 	public partial class WmsVerificationDocumentsArchive
 	{
 		[PrimaryKey(1), NotNull] public long     Id          { get; set; } // bigint
@@ -3813,7 +3783,7 @@ namespace Comparer.Data
 		[PrimaryKey(2), NotNull] public DateTime ArchiveDate { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsVerificationDocumentsItems")]
+	[Table(Schema="dbo", Name="WmsVerificationDocumentsItems")]
 	public partial class WmsVerificationDocumentsItem
 	{
 		[PrimaryKey, Identity   ] public long     Id           { get; set; } // bigint
@@ -3826,7 +3796,7 @@ namespace Comparer.Data
 		[Column,     NotNull    ] public DateTime CreateDate   { get; set; } // datetime
 	}
 
-	[Table(Database="shopbasetest", Server="DS-FUTARK", Schema="dbo", Name="WmsVerificationDocumentsItemsArchive")]
+	[Table(Schema="dbo", Name="WmsVerificationDocumentsItemsArchive")]
 	public partial class WmsVerificationDocumentsItemsArchive
 	{
 		[PrimaryKey(1), NotNull    ] public long     Id           { get; set; } // bigint
@@ -3846,7 +3816,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<GetPrePaymentKindsResult> GetPrePaymentKinds(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<GetPrePaymentKindsResult>("[DS-FUTARK].[shopbasetest].[dbo].[_getPrePaymentKinds]");
+			return dataConnection.QueryProc<GetPrePaymentKindsResult>("[dbo].[_getPrePaymentKinds]");
 		}
 
 		public partial class GetPrePaymentKindsResult
@@ -3865,7 +3835,7 @@ namespace Comparer.Data
 				new DataParameter("@ActionId", @ActionId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ActionProcessingArchive]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[ActionProcessingArchive]", parameters);
 		}
 
 		#endregion
@@ -3884,7 +3854,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ActionProcessingArchive_v2]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[ActionProcessingArchive_v2]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -3897,7 +3867,7 @@ namespace Comparer.Data
 
 		public static int ActionsProcessingQueueInProcessClear(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ActionsProcessingQueueInProcessClear]");
+			return dataConnection.ExecuteProc("[dbo].[ActionsProcessingQueueInProcessClear]");
 		}
 
 		#endregion
@@ -3922,7 +3892,7 @@ namespace Comparer.Data
 				new DataParameter("@AuthorId",      @AuthorId,      LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ActionsProcessingQueuePut]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[ActionsProcessingQueuePut]", parameters);
 		}
 
 		#endregion
@@ -3936,7 +3906,7 @@ namespace Comparer.Data
 				new DataParameter("@Limit", @Limit, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<ActionsProcessingQueueViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[ActionsProcessingQueueView]", parameters);
+			return dataConnection.QueryProc<ActionsProcessingQueueViewResult>("[dbo].[ActionsProcessingQueueView]", parameters);
 		}
 
 		public partial class ActionsProcessingQueueViewResult
@@ -3976,7 +3946,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ActivityProcessCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[ActivityProcessCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[7].Value);
 
@@ -4014,7 +3984,7 @@ namespace Comparer.Data
 					StartTime    = Converter.ChangeTypeTo<DateTime>(dataReader.GetValue(9), ms),
 					FinishTime   = Converter.ChangeTypeTo<DateTime>(dataReader.GetValue(10), ms),
 				},
-				"[DS-FUTARK].[shopbasetest].[dbo].[ActivityProcessView]", parameters);
+				"[dbo].[ActivityProcessView]", parameters);
 		}
 
 		public partial class ActivityProcessViewResult
@@ -4043,7 +4013,7 @@ namespace Comparer.Data
 				new DataParameter("@RepDate", @RepDate, LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.QueryProc<Barcodes1CViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[Barcodes1CView]", parameters);
+			return dataConnection.QueryProc<Barcodes1CViewResult>("[dbo].[Barcodes1CView]", parameters);
 		}
 
 		public partial class Barcodes1CViewResult
@@ -4059,7 +4029,7 @@ namespace Comparer.Data
 
 		public static int BarcodesCtrl(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BarcodesCtrl]");
+			return dataConnection.ExecuteProc("[dbo].[BarcodesCtrl]");
 		}
 
 		#endregion
@@ -4073,7 +4043,7 @@ namespace Comparer.Data
 				new DataParameter("@session", @session, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BarcodesPriceRead]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[BarcodesPriceRead]", parameters);
 		}
 
 		#endregion
@@ -4082,7 +4052,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<BarCodesRecQuantityResult> BarCodesRecQuantity(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<BarCodesRecQuantityResult>("[DS-FUTARK].[shopbasetest].[dbo].[BarCodesRecQuantity]");
+			return dataConnection.QueryProc<BarCodesRecQuantityResult>("[dbo].[BarCodesRecQuantity]");
 		}
 
 		public partial class BarCodesRecQuantityResult
@@ -4096,7 +4066,7 @@ namespace Comparer.Data
 
 		public static int BarcodesTypeFind(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BarcodesTypeFind]");
+			return dataConnection.ExecuteProc("[dbo].[BarcodesTypeFind]");
 		}
 
 		#endregion
@@ -4115,7 +4085,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BlackListClientDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[BlackListClientDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -4139,7 +4109,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BlackListClientEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[BlackListClientEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -4152,7 +4122,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<BQExportOrdersViewResult> BQExportOrdersView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<BQExportOrdersViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[BQExportOrdersView]");
+			return dataConnection.QueryProc<BQExportOrdersViewResult>("[dbo].[BQExportOrdersView]");
 		}
 
 		public partial class BQExportOrdersViewResult
@@ -4172,7 +4142,7 @@ namespace Comparer.Data
 				new DataParameter("@OrderId", @OrderId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<BQOrderLastDataViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[BQOrderLastDataView]", parameters);
+			return dataConnection.QueryProc<BQOrderLastDataViewResult>("[dbo].[BQOrderLastDataView]", parameters);
 		}
 
 		public partial class BQOrderLastDataViewResult
@@ -4213,7 +4183,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueClear]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[BQQueueClear]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -4236,7 +4206,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueHistoryDateUpdate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[BQQueueHistoryDateUpdate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -4249,7 +4219,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<BQQueueHistoryDate> BQQueueHistoryDateView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<BQQueueHistoryDate>("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueHistoryDateView]");
+			return dataConnection.QueryProc<BQQueueHistoryDate>("[dbo].[BQQueueHistoryDateView]");
 		}
 
 		#endregion
@@ -4258,7 +4228,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<BQQueueHistoryViewResult> BQQueueHistoryView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<BQQueueHistoryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueHistoryView]");
+			return dataConnection.QueryProc<BQQueueHistoryViewResult>("[dbo].[BQQueueHistoryView]");
 		}
 
 		public partial class BQQueueHistoryViewResult
@@ -4288,7 +4258,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueUpdate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[BQQueueUpdate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -4307,7 +4277,7 @@ namespace Comparer.Data
 				new DataParameter("@PublicId",     @PublicId,     LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<BQQueueViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[BQQueueView]", parameters);
+			return dataConnection.QueryProc<BQQueueViewResult>("[dbo].[BQQueueView]", parameters);
 		}
 
 		public partial class BQQueueViewResult
@@ -4333,7 +4303,7 @@ namespace Comparer.Data
 				new DataParameter("@IsDefault", @IsDefault, LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<CompetitiorsFeedSettingsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitiorsFeedSettingsView]", parameters);
+			return dataConnection.QueryProc<CompetitiorsFeedSettingsViewResult>("[dbo].[CompetitiorsFeedSettingsView]", parameters);
 		}
 
 		public partial class CompetitiorsFeedSettingsViewResult
@@ -4362,7 +4332,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<CompetitorFeedInfoViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedInfoView]", parameters);
+			return dataConnection.QueryProc<CompetitorFeedInfoViewResult>("[dbo].[CompetitorFeedInfoView]", parameters);
 		}
 
 		public partial class CompetitorFeedInfoViewResult
@@ -4393,7 +4363,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedItemMatch]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CompetitorFeedItemMatch]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -4418,7 +4388,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedItemUnMatch]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CompetitorFeedItemUnMatch]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -4443,7 +4413,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedItemUnusedStateChange]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CompetitorFeedItemUnusedStateChange]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -4461,7 +4431,7 @@ namespace Comparer.Data
 				new DataParameter("@FeedId", @FeedId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<CompetitorFeedMatchingStatViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedMatchingStatView]", parameters);
+			return dataConnection.QueryProc<CompetitorFeedMatchingStatViewResult>("[dbo].[CompetitorFeedMatchingStatView]", parameters);
 		}
 
 		public partial class CompetitorFeedMatchingStatViewResult
@@ -4482,7 +4452,7 @@ namespace Comparer.Data
 				new DataParameter("@FeedId", @FeedId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<CompetitorFeedViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorFeedView]", parameters);
+			return dataConnection.QueryProc<CompetitorFeedViewResult>("[dbo].[CompetitorFeedView]", parameters);
 		}
 
 		public partial class CompetitorFeedViewResult
@@ -4509,7 +4479,7 @@ namespace Comparer.Data
 				new DataParameter("@IsActive",     @IsActive,     LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<CompetitorsFeed>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorsFeedsView]", parameters);
+			return dataConnection.QueryProc<CompetitorsFeed>("[dbo].[CompetitorsFeedsView]", parameters);
 		}
 
 		#endregion
@@ -4527,7 +4497,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<CompetitorsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorsView]", parameters);
+			return dataConnection.QueryProc<CompetitorsViewResult>("[dbo].[CompetitorsView]", parameters);
 		}
 
 		public partial class CompetitorsViewResult
@@ -4544,7 +4514,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<CompetitorsWithFeedsViewResult> CompetitorsWithFeedsView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<CompetitorsWithFeedsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorsWithFeedsView]");
+			return dataConnection.QueryProc<CompetitorsWithFeedsViewResult>("[dbo].[CompetitorsWithFeedsView]");
 		}
 
 		public partial class CompetitorsWithFeedsViewResult
@@ -4566,7 +4536,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<CompetitorViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CompetitorView]", parameters);
+			return dataConnection.QueryProc<CompetitorViewResult>("[dbo].[CompetitorView]", parameters);
 		}
 
 		public partial class CompetitorViewResult
@@ -4612,7 +4582,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CRPTCancellationDocumentProcess]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CRPTCancellationDocumentProcess]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[6].Value);
 
@@ -4636,7 +4606,7 @@ namespace Comparer.Data
 				new DataParameter("@DateTo",    @DateTo,    LinqToDB.DataType.Date)
 			};
 
-			return dataConnection.QueryProc<CRPTDocsPuttingDataMatrixesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CRPTDocsPuttingDataMatrixesView]", parameters);
+			return dataConnection.QueryProc<CRPTDocsPuttingDataMatrixesViewResult>("[dbo].[CRPTDocsPuttingDataMatrixesView]", parameters);
 		}
 
 		public partial class CRPTDocsPuttingDataMatrixesViewResult
@@ -4657,7 +4627,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<CRPTDocumentInternalStatusesViewResult> CRPTDocumentInternalStatusesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<CRPTDocumentInternalStatusesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[CRPTDocumentInternalStatusesView]");
+			return dataConnection.QueryProc<CRPTDocumentInternalStatusesViewResult>("[dbo].[CRPTDocumentInternalStatusesView]");
 		}
 
 		public partial class CRPTDocumentInternalStatusesViewResult
@@ -4695,7 +4665,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CRPTDocumentRegDataEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CRPTDocumentRegDataEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[6].Value);
 
@@ -4732,7 +4702,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CRPTDocumentStatusEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CRPTDocumentStatusEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[6].Value);
 
@@ -4757,7 +4727,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CRPTWithEDODocumentLinkCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CRPTWithEDODocumentLinkCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -4781,7 +4751,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[CRPTWithEDODocumentLinkDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[CRPTWithEDODocumentLinkDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -4799,7 +4769,7 @@ namespace Comparer.Data
 				new DataParameter("@CurrencyId", @CurrencyId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<Currency>("[DS-FUTARK].[shopbasetest].[dbo].[CurrencyView]", parameters);
+			return dataConnection.QueryProc<Currency>("[dbo].[CurrencyView]", parameters);
 		}
 
 		#endregion
@@ -4819,7 +4789,7 @@ namespace Comparer.Data
 				new DataParameter("@RateValue", @RateValue, LinqToDB.DataType.Decimal)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DailyCurrenciesUddate]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DailyCurrenciesUddate]", parameters);
 		}
 
 		#endregion
@@ -4837,7 +4807,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<DailyCurrency>("[DS-FUTARK].[shopbasetest].[dbo].[DailyCurrenciesView]", parameters);
+			return dataConnection.QueryProc<DailyCurrency>("[dbo].[DailyCurrenciesView]", parameters);
 		}
 
 		#endregion
@@ -4875,7 +4845,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixCRPTPuttingDocumentRegDataEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DataMatrixCRPTPuttingDocumentRegDataEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[8].Value);
 
@@ -4908,7 +4878,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixCRPTPuttingDocumentStatusEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DataMatrixCRPTPuttingDocumentStatusEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[5].Value);
 
@@ -4947,7 +4917,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixCRPTWithdrawalDocumentEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DataMatrixCRPTWithdrawalDocumentEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[8].Value);
 
@@ -4989,7 +4959,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixCRPTWithdrawalDocumentRegDataEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DataMatrixCRPTWithdrawalDocumentRegDataEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[8].Value);
 
@@ -5022,7 +4992,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixCRPTWithdrawalDocumentStatusEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DataMatrixCRPTWithdrawalDocumentStatusEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[5].Value);
 
@@ -5040,7 +5010,7 @@ namespace Comparer.Data
 				new DataParameter("@Limit", @Limit, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DataMatrixesPuttingQueueViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DataMatrixesPuttingQueueView]", parameters);
+			return dataConnection.QueryProc<DataMatrixesPuttingQueueViewResult>("[dbo].[DataMatrixesPuttingQueueView]", parameters);
 		}
 
 		public partial class DataMatrixesPuttingQueueViewResult
@@ -5063,7 +5033,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DebugInfoAdd]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DebugInfoAdd]", parameters);
 		}
 
 		#endregion
@@ -5086,7 +5056,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<DebugInfoFindResult>("[DS-FUTARK].[shopbasetest].[dbo].[DebugInfoFind]", parameters);
+			return dataConnection.QueryProc<DebugInfoFindResult>("[dbo].[DebugInfoFind]", parameters);
 		}
 
 		public partial class DebugInfoFindResult
@@ -5120,7 +5090,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DebugInfoStore]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DebugInfoStore]", parameters);
 
 			@sessionID = Converter.ChangeTypeTo<int?>(parameters[2].Value);
 
@@ -5139,7 +5109,7 @@ namespace Comparer.Data
 				new DataParameter("@EndDate",   @EndDate,   LinqToDB.DataType.Date)
 			};
 
-			return dataConnection.QueryProc<DeliveryHolydaysViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryHolydaysView]", parameters);
+			return dataConnection.QueryProc<DeliveryHolydaysViewResult>("[dbo].[DeliveryHolydaysView]", parameters);
 		}
 
 		public partial class DeliveryHolydaysViewResult
@@ -5176,7 +5146,7 @@ namespace Comparer.Data
 				new DataParameter("@IsDefault",    @IsDefault,    LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceAccountEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceAccountEdit]", parameters);
 		}
 
 		#endregion
@@ -5191,7 +5161,7 @@ namespace Comparer.Data
 				new DataParameter("@StatusSyncDate", @StatusSyncDate, LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceAccountSSDUpdate]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceAccountSSDUpdate]", parameters);
 		}
 
 		#endregion
@@ -5205,7 +5175,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DeliveryServiceAccountSSDViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceAccountSSDView]", parameters);
+			return dataConnection.QueryProc<DeliveryServiceAccountSSDViewResult>("[dbo].[DeliveryServiceAccountSSDView]", parameters);
 		}
 
 		public partial class DeliveryServiceAccountSSDViewResult
@@ -5229,7 +5199,7 @@ namespace Comparer.Data
 				new DataParameter("@TokenExpiry", @TokenExpiry, LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceAccountTokenEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceAccountTokenEdit]", parameters);
 		}
 
 		#endregion
@@ -5259,7 +5229,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceActionCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceActionCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[6].Value);
 
@@ -5284,7 +5254,7 @@ namespace Comparer.Data
 				new DataParameter("@AuthorId",      @AuthorId,      LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<DeliveryServiceActionViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceActionView]", parameters);
+			return dataConnection.QueryProc<DeliveryServiceActionViewResult>("[dbo].[DeliveryServiceActionView]", parameters);
 		}
 
 		public partial class DeliveryServiceActionViewResult
@@ -5315,7 +5285,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceGroupDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceGroupDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -5344,7 +5314,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceGroupEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceGroupEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[7].Value);
 
@@ -5387,7 +5357,7 @@ namespace Comparer.Data
 				new DataParameter("@StatusId",            @StatusId,            LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DeliveryServiceGroupsViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceGroupsView_v2]", parameters);
+			return dataConnection.QueryProc<DeliveryServiceGroupsViewV2Result>("[dbo].[DeliveryServiceGroupsView_v2]", parameters);
 		}
 
 		public partial class DeliveryServiceGroupsViewV2Result
@@ -5436,7 +5406,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNConditionCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNConditionCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[4].Value);
 
@@ -5463,7 +5433,7 @@ namespace Comparer.Data
 				new DataParameter("@OrderNum",   @OrderNum,   LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNConditionEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNConditionEdit]", parameters);
 		}
 
 		#endregion
@@ -5485,7 +5455,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNCreate]", parameters);
 
 			@NewId = Converter.ChangeTypeTo<int?>(parameters[2].Value);
 
@@ -5503,7 +5473,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNDelete]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNDelete]", parameters);
 		}
 
 		#endregion
@@ -5521,7 +5491,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNEdit]", parameters);
 		}
 
 		#endregion
@@ -5535,7 +5505,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNRuleDelete]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServiceIKNRuleDelete]", parameters);
 		}
 
 		#endregion
@@ -5544,7 +5514,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<DeliveryServiceIKNRulesFullViewResult> DeliveryServiceIKNRulesFullView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<DeliveryServiceIKNRulesFullViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNRulesFullView]");
+			return dataConnection.QueryProc<DeliveryServiceIKNRulesFullViewResult>("[dbo].[DeliveryServiceIKNRulesFullView]");
 		}
 
 		public partial class DeliveryServiceIKNRulesFullViewResult
@@ -5562,7 +5532,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<DeliveryServiceIKNRulesShortViewResult> DeliveryServiceIKNRulesShortView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<DeliveryServiceIKNRulesShortViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNRulesShortView]");
+			return dataConnection.QueryProc<DeliveryServiceIKNRulesShortViewResult>("[dbo].[DeliveryServiceIKNRulesShortView]");
 		}
 
 		public partial class DeliveryServiceIKNRulesShortViewResult
@@ -5586,7 +5556,7 @@ namespace Comparer.Data
 				new DataParameter("@ServiceId", @ServiceId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<ApiDeliveryServicesIKN>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceIKNsView]", parameters);
+			return dataConnection.QueryProc<ApiDeliveryServicesIKN>("[dbo].[DeliveryServiceIKNsView]", parameters);
 		}
 
 		#endregion
@@ -5600,7 +5570,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<DeliveryServiceOrderResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrder]", parameters);
+			return dataConnection.QueryProc<DeliveryServiceOrderResult>("[dbo].[DeliveryServiceOrder]", parameters);
 		}
 
 		public partial class DeliveryServiceOrderResult
@@ -5633,7 +5603,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrderCompensationSave]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceOrderCompensationSave]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -5663,7 +5633,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrderCompensationSave_v2]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceOrderCompensationSave_v2]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[5].Value);
 
@@ -5687,7 +5657,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrderDeleteFromGroup]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceOrderDeleteFromGroup]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -5712,7 +5682,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrderEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceOrderEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -5732,7 +5702,7 @@ namespace Comparer.Data
 				new DataParameter("@DateTo",    @DateTo,    LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.QueryProc<DeliveryServiceOrdersCntByStatusResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceOrdersCntByStatus]", parameters);
+			return dataConnection.QueryProc<DeliveryServiceOrdersCntByStatusResult>("[dbo].[DeliveryServiceOrdersCntByStatus]", parameters);
 		}
 
 		public partial class DeliveryServiceOrdersCntByStatusResult
@@ -5768,7 +5738,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicePrinterConfigurationCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServicePrinterConfigurationCreate]", parameters);
 
 			@NewId = Converter.ChangeTypeTo<int?>(parameters[3].Value);
 
@@ -5786,7 +5756,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicePrinterConfigurationDelete]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServicePrinterConfigurationDelete]", parameters);
 		}
 
 		#endregion
@@ -5812,7 +5782,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicePrinterConfigurationEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[DeliveryServicePrinterConfigurationEdit]", parameters);
 		}
 
 		#endregion
@@ -5821,7 +5791,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<DeliveryServicePrinterConfiguration> DeliveryServicePrinterConfigurationsView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<DeliveryServicePrinterConfiguration>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicePrinterConfigurationsView]");
+			return dataConnection.QueryProc<DeliveryServicePrinterConfiguration>("[dbo].[DeliveryServicePrinterConfigurationsView]");
 		}
 
 		#endregion
@@ -5841,7 +5811,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicePutOrderToQueue]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServicePutOrderToQueue]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -5865,7 +5835,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceQueueOrderDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceQueueOrderDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -5894,7 +5864,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServiceQueueOrderEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DeliveryServiceQueueOrderEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[4].Value);
 
@@ -5912,7 +5882,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DeliveryServicesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DeliveryServicesView]", parameters);
+			return dataConnection.QueryProc<DeliveryServicesViewResult>("[dbo].[DeliveryServicesView]", parameters);
 		}
 
 		public partial class DeliveryServicesViewResult
@@ -5934,7 +5904,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DepartmentsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DepartmentsView]", parameters);
+			return dataConnection.QueryProc<DepartmentsViewResult>("[dbo].[DepartmentsView]", parameters);
 		}
 
 		public partial class DepartmentsViewResult
@@ -5960,7 +5930,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[DiscountGroupDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[DiscountGroupDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -5988,7 +5958,7 @@ namespace Comparer.Data
 				{
 					Column1 = Converter.ChangeTypeTo<int>(dataReader.GetValue(0), ms),
 				},
-				"[DS-FUTARK].[shopbasetest].[dbo].[DistributorApiOrdersContentEdit]", parameters);
+				"[dbo].[DistributorApiOrdersContentEdit]", parameters);
 		}
 
 		public partial class DistributorApiOrdersContentEditResult
@@ -6010,7 +5980,7 @@ namespace Comparer.Data
 				new DataParameter("@Archived",      @Archived,      LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<DistributorApiOrdersContentViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DistributorApiOrdersContentView]", parameters);
+			return dataConnection.QueryProc<DistributorApiOrdersContentViewResult>("[dbo].[DistributorApiOrdersContentView]", parameters);
 		}
 
 		public partial class DistributorApiOrdersContentViewResult
@@ -6042,7 +6012,7 @@ namespace Comparer.Data
 				new DataParameter("@DistId", @DistId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<DistributorsApiSetting>("[DS-FUTARK].[shopbasetest].[dbo].[DistributorApiSettingsView]", parameters);
+			return dataConnection.QueryProc<DistributorsApiSetting>("[dbo].[DistributorApiSettingsView]", parameters);
 		}
 
 		#endregion
@@ -6056,7 +6026,7 @@ namespace Comparer.Data
 				new DataParameter("@IsActive", @IsActive, LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<DistributorNamesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DistributorNamesView]", parameters);
+			return dataConnection.QueryProc<DistributorNamesViewResult>("[dbo].[DistributorNamesView]", parameters);
 		}
 
 		public partial class DistributorNamesViewResult
@@ -6076,7 +6046,7 @@ namespace Comparer.Data
 				new DataParameter("@IsActive", @IsActive, LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<DistributorsShortInfoResult>("[DS-FUTARK].[shopbasetest].[dbo].[DistributorsShortInfo]", parameters);
+			return dataConnection.QueryProc<DistributorsShortInfoResult>("[dbo].[DistributorsShortInfo]", parameters);
 		}
 
 		public partial class DistributorsShortInfoResult
@@ -6099,7 +6069,7 @@ namespace Comparer.Data
 				new DataParameter("@SendRequestMode", @SendRequestMode, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<DistributorsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[DistributorsView]", parameters);
+			return dataConnection.QueryProc<DistributorsViewResult>("[dbo].[DistributorsView]", parameters);
 		}
 
 		public partial class DistributorsViewResult
@@ -6129,7 +6099,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[EditDistributorComment]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[EditDistributorComment]", parameters);
 		}
 
 		#endregion
@@ -6148,7 +6118,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[EditDistributorState]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[EditDistributorState]", parameters);
 		}
 
 		#endregion
@@ -6162,7 +6132,7 @@ namespace Comparer.Data
 				new DataParameter("@ReceiptPublicId", @ReceiptPublicId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ExportRefundTasksCreate]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[ExportRefundTasksCreate]", parameters);
 		}
 
 		#endregion
@@ -6176,7 +6146,7 @@ namespace Comparer.Data
 				new DataParameter("@IsActive", @IsActive, LinqToDB.DataType.Boolean)
 			};
 
-			return dataConnection.QueryProc<GetDistributorsWithNewProductsResult>("[DS-FUTARK].[shopbasetest].[dbo].[GetDistributorsWithNewProducts]", parameters);
+			return dataConnection.QueryProc<GetDistributorsWithNewProductsResult>("[dbo].[GetDistributorsWithNewProducts]", parameters);
 		}
 
 		public partial class GetDistributorsWithNewProductsResult
@@ -6197,7 +6167,7 @@ namespace Comparer.Data
 				new DataParameter("@InnerId", @InnerId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<GetOrdersInGroupResult>("[DS-FUTARK].[shopbasetest].[dbo].[GetOrdersInGroup]", parameters);
+			return dataConnection.QueryProc<GetOrdersInGroupResult>("[dbo].[GetOrdersInGroup]", parameters);
 		}
 
 		public partial class GetOrdersInGroupResult
@@ -6217,7 +6187,7 @@ namespace Comparer.Data
 				new DataParameter("@Type", @Type, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[GetReference]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[GetReference]", parameters);
 		}
 
 		#endregion
@@ -6232,7 +6202,7 @@ namespace Comparer.Data
 				new DataParameter("@SessionId", @SessionId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<GetUserSessionInfoResult>("[DS-FUTARK].[shopbasetest].[dbo].[GetUserSessionInfo]", parameters);
+			return dataConnection.QueryProc<GetUserSessionInfoResult>("[dbo].[GetUserSessionInfo]", parameters);
 		}
 
 		public partial class GetUserSessionInfoResult
@@ -6255,7 +6225,7 @@ namespace Comparer.Data
 				new DataParameter("@EndDate",   @EndDate,   LinqToDB.DataType.Date)
 			};
 
-			return dataConnection.QueryProc<HolidaysViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[HolidaysView]", parameters);
+			return dataConnection.QueryProc<HolidaysViewResult>("[dbo].[HolidaysView]", parameters);
 		}
 
 		public partial class HolidaysViewResult
@@ -6277,7 +6247,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<ISOCodeForCountryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[ISOCodeForCountryView]", parameters);
+			return dataConnection.QueryProc<ISOCodeForCountryViewResult>("[dbo].[ISOCodeForCountryView]", parameters);
 		}
 
 		public partial class ISOCodeForCountryViewResult
@@ -6287,6 +6257,20 @@ namespace Comparer.Data
 			public string Description { get; set; }
 			public int?   CodeIso     { get; set; }
 			public string Alfa2       { get; set; }
+		}
+
+		#endregion
+
+		#region ManufacturersView
+
+		public static IEnumerable<MANUFACTURER> ManufacturersView(this ComparerDataContext dataConnection, Guid? @Id)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
+			};
+
+			return dataConnection.QueryProc<MANUFACTURER>("[dbo].[ManufacturersView]", parameters);
 		}
 
 		#endregion
@@ -6317,7 +6301,7 @@ namespace Comparer.Data
 					Column2 = Converter.ChangeTypeTo<int?>(dataReader.GetValue(1), ms),
 					Column3 = Converter.ChangeTypeTo<int?>(dataReader.GetValue(2), ms),
 				},
-				"[DS-FUTARK].[shopbasetest].[dbo].[MP_RuleOrderNumEdit]", parameters).ToList();
+				"[dbo].[MP_RuleOrderNumEdit]", parameters).ToList();
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[4].Value);
 
@@ -6346,7 +6330,7 @@ namespace Comparer.Data
 				new DataParameter("@ObjectTypeId", @ObjectTypeId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<MpRuleTypesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[MP_RuleTypesView]", parameters);
+			return dataConnection.QueryProc<MpRuleTypesViewResult>("[dbo].[MP_RuleTypesView]", parameters);
 		}
 
 		public partial class MpRuleTypesViewResult
@@ -6374,7 +6358,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ObjectsQueueMessageError]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[ObjectsQueueMessageError]", parameters);
 		}
 
 		#endregion
@@ -6383,7 +6367,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<PaymentTypesViewResult> PaymentTypesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<PaymentTypesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[PaymentTypesView]");
+			return dataConnection.QueryProc<PaymentTypesViewResult>("[dbo].[PaymentTypesView]");
 		}
 
 		public partial class PaymentTypesViewResult
@@ -6410,7 +6394,7 @@ namespace Comparer.Data
 
 		public static int ProductMatchSave(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[ProductMatchSave]");
+			return dataConnection.ExecuteProc("[dbo].[ProductMatchSave]");
 		}
 
 		#endregion
@@ -6428,7 +6412,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueInMessageErrorHandled]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueInMessageErrorHandled]", parameters);
 		}
 
 		#endregion
@@ -6447,7 +6431,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueInMessageErrorHandled_v2]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueInMessageErrorHandled_v2]", parameters);
 		}
 
 		#endregion
@@ -6461,7 +6445,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueInMessageHandled]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueInMessageHandled]", parameters);
 		}
 
 		#endregion
@@ -6488,7 +6472,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueInSave]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueInSave]", parameters);
 		}
 
 		#endregion
@@ -6506,7 +6490,7 @@ namespace Comparer.Data
 				new DataParameter("@Limit",    @Limit,    LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<QueueInViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[QueueInView]", parameters);
+			return dataConnection.QueryProc<QueueInViewResult>("[dbo].[QueueInView]", parameters);
 		}
 
 		public partial class QueueInViewResult
@@ -6536,7 +6520,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutMessageError]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueOutMessageError]", parameters);
 		}
 
 		#endregion
@@ -6550,7 +6534,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutMessageHandled]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueOutMessageHandled]", parameters);
 		}
 
 		#endregion
@@ -6572,7 +6556,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutSave]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueOutSave]", parameters);
 		}
 
 		#endregion
@@ -6598,7 +6582,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutSave_v2]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[QueueOutSave_v2]", parameters);
 		}
 
 		#endregion
@@ -6615,7 +6599,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<QueueOutViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutView]", parameters);
+			return dataConnection.QueryProc<QueueOutViewResult>("[dbo].[QueueOutView]", parameters);
 		}
 
 		public partial class QueueOutViewResult
@@ -6649,7 +6633,7 @@ namespace Comparer.Data
 				new DataParameter("@Limit",    @Limit,    LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<QueueOutViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[QueueOutView_v2]", parameters);
+			return dataConnection.QueryProc<QueueOutViewV2Result>("[dbo].[QueueOutView_v2]", parameters);
 		}
 
 		public partial class QueueOutViewV2Result
@@ -6675,7 +6659,7 @@ namespace Comparer.Data
 				new DataParameter("@userId", @userId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[RemoveUserKit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[RemoveUserKit]", parameters);
 		}
 
 		#endregion
@@ -6690,7 +6674,7 @@ namespace Comparer.Data
 				new DataParameter("@DepartmentId", @DepartmentId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<RolesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[RolesView]", parameters);
+			return dataConnection.QueryProc<RolesViewResult>("[dbo].[RolesView]", parameters);
 		}
 
 		public partial class RolesViewResult
@@ -6713,7 +6697,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<RozlivUtDocument>("[DS-FUTARK].[shopbasetest].[dbo].[RozlivUtDocumentView]", parameters);
+			return dataConnection.QueryProc<RozlivUtDocument>("[dbo].[RozlivUtDocumentView]", parameters);
 		}
 
 		#endregion
@@ -6728,7 +6712,7 @@ namespace Comparer.Data
 				new DataParameter("@StatusId", @StatusId, LinqToDB.DataType.Byte)
 			};
 
-			return dataConnection.QueryProc<SmsSiteStatusTemplateViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SmsSiteStatusTemplateView]", parameters);
+			return dataConnection.QueryProc<SmsSiteStatusTemplateViewResult>("[dbo].[SmsSiteStatusTemplateView]", parameters);
 		}
 
 		public partial class SmsSiteStatusTemplateViewResult
@@ -6742,7 +6726,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<StoredBarcodesViewResult> StoredBarcodesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<StoredBarcodesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[StoredBarcodesView]");
+			return dataConnection.QueryProc<StoredBarcodesViewResult>("[dbo].[StoredBarcodesView]");
 		}
 
 		public partial class StoredBarcodesViewResult
@@ -6767,7 +6751,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrderClose]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SUZOrderClose]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -6790,7 +6774,7 @@ namespace Comparer.Data
 				new DataParameter("@Sku",       @Sku,       LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZOrderForLabelPrintViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrderForLabelPrintView]", parameters);
+			return dataConnection.QueryProc<SUZOrderForLabelPrintViewResult>("[dbo].[SUZOrderForLabelPrintView]", parameters);
 		}
 
 		public partial class SUZOrderForLabelPrintViewResult
@@ -6822,7 +6806,7 @@ namespace Comparer.Data
 				new DataParameter("@Sku",       @Sku,       LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZOrderForLabelPrintViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrderForLabelPrintView_v2]", parameters);
+			return dataConnection.QueryProc<SUZOrderForLabelPrintViewV2Result>("[dbo].[SUZOrderForLabelPrintView_v2]", parameters);
 		}
 
 		public partial class SUZOrderForLabelPrintViewV2Result
@@ -6844,7 +6828,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<SUZOrdersForCloseViewResult> SUZOrdersForCloseView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<SUZOrdersForCloseViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrdersForCloseView]");
+			return dataConnection.QueryProc<SUZOrdersForCloseViewResult>("[dbo].[SUZOrdersForCloseView]");
 		}
 
 		public partial class SUZOrdersForCloseViewResult
@@ -6886,7 +6870,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrderStatusUpdate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SUZOrderStatusUpdate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[5].Value);
 
@@ -6914,7 +6898,7 @@ namespace Comparer.Data
 				new DataParameter("@StatusId", @StatusId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZOrdersViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrdersView]", parameters);
+			return dataConnection.QueryProc<SUZOrdersViewResult>("[dbo].[SUZOrdersView]", parameters);
 		}
 
 		public partial class SUZOrdersViewResult
@@ -6949,7 +6933,7 @@ namespace Comparer.Data
 				new DataParameter("@Sku",      @Sku,      LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZOrdersViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrdersView_v2]", parameters);
+			return dataConnection.QueryProc<SUZOrdersViewV2Result>("[dbo].[SUZOrdersView_v2]", parameters);
 		}
 
 		public partial class SUZOrdersViewV2Result
@@ -6976,7 +6960,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZOrderViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SUZOrderView]", parameters);
+			return dataConnection.QueryProc<SUZOrderViewResult>("[dbo].[SUZOrderView]", parameters);
 		}
 
 		public partial class SUZOrderViewResult
@@ -7005,7 +6989,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SUZPurchaseTaskClose]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SUZPurchaseTaskClose]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -7029,7 +7013,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SUZPurchaseTaskOrderNumChange]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SUZPurchaseTaskOrderNumChange]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -7048,7 +7032,7 @@ namespace Comparer.Data
 				new DataParameter("@OrderId", @OrderId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SUZPurchaseTaskOrdersViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SUZPurchaseTaskOrdersView]", parameters);
+			return dataConnection.QueryProc<SUZPurchaseTaskOrdersViewResult>("[dbo].[SUZPurchaseTaskOrdersView]", parameters);
 		}
 
 		public partial class SUZPurchaseTaskOrdersViewResult
@@ -7071,7 +7055,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<SyncBrandViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SyncBrandView]", parameters);
+			return dataConnection.QueryProc<SyncBrandViewResult>("[dbo].[SyncBrandView]", parameters);
 		}
 
 		public partial class SyncBrandViewResult
@@ -7092,7 +7076,7 @@ namespace Comparer.Data
 				new DataParameter("@QueueId", @QueueId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncObjectsQueueDelete]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[SyncObjectsQueueDelete]", parameters);
 		}
 
 		#endregion
@@ -7111,7 +7095,7 @@ namespace Comparer.Data
 				new DataParameter("@Method",   @Method,   LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncObjectsQueueSave]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[SyncObjectsQueueSave]", parameters);
 		}
 
 		#endregion
@@ -7134,7 +7118,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncObjectsQueueSave_v2]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[SyncObjectsQueueSave_v2]", parameters);
 		}
 
 		#endregion
@@ -7143,7 +7127,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<SyncObjectsQueueViewResult> SyncObjectsQueueView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<SyncObjectsQueueViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SyncObjectsQueueView]");
+			return dataConnection.QueryProc<SyncObjectsQueueViewResult>("[dbo].[SyncObjectsQueueView]");
 		}
 
 		public partial class SyncObjectsQueueViewResult
@@ -7165,7 +7149,7 @@ namespace Comparer.Data
 				new DataParameter("@Limit", @Limit, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<SyncObjectsQueueViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[SyncObjectsQueueView_v2]", parameters);
+			return dataConnection.QueryProc<SyncObjectsQueueViewV2Result>("[dbo].[SyncObjectsQueueView_v2]", parameters);
 		}
 
 		public partial class SyncObjectsQueueViewV2Result
@@ -7189,7 +7173,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<SyncProductViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SyncProductView]", parameters);
+			return dataConnection.QueryProc<SyncProductViewResult>("[dbo].[SyncProductView]", parameters);
 		}
 
 		public partial class SyncProductViewResult
@@ -7220,7 +7204,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<SyncProtocolCellViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[SyncProtocolCellView]", parameters);
+			return dataConnection.QueryProc<SyncProtocolCellViewResult>("[dbo].[SyncProtocolCellView]", parameters);
 		}
 
 		public partial class SyncProtocolCellViewResult
@@ -7244,7 +7228,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncProtocolDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SyncProtocolDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -7287,7 +7271,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncProtocolRead]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SyncProtocolRead]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[9].Value);
 
@@ -7310,7 +7294,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[SyncProtocolTryCountInc]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[SyncProtocolTryCountInc]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -7328,7 +7312,7 @@ namespace Comparer.Data
 				new DataParameter("@ID", @ID, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[TaskSchedulerDone]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[TaskSchedulerDone]", parameters);
 		}
 
 		#endregion
@@ -7337,7 +7321,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<TaskSchedulerToRunResult> TaskSchedulerToRun(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<TaskSchedulerToRunResult>("[DS-FUTARK].[shopbasetest].[dbo].[TaskSchedulerToRun]");
+			return dataConnection.QueryProc<TaskSchedulerToRunResult>("[dbo].[TaskSchedulerToRun]");
 		}
 
 		public partial class TaskSchedulerToRunResult
@@ -7364,7 +7348,7 @@ namespace Comparer.Data
 				new DataParameter("@ID", @ID, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<TaskSchedulerViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[TaskSchedulerView]", parameters);
+			return dataConnection.QueryProc<TaskSchedulerViewResult>("[dbo].[TaskSchedulerView]", parameters);
 		}
 
 		public partial class TaskSchedulerViewResult
@@ -7410,7 +7394,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[TemplateEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[TemplateEdit]", parameters);
 
 			@newId = Converter.ChangeTypeTo<int?>(parameters[7].Value);
 
@@ -7428,7 +7412,7 @@ namespace Comparer.Data
 				new DataParameter("@TypeId", @TypeId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<TemplatesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[TemplatesView]", parameters);
+			return dataConnection.QueryProc<TemplatesViewResult>("[dbo].[TemplatesView]", parameters);
 		}
 
 		public partial class TemplatesViewResult
@@ -7454,7 +7438,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<TemplateTextViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[TemplateTextView]", parameters);
+			return dataConnection.QueryProc<TemplateTextViewResult>("[dbo].[TemplateTextView]", parameters);
 		}
 
 		public partial class TemplateTextViewResult
@@ -7469,7 +7453,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<TemplateTypesViewResult> TemplateTypesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<TemplateTypesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[TemplateTypesView]");
+			return dataConnection.QueryProc<TemplateTypesViewResult>("[dbo].[TemplateTypesView]");
 		}
 
 		public partial class TemplateTypesViewResult
@@ -7489,7 +7473,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<TemplateViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[TemplateView]", parameters);
+			return dataConnection.QueryProc<TemplateViewResult>("[dbo].[TemplateView]", parameters);
 		}
 
 		public partial class TemplateViewResult
@@ -7526,7 +7510,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[TrackerProcessEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[TrackerProcessEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[4].Value);
 
@@ -7539,7 +7523,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<ApiDeliveryServiceTracker> TrackerProcessesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<ApiDeliveryServiceTracker>("[DS-FUTARK].[shopbasetest].[dbo].[TrackerProcessesView]");
+			return dataConnection.QueryProc<ApiDeliveryServiceTracker>("[dbo].[TrackerProcessesView]");
 		}
 
 		#endregion
@@ -7557,7 +7541,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UpdateOrderLabelInfo]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UpdateOrderLabelInfo]", parameters);
 		}
 
 		#endregion
@@ -7573,7 +7557,7 @@ namespace Comparer.Data
 				new DataParameter("@dEnd",    @dEnd,    LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.QueryProc<UserActionStatisticResult>("[DS-FUTARK].[shopbasetest].[dbo].[UserActionStatistic]", parameters);
+			return dataConnection.QueryProc<UserActionStatisticResult>("[dbo].[UserActionStatistic]", parameters);
 		}
 
 		public partial class UserActionStatisticResult
@@ -7596,7 +7580,7 @@ namespace Comparer.Data
 				new DataParameter("@BatchId", @BatchId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<ActivityBatchItem>("[DS-FUTARK].[shopbasetest].[dbo].[UserActivityBatchItemsView]", parameters);
+			return dataConnection.QueryProc<ActivityBatchItem>("[dbo].[UserActivityBatchItemsView]", parameters);
 		}
 
 		#endregion
@@ -7617,7 +7601,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<UserAuthResult>("[DS-FUTARK].[shopbasetest].[dbo].[UserAuth]", parameters);
+			return dataConnection.QueryProc<UserAuthResult>("[dbo].[UserAuth]", parameters);
 		}
 
 		public partial class UserAuthResult
@@ -7655,7 +7639,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.QueryProc<UserAuthViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UserAuthView]", parameters).ToList();
+			var ret = dataConnection.QueryProc<UserAuthViewResult>("[dbo].[UserAuthView]", parameters).ToList();
 
 			@AuthStatus = Converter.ChangeTypeTo<int?>(parameters[2].Value);
 
@@ -7684,7 +7668,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UserBoundEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UserBoundEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -7702,7 +7686,7 @@ namespace Comparer.Data
 				new DataParameter("@Id", @Id, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<UserByIdViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UserByIdView]", parameters);
+			return dataConnection.QueryProc<UserByIdViewResult>("[dbo].[UserByIdView]", parameters);
 		}
 
 		public partial class UserByIdViewResult
@@ -7742,7 +7726,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UserPasswordsEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UserPasswordsEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -7755,7 +7739,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<UsersBoundsKCViewResult> UsersBoundsKCView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<UsersBoundsKCViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UsersBoundsKCView]");
+			return dataConnection.QueryProc<UsersBoundsKCViewResult>("[dbo].[UsersBoundsKCView]");
 		}
 
 		public partial class UsersBoundsKCViewResult
@@ -7776,7 +7760,7 @@ namespace Comparer.Data
 				new DataParameter("@DepartmentId", @DepartmentId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UsersBoundsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UsersBoundsView]", parameters);
+			return dataConnection.QueryProc<UsersBoundsViewResult>("[dbo].[UsersBoundsView]", parameters);
 		}
 
 		public partial class UsersBoundsViewResult
@@ -7801,7 +7785,7 @@ namespace Comparer.Data
 				new DataParameter("@SessionId", @SessionId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UserSessionClear]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UserSessionClear]", parameters);
 		}
 
 		#endregion
@@ -7816,7 +7800,7 @@ namespace Comparer.Data
 				new DataParameter("@SessionId", @SessionId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UserSessionSave]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UserSessionSave]", parameters);
 		}
 
 		#endregion
@@ -7839,7 +7823,7 @@ namespace Comparer.Data
 				new DataParameter("@Date",               @Date,               LinqToDB.DataType.Date)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UsersPlanReportParamsEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UsersPlanReportParamsEdit]", parameters);
 		}
 
 		#endregion
@@ -7853,7 +7837,7 @@ namespace Comparer.Data
 				new DataParameter("@Date", @Date, LinqToDB.DataType.Date)
 			};
 
-			return dataConnection.QueryProc<UsersPlanReportParamsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UsersPlanReportParamsView]", parameters);
+			return dataConnection.QueryProc<UsersPlanReportParamsViewResult>("[dbo].[UsersPlanReportParamsView]", parameters);
 		}
 
 		public partial class UsersPlanReportParamsViewResult
@@ -7875,7 +7859,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<UserStatusesViewResult> UserStatusesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<UserStatusesViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UserStatusesView]");
+			return dataConnection.QueryProc<UserStatusesViewResult>("[dbo].[UserStatusesView]");
 		}
 
 		public partial class UserStatusesViewResult
@@ -7904,7 +7888,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<UsersViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[UsersView_v2]", parameters);
+			return dataConnection.QueryProc<UsersViewV2Result>("[dbo].[UsersView_v2]", parameters);
 		}
 
 		public partial class UsersViewV2Result
@@ -7940,7 +7924,7 @@ namespace Comparer.Data
 				new DataParameter("@RoleId",       @RoleId,       LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UsersViewV3Result>("[DS-FUTARK].[shopbasetest].[dbo].[UsersView_v3]", parameters);
+			return dataConnection.QueryProc<UsersViewV3Result>("[dbo].[UsersView_v3]", parameters);
 		}
 
 		public partial class UsersViewV3Result
@@ -7984,7 +7968,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<UsersViewV4Result>("[DS-FUTARK].[shopbasetest].[dbo].[UsersView_v4]", parameters);
+			return dataConnection.QueryProc<UsersViewV4Result>("[dbo].[UsersView_v4]", parameters);
 		}
 
 		public partial class UsersViewV4Result
@@ -8020,7 +8004,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtCurrencyExchangeRateCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtCurrencyExchangeRateCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
 
@@ -8044,7 +8028,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtCurrencyExchangeRateEdit]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtCurrencyExchangeRateEdit]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -8064,7 +8048,7 @@ namespace Comparer.Data
 				new DataParameter("@CurrencyId", @CurrencyId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UtCurrencyExchangeRateHistoryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UtCurrencyExchangeRateHistoryView]", parameters);
+			return dataConnection.QueryProc<UtCurrencyExchangeRateHistoryViewResult>("[dbo].[UtCurrencyExchangeRateHistoryView]", parameters);
 		}
 
 		public partial class UtCurrencyExchangeRateHistoryViewResult
@@ -8097,7 +8081,7 @@ namespace Comparer.Data
 				new DataParameter("@Sku",         @Sku,         LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UtDoubtfulPriceDocumentsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UtDoubtfulPriceDocumentsView]", parameters);
+			return dataConnection.QueryProc<UtDoubtfulPriceDocumentsViewResult>("[dbo].[UtDoubtfulPriceDocumentsView]", parameters);
 		}
 
 		public partial class UtDoubtfulPriceDocumentsViewResult
@@ -8125,7 +8109,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.QueryProc<UTExportOrderInvoiceSummaryBeginResult>("[DS-FUTARK].[shopbasetest].[dbo].[UTExportOrderInvoiceSummaryBegin]", parameters).ToList();
+			var ret = dataConnection.QueryProc<UTExportOrderInvoiceSummaryBeginResult>("[dbo].[UTExportOrderInvoiceSummaryBegin]", parameters).ToList();
 
 			@SessionId = Converter.ChangeTypeTo<long?>(parameters[0].Value);
 
@@ -8153,7 +8137,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UTExportOrderInvoiceSummaryEnd]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UTExportOrderInvoiceSummaryEnd]", parameters);
 		}
 
 		#endregion
@@ -8172,7 +8156,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UTExportOrdersEnd]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UTExportOrdersEnd]", parameters);
 		}
 
 		#endregion
@@ -8191,7 +8175,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UTExportRozlivEnd]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[UTExportRozlivEnd]", parameters);
 		}
 
 		#endregion
@@ -8215,7 +8199,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UTOrderInvoiceSummaryCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UTOrderInvoiceSummaryCreate]", parameters);
 
 			@NewId    = Converter.ChangeTypeTo<int?>  (parameters[2].Value);
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[3].Value);
@@ -8242,7 +8226,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtPriceCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[4].Value);
 
@@ -8265,7 +8249,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceDelete]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtPriceDelete]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -8288,7 +8272,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceDocumentArchive]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtPriceDocumentArchive]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -8314,7 +8298,7 @@ namespace Comparer.Data
 				new DataParameter("@Sku",         @Sku,         LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UtPriceDocument>("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceDocumentsView]", parameters);
+			return dataConnection.QueryProc<UtPriceDocument>("[dbo].[UtPriceDocumentsView]", parameters);
 		}
 
 		#endregion
@@ -8331,7 +8315,7 @@ namespace Comparer.Data
 				new DataParameter("@PriceTypeId", @PriceTypeId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<UtPriceHistoryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceHistoryView]", parameters);
+			return dataConnection.QueryProc<UtPriceHistoryViewResult>("[dbo].[UtPriceHistoryView]", parameters);
 		}
 
 		public partial class UtPriceHistoryViewResult
@@ -8367,7 +8351,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.QueryProc<UtPriceHistoryViewV2Result>("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceHistoryView_v2]", parameters).ToList();
+			var ret = dataConnection.QueryProc<UtPriceHistoryViewV2Result>("[dbo].[UtPriceHistoryView_v2]", parameters).ToList();
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[5].Value);
 
@@ -8411,7 +8395,7 @@ namespace Comparer.Data
 					Column4     = Converter.ChangeTypeTo<int>     (dataReader.GetValue(3), ms),
 					CreatedDate = Converter.ChangeTypeTo<DateTime>(dataReader.GetValue(4), ms),
 				},
-				"[DS-FUTARK].[shopbasetest].[dbo].[UtPricesView]", parameters);
+				"[dbo].[UtPricesView]", parameters);
 		}
 
 		public partial class UtPricesViewResult
@@ -8443,7 +8427,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceTypeCreate]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[UtPriceTypeCreate]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -8456,7 +8440,7 @@ namespace Comparer.Data
 
 		public static IEnumerable<UtPriceType> UtPriceTypesView(this ComparerDataContext dataConnection)
 		{
-			return dataConnection.QueryProc<UtPriceType>("[DS-FUTARK].[shopbasetest].[dbo].[UtPriceTypesView]");
+			return dataConnection.QueryProc<UtPriceType>("[dbo].[UtPriceTypesView]");
 		}
 
 		#endregion
@@ -8475,7 +8459,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[VoximplantOrderEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[VoximplantOrderEdit]", parameters);
 		}
 
 		#endregion
@@ -8491,7 +8475,7 @@ namespace Comparer.Data
 				new DataParameter("@ChangeDate", @ChangeDate, LinqToDB.DataType.DateTime)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[VoxplantOrderSave]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[VoxplantOrderSave]", parameters);
 		}
 
 		#endregion
@@ -8507,7 +8491,7 @@ namespace Comparer.Data
 				new DataParameter("@Scenario", @Scenario, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[VoxplantOrderSave_v2]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[VoxplantOrderSave_v2]", parameters);
 		}
 
 		#endregion
@@ -8530,7 +8514,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[WhatsAppMessageStatusEdit]", parameters);
+			return dataConnection.ExecuteProc("[dbo].[WhatsAppMessageStatusEdit]", parameters);
 		}
 
 		#endregion
@@ -8552,7 +8536,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[WhatsAppMessageToBufferSave]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[WhatsAppMessageToBufferSave]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[1].Value);
 
@@ -8590,7 +8574,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[WhatsAppOrderMessageSave]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[WhatsAppOrderMessageSave]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[7].Value);
 
@@ -8609,7 +8593,7 @@ namespace Comparer.Data
 				new DataParameter("@TemplateId", @TemplateId, LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<WhatsAppOrderMessagesHistoryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WhatsAppOrderMessagesHistoryView]", parameters);
+			return dataConnection.QueryProc<WhatsAppOrderMessagesHistoryViewResult>("[dbo].[WhatsAppOrderMessagesHistoryView]", parameters);
 		}
 
 		public partial class WhatsAppOrderMessagesHistoryViewResult
@@ -8639,7 +8623,7 @@ namespace Comparer.Data
 				new DataParameter("@OrderId", @OrderId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<WMSOrderContainersViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WMSOrderContainersView]", parameters);
+			return dataConnection.QueryProc<WMSOrderContainersViewResult>("[dbo].[WMSOrderContainersView]", parameters);
 		}
 
 		public partial class WMSOrderContainersViewResult
@@ -8659,7 +8643,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<WmsReceiptDocumentItemsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsReceiptDocumentItemsView]", parameters);
+			return dataConnection.QueryProc<WmsReceiptDocumentItemsViewResult>("[dbo].[WmsReceiptDocumentItemsView]", parameters);
 		}
 
 		public partial class WmsReceiptDocumentItemsViewResult
@@ -8686,7 +8670,7 @@ namespace Comparer.Data
 				new DataParameter("@PublicId", @PublicId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<WMSReceiptDocumentViewV3Result>("[DS-FUTARK].[shopbasetest].[dbo].[WMSReceiptDocumentView_v3]", parameters);
+			return dataConnection.QueryProc<WMSReceiptDocumentViewV3Result>("[dbo].[WMSReceiptDocumentView_v3]", parameters);
 		}
 
 		public partial class WMSReceiptDocumentViewV3Result
@@ -8719,7 +8703,7 @@ namespace Comparer.Data
 				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentDocumentCancel_v3]", parameters);
+			var ret = dataConnection.ExecuteProc("[dbo].[WmsShipmentDocumentCancel_v3]", parameters);
 
 			@ErrorMes = Converter.ChangeTypeTo<string>(parameters[2].Value);
 
@@ -8737,7 +8721,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<WmsShipmentDocumentItemsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentDocumentItemsView]", parameters);
+			return dataConnection.QueryProc<WmsShipmentDocumentItemsViewResult>("[dbo].[WmsShipmentDocumentItemsView]", parameters);
 		}
 
 		public partial class WmsShipmentDocumentItemsViewResult
@@ -8763,7 +8747,7 @@ namespace Comparer.Data
 				new DataParameter("@PublicId", @PublicId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<WMSShipmentDocumentViewV3Result>("[DS-FUTARK].[shopbasetest].[dbo].[WMSShipmentDocumentView_v3]", parameters);
+			return dataConnection.QueryProc<WMSShipmentDocumentViewV3Result>("[dbo].[WMSShipmentDocumentView_v3]", parameters);
 		}
 
 		public partial class WMSShipmentDocumentViewV3Result
@@ -8797,7 +8781,7 @@ namespace Comparer.Data
 				}
 			};
 
-			return dataConnection.QueryProc<WmsShipmentOrderDocumentExistsResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentOrderDocumentExists]", parameters);
+			return dataConnection.QueryProc<WmsShipmentOrderDocumentExistsResult>("[dbo].[WmsShipmentOrderDocumentExists]", parameters);
 		}
 
 		public partial class WmsShipmentOrderDocumentExistsResult
@@ -8816,7 +8800,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<WmsShipmentOrderDocumentHistoryViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentOrderDocumentHistoryView]", parameters);
+			return dataConnection.QueryProc<WmsShipmentOrderDocumentHistoryViewResult>("[dbo].[WmsShipmentOrderDocumentHistoryView]", parameters);
 		}
 
 		public partial class WmsShipmentOrderDocumentHistoryViewResult
@@ -8847,7 +8831,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<WmsShipmentOrderDocumentItemsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentOrderDocumentItemsView]", parameters);
+			return dataConnection.QueryProc<WmsShipmentOrderDocumentItemsViewResult>("[dbo].[WmsShipmentOrderDocumentItemsView]", parameters);
 		}
 
 		public partial class WmsShipmentOrderDocumentItemsViewResult
@@ -8880,7 +8864,7 @@ namespace Comparer.Data
 				new DataParameter("@Status",    @Status,    LinqToDB.DataType.Int32)
 			};
 
-			return dataConnection.QueryProc<WmsShipmentOrderDocumentsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentOrderDocumentsView]", parameters);
+			return dataConnection.QueryProc<WmsShipmentOrderDocumentsViewResult>("[dbo].[WmsShipmentOrderDocumentsView]", parameters);
 		}
 
 		public partial class WmsShipmentOrderDocumentsViewResult
@@ -8919,7 +8903,7 @@ namespace Comparer.Data
 				new DataParameter("@OrderId", @OrderId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<WmsShipmentOrderDocumentViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsShipmentOrderDocumentView]", parameters);
+			return dataConnection.QueryProc<WmsShipmentOrderDocumentViewResult>("[dbo].[WmsShipmentOrderDocumentView]", parameters);
 		}
 
 		public partial class WmsShipmentOrderDocumentViewResult
@@ -8957,7 +8941,7 @@ namespace Comparer.Data
 				new DataParameter("@DocId", @DocId, LinqToDB.DataType.Int64)
 			};
 
-			return dataConnection.QueryProc<WmsVerificationDocumentItemsViewResult>("[DS-FUTARK].[shopbasetest].[dbo].[WmsVerificationDocumentItemsView]", parameters);
+			return dataConnection.QueryProc<WmsVerificationDocumentItemsViewResult>("[dbo].[WmsVerificationDocumentItemsView]", parameters);
 		}
 
 		public partial class WmsVerificationDocumentItemsViewResult
@@ -8983,7 +8967,7 @@ namespace Comparer.Data
 				new DataParameter("@PublicId", @PublicId, LinqToDB.DataType.Guid)
 			};
 
-			return dataConnection.QueryProc<WMSVerificationDocumentViewV3Result>("[DS-FUTARK].[shopbasetest].[dbo].[WMSVerificationDocumentView_v3]", parameters);
+			return dataConnection.QueryProc<WMSVerificationDocumentViewV3Result>("[dbo].[WMSVerificationDocumentView_v3]", parameters);
 		}
 
 		public partial class WMSVerificationDocumentViewV3Result

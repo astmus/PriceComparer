@@ -98,6 +98,10 @@
       <Project>{64882d92-f9fa-41de-aedd-dfc997e250e5}</Project>
       <Name>Comparer.Presentation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entities\Comparer.Entities.csproj">
+      <Project>{57a07175-c012-48b9-b558-6c68f0613be1}</Project>
+      <Name>Comparer.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder">

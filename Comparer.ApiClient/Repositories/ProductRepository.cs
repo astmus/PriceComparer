@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
+using Comparer.DBContext;
 
 using LinqToDB;
 using LinqToDB.Linq;
@@ -24,19 +25,22 @@ public interface IProductRepository : IGenericRepository<PRODUCT>
 
 public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 {
-	public ProductRepository(DataBaseConnection connection) : base(connection) { }
-	protected override string rootTableName
-		=> nameof(db.PRODUCTS);
+	public ProductRepository(DataBaseConnection dbConnection) : base(dbConnection)
+		=> connection = dbConnection;
 
-	public IExpressionQuery<PRODUCT> Products => db.PRODUCTS;
+	DataBaseConnection connection;
+	protected override string rootTableName
+		=> nameof(connection.PRODUCTS);
+
+	public IExpressionQuery<PRODUCT> Products => connection.PRODUCTS;
 
 
 	public IQueryable<PriceListProduct> PriceListProducts
-		=> from prod in db.PRODUCTS
-		   join link in db.LINKS on prod.Id equals link.CATALOGPRODUCTID
-		   join rec in db.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
-		   join list in MapTo<PriceListData>(db.PRICES) on rec.PRICEID equals list.Id
-		   join dist in db.DISTRIBUTORS on list.DisID equals dist.Id
+		=> from prod in connection.PRODUCTS
+		   join link in connection.LINKS on prod.Id equals link.CATALOGPRODUCTID
+		   join rec in connection.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
+		   join list in MapTo<PriceListData>(connection.PRICES) on rec.PRICEID equals list.Id
+		   join dist in connection.DISTRIBUTORS on list.DisID equals dist.Id
 		   select new PriceListProduct()
 		   {
 			   Product = new PriceProduct()
@@ -52,11 +56,11 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 		   };
 
 	public IQueryable<PriceListProduct> AvailablePriceListProducts
-		=> from prod in db.PRODUCTS
-		   join link in db.LINKS on prod.Id equals link.CATALOGPRODUCTID
-		   join rec in db.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
-		   join list in MapTo<PriceListData>(db.PRICES) on rec.PRICEID equals list.Id
-		   join dist in db.DISTRIBUTORS on list.DisID equals dist.Id
+		=> from prod in connection.PRODUCTS
+		   join link in connection.LINKS on prod.Id equals link.CATALOGPRODUCTID
+		   join rec in connection.PRICESRECORDS on link.PRICERECORDINDEX equals rec.RECORDINDEX
+		   join list in MapTo<PriceListData>(connection.PRICES) on rec.PRICEID equals list.Id
+		   join dist in connection.DISTRIBUTORS on list.DisID equals dist.Id
 		   where dist.ACTIVE && list.IsActive == true && !rec.DELETED && rec.USED
 		   select new PriceListProduct()
 		   {
@@ -74,11 +78,11 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 	public async Task<IEnumerable<ProductUnit>> ProductsAsync(Guid productId, ProductUnit info, CancellationToken cancel = default)
 	{
 		return await (
-				from rec in db.PRICESRECORDS
-				join link in db.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
-				join prod in db.PRODUCTS on link.CATALOGPRODUCTID equals prod.Id
-				join list in MapTo<PriceListData>(db.PRICES) on rec.PRICEID equals list.Id
-				join dist in db.DISTRIBUTORS on list.DisID equals dist.Id
+				from rec in connection.PRICESRECORDS
+				join link in connection.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
+				join prod in connection.PRODUCTS on link.CATALOGPRODUCTID equals prod.Id
+				join list in MapTo<PriceListData>(connection.PRICES) on rec.PRICEID equals list.Id
+				join dist in connection.DISTRIBUTORS on list.DisID equals dist.Id
 				where prod.Id == productId
 				select new ProductUnit()
 				{
@@ -92,9 +96,9 @@ public class ProductRepository : GenericRepository<PRODUCT>, IProductRepository
 	public async Task<IEnumerable<PriceProduct>> PriceProductsAsync(Guid priceId, CancellationToken cancel = default)
 	{
 		return await (
-				from rec in db.PRICESRECORDS
-				join link in db.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
-				join prod in db.PRODUCTS on link.CATALOGPRODUCTID equals prod.Id
+				from rec in connection.PRICESRECORDS
+				join link in connection.LINKS on rec.RECORDINDEX equals link.PRICERECORDINDEX
+				join prod in connection.PRODUCTS on link.CATALOGPRODUCTID equals prod.Id
 				where rec.PRICEID == priceId
 				select new PriceProduct()
 				{

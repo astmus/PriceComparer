@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Comparer.DataAccess.Abstractions.Repositories;
 using Comparer.DataAccess.Dto;
 using Comparer.DataAccess.Models;
+using Comparer.DBContext;
 
 using LinqToDB;
 using LinqToDB.Linq;
@@ -20,9 +21,9 @@ public interface IDistributorRepository : IGenericRepository<DISTRIBUTOR>
 
 public class DistributorRepository : GenericRepository<DISTRIBUTOR>, IDistributorRepository
 {
+	DataBaseConnection db;
 	public DistributorRepository(DataBaseConnection connection) : base(connection)
-	{
-	}
+		=> db = connection;
 
 	public IExpressionQuery<DISTRIBUTOR> Distributors => db.DISTRIBUTORS;
 

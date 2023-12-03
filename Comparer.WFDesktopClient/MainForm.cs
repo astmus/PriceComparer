@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using Comparer.DataAccess.Abstractions;
 using Comparer.DataAccess.Repositories;
+using Comparer.Entities;
 
 namespace Comparer.WFDesktopClient
 {
@@ -20,7 +21,7 @@ namespace Comparer.WFDesktopClient
 			InitializeComponent();
 
 			ProductsControl.DistributorDropDown.Items = distributorsRepository.Distributors.ToList();
-			ProductsControl.ManufacturerDropDown.Items = mansRepo.Manufacturers.ToList();
+			ProductsControl.ManufacturerDropDown.Items = mansRepo.LoadManufacturers<Manufacturer>();
 		}
 	}
 }

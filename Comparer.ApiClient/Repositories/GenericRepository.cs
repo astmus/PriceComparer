@@ -17,29 +17,29 @@ namespace Comparer.DataAccess.Repositories;
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-	protected readonly LinqToDB.Data.DataConnection db;
+	readonly LinqToDB.Data.DataConnection connection;
 	protected abstract string rootTableName { get; }
 
-	public IQueryable<T> Query() => db.GetTable<T>();
-	public IEnumerable<T> GetAll() => db.GetTable<T>().ToList();
+	public IQueryable<T> Query() => connection.GetTable<T>();
+	public IEnumerable<T> GetAll() => connection.GetTable<T>().ToList();
 	public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancel = default)
-		=> await db.GetTable<T>().ToListAsync(cancel);
+		=> await connection.GetTable<T>().ToListAsync(cancel);
 
 	public async Task<bool> ItemExistAsync(Expression<Func<T, bool>> predicate, CancellationToken cancel = default)
-		=> await db.GetTable<T>().AnyAsync(predicate, cancel);
+		=> await connection.GetTable<T>().AnyAsync(predicate, cancel);
 
 	public IQueryable<TResult> RawQuery<TResult>(string rawQuery = null, params object[] args)
-		=> db.FromSql<TResult>(rawQuery ?? rootTableName, args.ToArray());
+		=> connection.FromSql<TResult>(rawQuery ?? rootTableName, args.ToArray());
 
 	public Task<TEntity[]> RawQueryAsync<TEntity>(string query, CancellationToken cancel = default) where TEntity : class
-		=> db.QueryToArrayAsync<TEntity>(query, cancel);
+		=> connection.QueryToArrayAsync<TEntity>(query, cancel);
 
 	protected IQueryable<TEntity> MapTo<TEntity>(ITable<object> table) where TEntity : BaseUnit
-		=> db.FromSql<TEntity>(table.TableName);
+		=> connection.FromSql<TEntity>(table.TableName);
 
 	protected IQueryable<TEntity> MapToBy<TEntity>(TEntity entity) where TEntity : BaseUnit
-		=> db.FromSql<TEntity>(rootTableName).Where(w => w == entity);
+		=> connection.FromSql<TEntity>(rootTableName).Where(w => w == entity);
 
 	public GenericRepository(LinqToDB.Data.DataConnection connection)
-		=> this.db = connection;
+		=> this.connection = connection;
 }

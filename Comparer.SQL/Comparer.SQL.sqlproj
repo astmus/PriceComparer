@@ -720,7 +720,6 @@
     <Build Include="Stored Procedures\PaymentTypesView.sql" />
     <Build Include="Stored Procedures\TemplateView.sql" />
     <Build Include="Stored Procedures\GetOrderContextForConfirm.sql" />
-    <Build Include="Stored Procedures\CurrencyExtraRangesView.sql" />
     <Build Include="Stored Procedures\TKOrderDisabledForTrackingEdit.sql" />
     <Build Include="Stored Procedures\GetOrderContextForDefineScenario.sql" />
     <Build Include="Stored Procedures\CurrencyView.sql" />
@@ -868,5 +867,6 @@
     <Build Include="Stored Procedures\DeliveryServiceActionView.sql" />
     <Build Include="Stored Procedures\_perfumCategories.sql" />
     <Build Include="Stored Procedures\UtCurrencyExchangeRateEdit.sql" />
+    <Build Include="Stored Procedures\ManufacturersView.sql" />
   </ItemGroup>
 </Project>
