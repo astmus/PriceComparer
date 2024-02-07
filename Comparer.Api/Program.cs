@@ -6,6 +6,8 @@ using Comparer.DataAccess;
 using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Dto;
 
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+
 namespace Comparer.Api
 {
 	public class Program
@@ -27,6 +29,10 @@ namespace Comparer.Api
 			builder.Services.AddDataBaseRepositories();
 
 			builder.Services.AddOptions<ConnectionOptions>().Bind(builder.Configuration.GetSection(nameof(ConnectionOptions)));
+			builder.Services.Configure<KestrelServerOptions>(options =>
+			{
+				options.AllowSynchronousIO = true;
+			});
 			//builder.Services.Configure<RouteOptions>(o => o.ConstraintMap.Add("uid", typeof(Id)));
 			var app = builder.Build();
 
@@ -36,6 +42,7 @@ namespace Comparer.Api
 				app.UseSwaggerUI();
 				app.UseExceptionHandler("/error-dev");
 				app.UseErrorHandlingMiddleware();
+				app.UseConvertHandlingMiddleware();
 			}
 			else
 			{

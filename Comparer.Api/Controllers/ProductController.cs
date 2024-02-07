@@ -104,7 +104,7 @@ namespace Comparer.Api.Controllers
 			return result;
 		}
 
-
+		//that is bad approach but I must show knowledge of "raw" sql
 		string diffQuery(Guid priceListId, bool onlyMin = false) => @$"
 		declare @onlyMin bit = {Convert.ToInt16(onlyMin)};
 			WITH Pricelistproducts AS (SELECT List.Id               Pricelistid,

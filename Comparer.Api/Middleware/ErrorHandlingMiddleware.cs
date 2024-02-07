@@ -27,7 +27,6 @@ namespace Comparer.Api.Middleware
 			catch (Exception ex)
 			{
 				_logger.LogError(ex, "unhandled exception");
-
 				httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 			}
 		}

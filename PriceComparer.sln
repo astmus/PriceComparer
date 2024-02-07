@@ -21,7 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparer.WFDesktopClient", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Comparer.SQL", "Comparer.SQL\Comparer.SQL.sqlproj", "{FDC33D27-3D84-4CF0-8AE0-853A08EBC582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparer.DBContext", "Comparer.DBContext\Comparer.DBContext.csproj", "{CA34B78D-E5E6-43C3-ACAC-88991BD44E0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comparer.DBContext", "Comparer.DBContext\Comparer.DBContext.csproj", "{CA34B78D-E5E6-43C3-ACAC-88991BD44E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "WorkerService\WorkerService.csproj", "{5071E517-A257-4E73-AFCE-26667422BB28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +74,10 @@ Global
 		{CA34B78D-E5E6-43C3-ACAC-88991BD44E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA34B78D-E5E6-43C3-ACAC-88991BD44E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA34B78D-E5E6-43C3-ACAC-88991BD44E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5071E517-A257-4E73-AFCE-26667422BB28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5071E517-A257-4E73-AFCE-26667422BB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5071E517-A257-4E73-AFCE-26667422BB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5071E517-A257-4E73-AFCE-26667422BB28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

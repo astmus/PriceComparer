@@ -9,7 +9,6 @@ namespace Comparer.Api.Controllers
 {
 	public class DistributorController : BaseController
 	{
-
 		IDistributorRepository _repository;
 		public DistributorController(IDistributorRepository repository) : base(repository)
 		{
