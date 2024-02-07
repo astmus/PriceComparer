@@ -5,6 +5,7 @@ using Comparer.Api.Middleware;
 using Comparer.DataAccess;
 using Comparer.DataAccess.Config;
 using Comparer.DataAccess.Dto;
+using Comparer.ApiConvert;
 
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
@@ -15,8 +16,8 @@ namespace Comparer.Api
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-
-			builder.Services.AddControllers()
+			builder.Services.AddSoapConverters();
+			builder.Services.AddControllers().AddXmlSerializerFormatters()
 									.AddJsonOptions(options =>
 									{
 										options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
@@ -29,12 +30,11 @@ namespace Comparer.Api
 			builder.Services.AddDataBaseRepositories();
 
 			builder.Services.AddOptions<ConnectionOptions>().Bind(builder.Configuration.GetSection(nameof(ConnectionOptions)));
-			builder.Services.Configure<KestrelServerOptions>(options =>
-			{
-				options.AllowSynchronousIO = true;
-			});
+
 			//builder.Services.Configure<RouteOptions>(o => o.ConstraintMap.Add("uid", typeof(Id)));
 			var app = builder.Build();
+
+			app.UseSoapEndpoints();
 
 			if (app.Environment.IsDevelopment())
 			{

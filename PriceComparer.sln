@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comparer.DBContext", "Compa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "WorkerService\WorkerService.csproj", "{5071E517-A257-4E73-AFCE-26667422BB28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparer.Convert", "Comparer.Convert\Comparer.Convert.csproj", "{43AC5A23-6B10-48DA-8335-0DEA7A2A2242}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{5071E517-A257-4E73-AFCE-26667422BB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5071E517-A257-4E73-AFCE-26667422BB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5071E517-A257-4E73-AFCE-26667422BB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43AC5A23-6B10-48DA-8335-0DEA7A2A2242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43AC5A23-6B10-48DA-8335-0DEA7A2A2242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43AC5A23-6B10-48DA-8335-0DEA7A2A2242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43AC5A23-6B10-48DA-8335-0DEA7A2A2242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

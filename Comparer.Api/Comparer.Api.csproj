@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Comparer.ApiClient\Comparer.DataAccess.csproj" />
+		<ProjectReference Include="..\Comparer.Convert\Comparer.Convert.csproj" />
 		<ProjectReference Include="..\Comparer.DataAccess.Abstractions\Comparer.DataAccess.Abstractions.csproj" />
 	</ItemGroup>
 
